@@ -13,17 +13,17 @@
 
           <div class="col-lg-12">
             <div class="card mb-4" id="tables">
-              <div class="card-header text-center">Orders</div>
+              <div class="card-header text-center">Заказы</div>
               <div class="card-body">
                 <table class="table table-hover">
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Item</th>
-                      <th>Image</th>
-                      <th>Qty.</th>
-                      <th>Ordered Date</th>
-                      <th>Status</th>
+                      <th>Продукт</th>
+                      <th>Изображение</th>
+                      <th>Количество</th>
+                      <th>Дата заказа</th>
+                      <th>Статус</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -43,36 +43,36 @@
                       <td>{{order.ordered_date|naturaltime}}</td>
                       <td>
 
-                        {% if order.status == 'Pending' %}
+                        {% if order.status == 'Обрабатывается' %}
                         
                         {% endif %}
 
-                        {% if order.status == 'Accepted' %}
+                        {% if order.status == 'Принял' %}
                         <div class="bg-light border border-primary">
                             <div class="p-3 bg-primary" style="width:0;"></div>
                         </div>
                         {% endif %}
 
-                        {% if order.status == 'Packed' %}
+                        {% if order.status == 'Упакован' %}
                         <div class="bg-light border border-primary">
                             <div class="p-3 bg-primary" style="width:40%;"></div>
                         </div>
                         {% endif %}
                         
                         
-                        {% if order.status == 'On The Way' %}
+                        {% if order.status == 'В пути' %}
                         <div class="bg-light border border-primary">
                             <div class="p-3 bg-primary" style="width:70%;"></div>
                         </div>
                         {% endif %}
                         
-                        {% if order.status == 'Delivered' %}
+                        {% if order.status == 'Доставлен' %}
                         <div class="bg-light border border-primary">
                             <div class="p-3 bg-primary" style="width:100%;"></div>
                         </div>
                         {% endif %}
 
-                        {% if order.status == 'Cancelled' %}
+                        {% if order.status == 'Отменен' %}
                         <div class="bg-light border border-danger">
                             <div class="p-3 bg-danger" style="width:100%;"></div>
                         </div>

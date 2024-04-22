@@ -8,9 +8,10 @@ def store_menu(request):
     }
     return context
 
+
 def cart_menu(request):
     if request.user.is_authenticated:
-        cart_items= Cart.objects.filter(user=request.user)
+        cart_items = Cart.objects.filter(user=request.user)
         context = {
             'cart_items': cart_items,
         }

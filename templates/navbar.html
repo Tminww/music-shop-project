@@ -18,8 +18,7 @@
                       {% endfor %}
                     {% endif %}
                     <hr>
-                    <a class="dropdown-item border-0 transition-link" href="{% url 'store:all-categories' %}">All Categories</a>
-                    
+                    <a class="dropdown-item border-0 transition-link" href="{% url 'store:all-categories' %}">Все категории</a>
                 </li>
                 <li class="nav-item">
                   <!-- Link--><a class="nav-link" href="{% url 'store:home' %}">Блог</a>
@@ -45,11 +44,10 @@
 
                     <hr>
                     <a class="dropdown-item border-0 transition-link" href="{% url 'store:logout' %}">Выйти из профиля</a>
-                    
                 </li>
                 {% else %}
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Login</a></li>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Create Account</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Войти</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Создать аккаунт</a></li>
                 {% endif %}   
               </ul>
             </div>

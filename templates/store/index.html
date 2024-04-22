@@ -47,8 +47,8 @@
         <!-- TRENDING PRODUCTS-->
         <section class="py-5">
           <header>
-            <p class="small text-muted small text-uppercase mb-1">Made the hard way</p>
-            <h2 class="h5 text-uppercase mb-4">Top trending products</h2>
+            <p class="small text-muted small text-uppercase mb-1">Успейте купить!</p>
+            <h2 class="h5 text-uppercase mb-4">Топ популярных товаров</h2>
           </header>
           <div class="row">
 
@@ -74,11 +74,11 @@
                         <ul class="mb-0 list-inline">
                           <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
                           <li class="list-inline-item m-0 p-0">
-                            {% comment %} <a class="btn btn-sm btn-dark" href="{% url 'store:add-to-cart' %}">Add to cart</a> {% endcomment %}
+                            {% comment %} <a class="btn btn-sm btn-dark" href="{% url 'store:add-to-cart' %}">Добавить в корзину</a> {% endcomment %}
 
                             <form action="{% url 'store:add-to-cart' %}">
                               <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
-                              <button type="submit" class="btn btn-sm btn-dark">Add to Cart</button>
+                              <button type="submit" class="btn btn-sm btn-dark">Добавить в корзину</button>
                             </form>
 
                           </li>
@@ -86,7 +86,7 @@
                       </div>
                     </div>
                     <h6> <a class="reset-anchor" href="detail.html">{{ product.title }}</a></h6>
-                    <p class="small text-muted">${{product.price}}</p>
+                    <p class="small text-muted">₽{{product.price}}</p>
                   </div>
                 </div>
 
