@@ -6,10 +6,11 @@
         <script>
             // Получаем текущий параметр сортировки из URL
             var urlParams = new URLSearchParams(window.location.search);
-            var sortingParam = urlParams.get('sorting');
+            var sortingParam = {sorting};
 
             // Получаем элемент select
             var selectElement = document.querySelector('select[name="sorting"]');
+
 
             // Устанавливаем выбранный вариант в соответствии с параметром сортировки в URL
             if (sortingParam) {
@@ -49,19 +50,9 @@
           <div class="container p-0">
             <div class="row">
               <!-- SHOP SIDEBAR-->
+              
+                
               <div class="col-lg-3 order-2 order-lg-1">
-                <h5 class="text-uppercase mb-4">Категории</h5>
-
-                {% if categories %}
-                  {% for cat in categories %}
-                    <a href="{% url 'store:category-products' cat.slug %}">
-                      <div class="py-2 px-4 {% if category == cat %}bg-dark text-white {% else %}bg-light{% endif %} mb-3">
-                        <strong class="small text-uppercase font-weight-bold">{{cat.title}}</strong>
-                      </div>
-                    </a>
-                  {% endfor %}
-                {% endif %}
-
                 <h6 class="text-uppercase mb-4">Ценовой Диапазон</h6>
                 <div class="price-range pt-4 mb-5">
                   <div class="row pt-2">
@@ -75,6 +66,20 @@
                     </div>
                   </div>
                 </div>
+                
+                <h5 class="text-uppercase mb-4">Категории</h5>
+
+                {% if categories %}
+                  {% for cat in categories %}
+                    <a href="{% url 'store:category-products' cat.slug %}">
+                      <div class="py-2 px-4 {% if category == cat %}bg-dark text-white {% else %}bg-light{% endif %} mb-3">
+                        <strong class="small text-uppercase font-weight-bold">{{cat.title}}</strong>
+                      </div>
+                    </a>
+                  {% endfor %}
+                {% endif %}
+
+                
 
                 <!-- Скрипт для сохранения и применения выбранного ценового диапазона -->
                 <script>

@@ -13,50 +13,53 @@ from django.utils.decorators import method_decorator  # for Class Based Views
 
 # Create your views here.
 
+
 def home(request):
     categories = Category.objects.filter(is_active=True, is_featured=True)[:3]
     products = Product.objects.filter(is_active=True, is_featured=True)[:8]
     context = {
-        'categories': categories,
-        'products': products,
+        "categories": categories,
+        "products": products,
     }
-    return render(request, 'store/index.html', context)
+    return render(request, "store/index.html", context)
 
 
 def detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    related_products = Product.objects.exclude(id=product.id).filter(is_active=True, category=product.category)
+    related_products = Product.objects.exclude(id=product.id).filter(
+        is_active=True, category=product.category
+    )
     context = {
-        'product': product,
-        'related_products': related_products,
-
+        "product": product,
+        "related_products": related_products,
     }
-    return render(request, 'store/detail.html', context)
+    return render(request, "store/detail.html", context)
 
 
 def all_categories(request):
     categories = Category.objects.filter(is_active=True)
-    return render(request, 'store/categories.html', {'categories': categories})
+    return render(request, "store/categories.html", {"categories": categories})
 
 
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from .models import Category, Product
 
+
 def category_products(request, slug):
     category = get_object_or_404(Category, slug=slug)
-    sorting = request.GET.get('sorting')
-    min_price = request.GET.get('min_price')
-    max_price = request.GET.get('max_price')
+    sorting = request.GET.get("sorting")
+    min_price = request.GET.get("min_price")
+    max_price = request.GET.get("max_price")
 
     # Получаем продукты данной категории
     products = Product.objects.filter(is_active=True, category=category)
 
     # Применяем сортировку, если она указана
-    if sorting == 'low-high':
-        products = products.order_by('price')
-    elif sorting == 'high-low':
-        products = products.order_by('-price')
+    if sorting == "low-high":
+        products = products.order_by("price")
+    elif sorting == "high-low":
+        products = products.order_by("-price")
 
     # Применяем фильтрацию по ценовому диапазону, если параметры заданы
     if min_price and max_price:
@@ -65,53 +68,56 @@ def category_products(request, slug):
     categories = Category.objects.filter(is_active=True)
 
     context = {
-        'category': category,
-        'products': products,
-        'categories': categories,
+        "category": category,
+        "products": products,
+        "categories": categories,
     }
 
-    return render(request, 'store/category_products.html', context)
+    return render(request, "store/category_products.html", context)
 
 
 # Authentication Starts Here
 
+
 class RegistrationView(View):
     def get(self, request):
         form = RegistrationForm()
-        return render(request, 'account/register.html', {'form': form})
+        return render(request, "account/register.html", {"form": form})
 
     def post(self, request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             messages.success(request, "Congratulations! Registration Successful!")
             form.save()
-        return render(request, 'account/register.html', {'form': form})
+        return render(request, "account/register.html", {"form": form})
 
 
 @login_required
 def profile(request):
     addresses = Address.objects.filter(user=request.user)
     orders = Order.objects.filter(user=request.user)
-    return render(request, 'account/profile.html', {'addresses': addresses, 'orders': orders})
+    return render(
+        request, "account/profile.html", {"addresses": addresses, "orders": orders}
+    )
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class AddressView(View):
     def get(self, request):
         form = AddressForm()
-        return render(request, 'account/add_address.html', {'form': form})
+        return render(request, "account/add_address.html", {"form": form})
 
     def post(self, request):
         form = AddressForm(request.POST)
         if form.is_valid():
             user = request.user
-            locality = form.cleaned_data['locality']
-            city = form.cleaned_data['city']
-            state = form.cleaned_data['state']
+            locality = form.cleaned_data["locality"]
+            city = form.cleaned_data["city"]
+            state = form.cleaned_data["state"]
             reg = Address(user=user, locality=locality, city=city, state=state)
             reg.save()
             messages.success(request, "New Address Added Successfully.")
-        return redirect('store:profile')
+        return redirect("store:profile")
 
 
 @login_required
@@ -119,13 +125,13 @@ def remove_address(request, id):
     a = get_object_or_404(Address, user=request.user, id=id)
     a.delete()
     messages.success(request, "Address removed.")
-    return redirect('store:profile')
+    return redirect("store:profile")
 
 
 @login_required
 def add_to_cart(request):
     user = request.user
-    product_id = request.GET.get('prod_id')
+    product_id = request.GET.get("prod_id")
     product = get_object_or_404(Product, id=product_id)
 
     # Check whether the Product is alread in Cart or Not
@@ -137,7 +143,7 @@ def add_to_cart(request):
     else:
         Cart(user=user, product=product).save()
 
-    return redirect('store:cart')
+    return redirect("store:cart")
 
 
 @login_required
@@ -152,43 +158,43 @@ def cart(request):
     cp = [p for p in Cart.objects.all() if p.user == user]
     if cp:
         for p in cp:
-            temp_amount = (p.quantity * p.product.price)
+            temp_amount = p.quantity * p.product.price
             amount += temp_amount
 
     # Customer Addresses
     addresses = Address.objects.filter(user=user)
 
     context = {
-        'cart_products': cart_products,
-        'amount': amount,
-        'shipping_amount': shipping_amount,
-        'total_amount': amount + shipping_amount,
-        'addresses': addresses,
+        "cart_products": cart_products,
+        "amount": amount,
+        "shipping_amount": shipping_amount,
+        "total_amount": amount + shipping_amount,
+        "addresses": addresses,
     }
-    return render(request, 'store/cart.html', context)
+    return render(request, "store/cart.html", context)
 
 
 @login_required
 def remove_cart(request, cart_id):
-    if request.method == 'GET':
+    if request.method == "GET":
         c = get_object_or_404(Cart, id=cart_id)
         c.delete()
         messages.success(request, "Product removed from Cart.")
-    return redirect('store:cart')
+    return redirect("store:cart")
 
 
 @login_required
 def plus_cart(request, cart_id):
-    if request.method == 'GET':
+    if request.method == "GET":
         cp = get_object_or_404(Cart, id=cart_id)
         cp.quantity += 1
         cp.save()
-    return redirect('store:cart')
+    return redirect("store:cart")
 
 
 @login_required
 def minus_cart(request, cart_id):
-    if request.method == 'GET':
+    if request.method == "GET":
         cp = get_object_or_404(Cart, id=cart_id)
         # Remove the Product if the quantity is already 1
         if cp.quantity == 1:
@@ -196,13 +202,13 @@ def minus_cart(request, cart_id):
         else:
             cp.quantity -= 1
             cp.save()
-    return redirect('store:cart')
+    return redirect("store:cart")
 
 
 @login_required
 def checkout(request):
     user = request.user
-    address_id = request.GET.get('address')
+    address_id = request.GET.get("address")
 
     address = get_object_or_404(Address, id=address_id)
     # Get all the products of User in Cart
@@ -212,18 +218,18 @@ def checkout(request):
         Order(user=user, address=address, product=c.product, quantity=c.quantity).save()
         # And Deleting from Cart
         c.delete()
-    return redirect('store:orders')
+    return redirect("store:orders")
 
 
 @login_required
 def orders(request):
-    all_orders = Order.objects.filter(user=request.user).order_by('-ordered_date')
-    return render(request, 'store/orders.html', {'orders': all_orders})
+    all_orders = Order.objects.filter(user=request.user).order_by("-ordered_date")
+    return render(request, "store/orders.html", {"orders": all_orders})
 
 
 def shop(request):
-    return render(request, 'store/shop.html')
+    return render(request, "store/shop.html")
 
 
 def test(request):
-    return render(request, 'store/test.html')
+    return render(request, "store/test.html")
