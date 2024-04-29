@@ -45,6 +45,11 @@ def all_categories(request):
     return render(request, "store/categories.html", {"categories": categories})
 
 
+def contacts(request):
+    context = {}
+    return render(request, "store/contacts.html", context)
+
+
 def category_products(request, slug):
     category = get_object_or_404(Category, slug=slug)
     sorting = request.GET.get("sorting")
