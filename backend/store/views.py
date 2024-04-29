@@ -10,6 +10,9 @@ import decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator  # for Class Based Views
 
+# from django.shortcuts import render, get_object_or_404
+# from django.db.models import Q
+# from .models import Category, Product
 
 # Create your views here.
 
@@ -38,12 +41,8 @@ def detail(request, slug):
 
 def all_categories(request):
     categories = Category.objects.filter(is_active=True)
+    print("CATEGORIES", *categories)
     return render(request, "store/categories.html", {"categories": categories})
-
-
-from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
-from .models import Category, Product
 
 
 def category_products(request, slug):
@@ -71,6 +70,8 @@ def category_products(request, slug):
         "category": category,
         "products": products,
         "categories": categories,
+        "sorting": sorting,
+        "slug": slug,
     }
 
     return render(request, "store/category_products.html", context)

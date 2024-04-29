@@ -7,7 +7,6 @@
             // Получаем текущий параметр сортировки из URL
             var urlParams = new URLSearchParams(window.location.search);
             var sortingParam = {sorting};
-
             // Получаем элемент select
             var selectElement = document.querySelector('select[name="sorting"]');
 
@@ -15,12 +14,13 @@
             // Устанавливаем выбранный вариант в соответствии с параметром сортировки в URL
             if (sortingParam) {
                 selectElement.value = sortingParam;
+                console.log(selectElement.value)
             }
 
             // Обработчик изменения выбора в элементе select
             selectElement.addEventListener('change', function() {
                 // Получаем выбранное значение
-                var selectedValue = selectElement.value;
+                var selectedValue = selectElement.value ;
                 // Обновляем URL с новым параметром сортировки
                 window.location.href = window.location.pathname + '?sorting=' + selectedValue;
             });
@@ -53,7 +53,7 @@
               
                 
               <div class="col-lg-3 order-2 order-lg-1">
-                <h6 class="text-uppercase mb-4">Ценовой Диапазон</h6>
+                <!-- <h6 class="text-uppercase mb-4">Ценовой Диапазон</h6>
                 <div class="price-range pt-4 mb-5">
                   <div class="row pt-2">
                     <div class="col-6">
@@ -65,7 +65,14 @@
                       <input type="text" id="max-price" name="max-price" class="form-control">
                     </div>
                   </div>
-                </div>
+                </div> -->
+              
+                  <form method="GET" action="{{slug}}/">
+                      <input name="user" value="john" />
+                      <input name="role" value="admin" />
+                      <button type="submit">Send</button>
+                  </form>
+    
                 
                 <h5 class="text-uppercase mb-4">Категории</h5>
 
@@ -86,7 +93,8 @@
                   // Получаем элементы для ввода минимальной и максимальной цены
                   var minPriceInput = document.getElementById('min-price');
                   var maxPriceInput = document.getElementById('max-price');
-
+                  var sortInput = document.getElementById('sort');
+                  
                   // Обработчик изменения ввода цены
                   minPriceInput.addEventListener('input', updatePriceRange);
                   maxPriceInput.addEventListener('input', updatePriceRange);
@@ -158,12 +166,13 @@
                       <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th-large"></i></a></li>
                       <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th"></i></a></li>
                       <li class="list-inline-item">
-                        <select class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Без сортировки" onchange="this.options[this.selectedIndex].value && (window.location = '{% url 'store:category-products' category.slug %}?sorting=' + this.options[this.selectedIndex].value);">
-                            <option value="default">Без сортировки</option>
-                            <option value="popularity">Популярные</option>
-                            <option value="low-high">Цена: С наименьшей</option>
-                            <option value="high-low">Цена: С наибольшей</option>
-                        </select>
+                        <select id="sort" class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Без сортировки" onchange="this.options[this.selectedIndex].value && (window.location = '{% url 'store:category-products' category.slug %}?sorting=' + this.options[this.selectedIndex].value);">
+                          <option value="default" {% if sorting == "default" %} selected {% endif %}>Без сортировки</option>
+                          <option value="popularity" {% if sorting == "popularity" %} selected {% endif %}>Популярные</option>
+                          <option value="low-high" {% if sorting == "low-high" %} selected {% endif %}>Цена: С наименьшей</option>
+                          <option value="high-low" {% if sorting == "high-low" %} selected {% endif %}>Цена: С наибольшей</option>
+                      </select>
+                      
                       </li>
                     </ul>
                   </div>
