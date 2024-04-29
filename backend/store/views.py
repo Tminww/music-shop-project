@@ -48,9 +48,11 @@ def all_categories(request):
 def category_products(request, slug):
     category = get_object_or_404(Category, slug=slug)
     sorting = request.GET.get("sorting")
-    min_price = request.GET.get("min_price")
-    max_price = request.GET.get("max_price")
+    min_price = request.GET.get("min-price")
+    max_price = request.GET.get("max-price")
 
+    print("PRICE", min_price, max_price)
+    print("SORTING", sorting)
     # Получаем продукты данной категории
     products = Product.objects.filter(is_active=True, category=category)
 
@@ -63,6 +65,7 @@ def category_products(request, slug):
     # Применяем фильтрацию по ценовому диапазону, если параметры заданы
     if min_price and max_price:
         products = products.filter(price__range=(min_price, max_price))
+        print("FILTERED_PRODUCTS", products)
 
     categories = Category.objects.filter(is_active=True)
 
@@ -71,7 +74,8 @@ def category_products(request, slug):
         "products": products,
         "categories": categories,
         "sorting": sorting,
-        "slug": slug,
+        "min_price": min_price,
+        "max_price": max_price,
     }
 
     return render(request, "store/category_products.html", context)
