@@ -4,17 +4,30 @@
       {% block content %}
 
       <!-- HERO SECTION-->
+      
+      
+
       <div class="container">
-        <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url({% static 'img/banner.png' %})">
-          <div class="container py-5">
-            <div class="row px-4 px-lg-5">
-              <div class="col-lg-6">
-                <p class="text-muted small text-uppercase mb-2">Новая Колекция 2024</p>
-                <h1 class="h2 text-uppercase mb-3">Скидка 20% в новом сезоне.</h1><a class="btn btn-dark" href="{% url 'store:all-categories' %}">Просмотр коллекций</a>
+      
+          <div class="container mt-5">
+            <div class="row px-8 px-lg-5 align-items-center">
+              <div class="col-lg-6 ">
+          
+                <h1 class="h1 text-uppercase mb-3">откройте звучание по-новому</h1>
+                <p class="h6 mb-3">Новая коллекция, вдохновленная
+                  творчеством Квентина Тарантино, 
+                  в частности личностью персонажа
+                  Мии Вуоллес  (поменять текст)</p>
+                <a class="btn btn-warning" href="{% url 'store:all-categories' %}">Перейти в каталог</a>
               </div>
+              <div class="col-lg-6">
+                <img class="img-fluid" src={% static 'img/banner.jpg' %} alt="баннер">
+              </div>
+              
+              
             </div>
           </div>
-        </section>
+      
 
 
         <!-- CATEGORIES SECTION-->
@@ -27,7 +40,7 @@
           {% if categories %}
             {% for category in categories %}
 
-              <div class="col-md-4 mb-4 mb-md-0">
+              <div class="col-md-4 mb-4 mb-md-5">
                 <a class="category-item" href="{% url 'store:category-products' category.slug %}">
                   {% if category.category_image %}
                     <img class="img-fluid" src="{{ category.category_image.url }}" alt="{{ category.title }}">

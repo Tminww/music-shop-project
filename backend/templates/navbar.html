@@ -19,9 +19,9 @@
                   <li class="nav-item mr-3">
                     <a class="nav-link" href="{% url 'store:cart' %}"> 
                       <i class="fas fa-shopping-bag"></i>
-                        {% if cart_items.count != 0 %}
+                        {% if cart_items != 0 %}
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
-                          {{cart_items.count}}
+                          {{cart_items}}
                         </span>
                         {% endif %}
                     </a>
@@ -29,9 +29,9 @@
                   <li class="nav-item mr-3">
                     <a class="nav-link" href="{% url 'store:cart' %}"> 
                       <i class="fas fa-heart"></i>
-                        {% if cart_items.count != 0 %}
+                        {% if liked_items.count != 0 %}
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
-                          {{cart_items.count}}
+                          {{liked_items.count}}
                         </span>
                         {% endif %}
                     </a>

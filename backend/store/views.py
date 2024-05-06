@@ -1,6 +1,7 @@
 import django
 from django.contrib.auth.models import User
-from store.models import Address, Cart, Category, Order, Product
+from django.http import HttpResponse
+from store.models import Address, Cart, Category, Liked, Order, Product
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import RegistrationForm, AddressForm
 from django.contrib import messages
@@ -18,7 +19,7 @@ from django.utils.decorators import method_decorator  # for Class Based Views
 
 
 def home(request):
-    categories = Category.objects.filter(is_active=True, is_featured=True)[:3]
+    categories = Category.objects.filter(is_active=True)
     products = Product.objects.filter(is_active=True, is_featured=True)[:8]
     context = {
         "categories": categories,
@@ -153,7 +154,19 @@ def add_to_cart(request):
     else:
         Cart(user=user, product=product).save()
 
-    return redirect("store:cart")
+    return redirect("store:category-products")
+
+
+@login_required
+def add_to_liked(request):
+    user = request.user
+    product_id = request.GET.get("prod_id")
+    product = get_object_or_404(Product, id=product_id)
+
+    # Check whether the Product is alread in Cart or Not
+    item_already_in_liked = Liked.objects.filter(product=product_id, user=user)
+    if not item_already_in_liked:
+        Liked(user=user, product=product).save()
 
 
 @login_required

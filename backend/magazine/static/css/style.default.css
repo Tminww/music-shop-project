@@ -41,7 +41,7 @@ button:focus, button:active {
 }
 
 .navbar .dropdown-menu {
-  border-top: 2px solid #dcb14a;
+  border-top: 2px solid #000000;
 }
 
 .navbar .dropdown-menu::before {
@@ -49,7 +49,7 @@ button:focus, button:active {
   display: block;
   border-left: 0.5rem solid transparent;
   border-right: 0.5rem solid transparent;
-  border-bottom: 0.5rem solid #dcb14a;
+  /* border-bottom: 0.5rem solid #dcb14a; */
   position: absolute;
   top: -0.5rem;
   left: 1rem;
