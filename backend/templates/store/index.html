@@ -5,28 +5,34 @@
 
       <!-- HERO SECTION-->
       
+      <div class="container mt-5">
+        <div class="row px-8 px-lg-5 align-items-center">
+          <div class="col-lg-6 ">
       
+            <h1 class="h1">
+              откройте звучание по-новому
+            <br>
+            <small>Новая коллекция, вдохновленная
+              творчеством Квентина Тарантино, 
+              в частности личностью персонажа
+              Мии Вуоллес  (поменять текст)
+            </small>
+          
+            </h1>
+            
+            <a class="btn btn-warning" href="{% url 'store:all-categories' %}">Перейти в каталог</a>
+          </div>
+          <div class="col-lg-6">
+            <img class="img-fluid" src={% static 'img/banner.jpg' %} alt="баннер">
+          </div>
+          
+          
+        </div>
+      </div>
 
       <div class="container">
       
-          <div class="container mt-5">
-            <div class="row px-8 px-lg-5 align-items-center">
-              <div class="col-lg-6 ">
           
-                <h1 class="h1 text-uppercase mb-3">откройте звучание по-новому</h1>
-                <p class="h6 mb-3">Новая коллекция, вдохновленная
-                  творчеством Квентина Тарантино, 
-                  в частности личностью персонажа
-                  Мии Вуоллес  (поменять текст)</p>
-                <a class="btn btn-warning" href="{% url 'store:all-categories' %}">Перейти в каталог</a>
-              </div>
-              <div class="col-lg-6">
-                <img class="img-fluid" src={% static 'img/banner.jpg' %} alt="баннер">
-              </div>
-              
-              
-            </div>
-          </div>
       
 
 
