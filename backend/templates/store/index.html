@@ -2,31 +2,89 @@
 {% load static %}
 
       {% block content %}
-
-      <!-- HERO SECTION-->
       
-      <div class="container mt-5">
-        <div class="row px-8 px-lg-5 align-items-center">
-          <div class="col-lg-6 ">
-      
-            <h1 class="h1">
-              откройте звучание по-новому
-            <br>
-            <small>Новая коллекция, вдохновленная
-              творчеством Квентина Тарантино, 
-              в частности личностью персонажа
-              Мии Вуоллес  (поменять текст)
-            </small>
-          
-            </h1>
-            
-            <a class="btn btn-warning" href="{% url 'store:all-categories' %}">Перейти в каталог</a>
-          </div>
+      <div class="container my-5">
+        <div class="row align-items-center">
           <div class="col-lg-6">
+      
+            <h1 class="text-uppercase fw-bold display-4 mb-3">
+              откройте звучание по-новому
+               
+            
+            </h1>
+            <br>
+            <div class="text-secondary lh-base text-wrap text-truncate mb-5 "
+            style="width: 300px; font-size: 1rem!important;" >
+              Новая коллекция, вдохновленная <br>
+              творчеством Квентина Тарантино, <br>
+              в частности личностью персонажа<br>
+              Мии Вуоллес  (поменять текст)
+            </div>
+         
+         
+            <a class="btn btn-warning btn-lg text-light"
+            style="background-color: #EE6A31"
+             href="{% url 'store:all-categories' %}">&nbsp&nbsp&nbsp&nbspПерейти в каталог&nbsp&nbsp&nbsp&nbsp
+              <i class="bi bi-arrow-right"></i>
+            </a>
+            
+          </div>
+          <div class="col-6">
             <img class="img-fluid" src={% static 'img/banner.jpg' %} alt="баннер">
           </div>
-          
-          
+        </div>
+      </div>
+
+      <div class="container-fluid bg-dark">
+        <div class="container">
+
+          <div class="row align-items-center">
+            <div class="col-lg-4 text-center ">
+              <div class="container my-5">
+                <i class="bi bi-bag text-light my-5"
+                style="width: 10rem; height: 10rem; background-color: #EE6A31; border-radius:50%; border: 20px solid #EE6A31"></i>
+                
+                <div class="text-light font-weight-bold mt-4" >
+                  Бесплатная доставка
+                </div>
+                <div class="mt-1" 
+                style="color: rgba(255,255,255, 0.7)!important;" >
+                  Бесплатная доставка по всему миру
+                </div>
+              
+              </div>
+            </div>
+            <div class="col-lg-4 text-center ">
+              <div class="container my-5">
+                <i class="bi bi-bag text-light my-5"
+                style="width: 10rem; height: 10rem; background-color: #EE6A31; border-radius:50%; border: 20px solid #EE6A31"></i>
+                
+                <div class="text-light font-weight-bold mt-4" >
+                  24 х 7 на связи
+                </div>
+                <div class="mt-1" 
+                style="color: rgba(255,255,255, 0.7)!important;" >
+                  Круглосуточная поддержка
+                </div>
+              
+              </div>
+            </div>
+            <div class="col-lg-4 text-center ">
+              <div class="container my-5">
+                <i class="bi bi-bag text-light my-5"
+                style="width: 10rem; height: 10rem; background-color: #EE6A31; border-radius:50%; border: 20px solid #EE6A31"></i>
+                
+                <div class="text-light font-weight-bold mt-4" >
+                  Лучшие предложения
+                </div>
+                <div class="mt-1" 
+                style="color: rgba(255,255,255, 0.7)!important;" >
+                  Только в нашем магазине
+                </div>
+              
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -3,8 +3,34 @@
 
     {% block content %}
 
+    
+    <div class="container d-flex flex-column" style="height: calc(100% - 56px) ">
+        <div class="row  flex-fill d-flex justify-content-start mt-5">
+            <div class="col-12">
+                <h1>Контакты</h1>
+                <p class="text-secondary"><i class="fas fa-home mr-3 text-secondary "></i> Россия, Санкт-Петербург</p>
+                <p class="text-secondary"><i class="fas fa-envelope mr-3 text-secondary"></i> info@gmail.com</p>
+                <p class="text-secondary"><i class="fas fa-phone mr-3 text-secondary"></i> + 7 920 800 00 00</p>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            height:100vh;
+            margin: 0;
+            padding: 0;
+            
+          }
+          
+          .container-fluid{
+            flex: 1;
+          }
+    </style>
 
-        <div>Контакты</div>
 
     {% endblock content %}
 
