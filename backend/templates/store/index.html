@@ -22,9 +22,11 @@
             </div>
          
          
-            <a class="btn btn-warning btn-lg text-light"
-            style="background-color: #EE6A31"
-             href="{% url 'store:all-categories' %}">&nbsp&nbsp&nbsp&nbspПерейти в каталог&nbsp&nbsp&nbsp&nbsp
+            <a class="btn btn-warning btn-lg text-light px-5"
+            style="background-color: #EE6A31; border: 2px solid #FFFFFF"
+            onMouseOver="this.style.border='2px solid #EE6A31'"
+            onMouseOut="this.style.border='2px solid #FFFFFF'"
+             href="{% url 'store:all-categories' %}">Перейти в каталог
               <i class="bi bi-arrow-right"></i>
             </a>
             
@@ -39,7 +41,7 @@
         <div class="container">
 
           <div class="row align-items-center">
-            <div class="col-lg-4 text-center ">
+            <div class="col-lg-4 text-center my-5">
               <div class="container my-5">
                 <i class="bi bi-bag text-light my-5"
                 style="width: 10rem; height: 10rem; background-color: #EE6A31; border-radius:50%; border: 20px solid #EE6A31"></i>
@@ -54,7 +56,7 @@
               
               </div>
             </div>
-            <div class="col-lg-4 text-center ">
+            <div class="col-lg-4 text-center  my-5">
               <div class="container my-5">
                 <i class="bi bi-bag text-light my-5"
                 style="width: 10rem; height: 10rem; background-color: #EE6A31; border-radius:50%; border: 20px solid #EE6A31"></i>
@@ -69,7 +71,7 @@
               
               </div>
             </div>
-            <div class="col-lg-4 text-center ">
+            <div class="col-lg-4 text-center  my-5">
               <div class="container my-5">
                 <i class="bi bi-bag text-light my-5"
                 style="width: 10rem; height: 10rem; background-color: #EE6A31; border-radius:50%; border: 20px solid #EE6A31"></i>
@@ -88,7 +90,66 @@
         </div>
       </div>
 
-      <div class="container">
+      <div class="container my-5">
+        <div class="row justify-content-between align-items-center">
+          <div class=" col-auto ">
+            <h1 class=" fw-bold mb-3">
+              Категории
+            </h1>
+          </div>
+          <div class=" col-auto ">
+            <a class="text-decoration-none "
+                  style="color: rgba(0,0,0, 1)!important;"
+                  onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+                  onMouseOut="this.style.color='rgba(0,0,0, 1)'"
+                  href="{% url 'store:all-categories' %}">
+                  Смотреть все
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          {% if categories %}
+            {% for category in categories %}
+
+              <div class="col-md-4">
+                <div class="card bg-light border-light" 
+                {% comment %} style="width: 25rem; height: 15rem"   {% endcomment %}
+                >
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ category.title }}</h5>
+                        <p class="card-text">{{ category.title }}</p>
+                        
+                        <a href="{% url 'store:all-categories'%}" 
+                          class="text-decoration-none"
+                          style="color: rgba(0,0,0, 1)!important;"
+                          onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+                          onMouseOut="this.style.color='rgba(0,0,0, 1)'"> 
+                          Перейти
+                          <i class="bi bi-arrow-right"></i>
+                          <hr class="mt-2"
+                            style="width: 6rem">
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <img class="card-img-top" src="{{ category.category_image.url }}" alt="{{ category.title }}">
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+            
+            {% endfor %}
+          {% endif %}
+          <div class="col-4">
+          </div>
+        </div>
+      </div>
+          
+        
       
           
       
