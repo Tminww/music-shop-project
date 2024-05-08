@@ -1,11 +1,13 @@
 {% load static %}
 
 
-<nav class="navbar navbar-expand-lg navbar-dark p-3 bg-dark" id="headerNav">
+<nav class="navbar navbar-expand-lg navbar-dark p-3"
+      style="background-color: #1B1B1B"
+      id="headerNav">
   <div class="container-fluid">
     <a class="navbar-brand d-block d-lg-none" 
         href="{% url 'store:home' %}">
-        MUSIC SHOP
+        MUSIC&nbspSHOP
     </a>
  
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +17,7 @@
     <div class=" collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav mx-auto ">
         <li class="nav-item px-0">
-          <a class="nav-link " href="{% url 'store:all-categories' %}">Каталог</a>
+          <a class="nav-link  " href="{% url 'store:all-categories' %}">Каталог</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'store:contacts' %}">Контакты</a>
@@ -24,17 +26,18 @@
           {% comment %} <a class="nav-link mx-2" href="{% url 'store:home' %}">
             <img src="{% static 'icons/icon2.png' %}" height="40" />
           </a> {% endcomment %}
-          <a class="nav-link text-light" style="margin-right: 20rem!important; margin-left: 20rem!important;" href="{% url 'store:home' %}">
-            MUSIC SHOP
+          <a class="nav-link text-light fa-lg" style="margin-right: 20rem!important; margin-left: 20rem!important;" href="{% url 'store:home' %}">
+            MUSIC&nbspSHOP
           </a>
         </li>
        
         {% if request.user.is_authenticated %}           
           <li class="nav-item mr-3">
             <a class="nav-link mx-2" href="{% url 'store:cart' %}"> 
-              <i class="bi bi-bag position-relative">
+              <i class="bi bi-bag position-relative fa-lg" >
                 {% if cart_items != 0 %}
-                <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger">
+                <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger "
+                style="font-size:0.7rem;">
                   {{cart_items}}
                 </span>
                 {% endif %}
@@ -44,9 +47,10 @@
           </li>
           <li class="nav-item mr-3">
             <a class="nav-link mx-2" href="{% url 'store:cart' %}"> 
-              <i class="bi bi-heart position-relative">
+              <i class="bi bi-heart position-relative fa-lg">
                 {% if liked_items.count != 0 %}
-                <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger">
+                <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
+                style="font-size:0.7rem;">
                   {{liked_items.count}}
                 </span>
                 {% endif %}
@@ -58,17 +62,28 @@
       
           <li class="nav-item dropdown mr-3">
             <a class="nav-link dropdown-toggle mx-2" id="dropdownMenu2" href="#" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
-              <i class="bi bi-person " height="30"></i>
+              <i class="bi bi-person fa-lg" height="30"></i>
             </a>
           
-            <div class="dropdown-menu mt-3 bg-dark" aria-labelledby="dropdownMenu2">
-                <a class="dropdown-item bg-dark text-light" href="{% url 'store:profile' %}">Профиль</a>
-                {% comment %} <a class="dropdown-item bg-dark text-light" href="{% url 'store:cart' %}">Корзина</a> {% endcomment %}
-                <a class="dropdown-item bg-dark text-light" href="{% url 'store:orders' %}">Покупки</a>
-                <a class="dropdown-item bg-dark text-light" href="{% url 'store:password-change' %}">Смена пароля</a>
+            <div class="dropdown-menu mt-3"
+                style="background-color: #1B1B1B;"
+                aria-labelledby="dropdownMenu2">
+
+                <a class="dropdown-item"
+                  style="background-color: #1B1B1B; color: #F7F7F7!important;"
+                  href="{% url 'store:profile' %}">Профиль</a>
+                  {% comment %} <a class="dropdown-item bg-dark text-light" href="{% url 'store:cart' %}">Корзина</a> {% endcomment %}
+                <a class="dropdown-item "
+                  style="background-color: #1B1B1B; color: #F7F7F7!important;"
+                  href="{% url 'store:orders' %}">Покупки</a>
+                <a class="dropdown-item "
+                  style="background-color: #1B1B1B; color: #F7F7F7!important;"
+                  href="{% url 'store:password-change' %}">Смена пароля</a>
                 <hr class="bg-danger border-2 border-top border-light" />
                 
-                <a class="dropdown-item border-0 transition-link bg-dark text-light" href="{% url 'store:logout' %}">Выйти из профиля</a>
+                <a class="dropdown-item border-0 transition-link "
+                  style="background-color: #1B1B1B; color: #F7F7F7!important;"
+                  href="{% url 'store:logout' %}">Выйти из профиля</a>
             </div>
             
           </li>
