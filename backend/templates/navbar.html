@@ -1,75 +1,79 @@
 {% load static %}
 
-<!-- navbar-->
-      <header class="container-fluid bg-dark">
 
-          <nav class="navbar navbar-expand-lg navbar-dark py-3 px-lg-0">
-            
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link text-light" href="{% url 'store:all-categories' %}">Каталог</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-light" href="{% url 'store:contacts' %}">Контакты</a>
-                </li>
-                <li class="nav-item">
-                  <a class="navbar-brand ont-weight-bold text-uppercase text-light" href="{% url 'store:home' %}">
-                    Music Shop
-                  </a>
-                </li>
+<nav class="navbar navbar-expand-lg navbar-dark p-3 bg-dark" id="headerNav">
+  <div class="container-fluid">
+    <a class="navbar-brand d-block d-lg-none" href="{% url 'store:home' %}">
+      <img src="{% static 'icons/icon2.png' %}" height="50" />
+    </a> 
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav mx-auto ">
+        <li class="nav-item">
+          <a class="nav-link text-light" href="{% url 'store:all-categories' %}">Каталог</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="{% url 'store:contacts' %}">Контакты</a>
+        </li>
+        <li class="nav-item d-none d-lg-block">
+          <a class="nav-link mx-2" href="{% url 'store:home' %}">
+            <img src="{% static 'icons/icon2.png' %}" height="50" />
+          </a>
+        </li>
+       
+        {% if request.user.is_authenticated %}           
+          <li class="nav-item mr-3">
+            <a class="nav-link" href="{% url 'store:cart' %}"> 
+              <i class="bi bi-bag">
+                {% if cart_items != 0 %}
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
+                  {{cart_items}}
+                </span>
+                {% endif %}
+              </i>
                 
-              </ul>
-              <ul class="navbar-nav "> 
-                {% if request.user.is_authenticated %}           
-                  <li class="nav-item mr-3">
-                    <a class="nav-link" href="{% url 'store:cart' %}"> 
-                      <i class="bi bi-bag"></i>
-                        {% if cart_items != 0 %}
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
-                          {{cart_items}}
-                        </span>
-                        {% endif %}
-                    </a>
-                  </li>
-                  <li class="nav-item mr-3">
-                    <a class="nav-link" href="{% url 'store:cart' %}"> 
-                      <i class="bi bi-heart"></i>
-                        {% if liked_items.count != 0 %}
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
-                          {{liked_items.count}}
-                        </span>
-                        {% endif %}
-                    </a>
-                  </li>
+            </a>
+          </li>
+          <li class="nav-item mr-3">
+            <a class="nav-link" href="{% url 'store:cart' %}"> 
+              <i class="bi bi-heart">
+                {% if liked_items.count != 0 %}
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
+                  {{liked_items.count}}
+                </span>
+                {% endif %}
+              </i>
+                
+            </a>
+          </li>
 
-              
-                  <li class="nav-item dropdown mr-3">
-                    <a class="nav-link dropdown-toggle" id="dropdownMenu2" href="#" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
-                      <i class="bi bi-person"></i>
-                    </a>
-                  
-                    <div class="dropdown-menu mt-3 bg-dark" aria-labelledby="dropdownMenu2">
-                        <a class="dropdown-item bg-dark text-light" href="{% url 'store:profile' %}">Профиль</a>
-                        <a class="dropdown-item bg-dark text-light" href="{% url 'store:cart' %}">Корзина</a>
-                        <a class="dropdown-item bg-dark text-light" href="{% url 'store:orders' %}">Покупки</a>
-                        <a class="dropdown-item bg-dark text-light" href="{% url 'store:password-change' %}">Смена пароля</a>
-
-                   
-                        <a class="dropdown-item border-0 transition-link bg-dark text-light" href="{% url 'store:logout' %}">Выйти из профиля</a>
-                    </div>
-                    
-                  </li>
-                {% else %}
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Войти</a></li>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Создать аккаунт</a></li>
-                {% endif %}   
-              </ul>
+      
+          <li class="nav-item dropdown mr-3">
+            <a class="nav-link dropdown-toggle" id="dropdownMenu2" href="#" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+              <i class="bi bi-person"></i>
+            </a>
+          
+            <div class="dropdown-menu mt-3 bg-dark" aria-labelledby="dropdownMenu2">
+                <a class="dropdown-item bg-dark text-light" href="{% url 'store:profile' %}">Профиль</a>
+                {% comment %} <a class="dropdown-item bg-dark text-light" href="{% url 'store:cart' %}">Корзина</a> {% endcomment %}
+                <a class="dropdown-item bg-dark text-light" href="{% url 'store:orders' %}">Покупки</a>
+                <a class="dropdown-item bg-dark text-light" href="{% url 'store:password-change' %}">Смена пароля</a>
+                <hr class="bg-danger border-2 border-top border-light" />
+                
+                <a class="dropdown-item border-0 transition-link bg-dark text-light" href="{% url 'store:logout' %}">Выйти из профиля</a>
             </div>
-          </nav>
+            
+          </li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Войти</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Создать аккаунт</a></li>
+        {% endif %}   
+        
+    </div>
+  </div>
+</nav>
 
-      </header>
 
