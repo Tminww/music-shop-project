@@ -11,9 +11,15 @@ from django.contrib.auth import views as auth_views
 app_name = "store"
 
 urlpatterns = [
+    # MAIN PAGE
     path("", views.home, name="home"),
-    # URL for Cart and Checkout
+    # CONTACTS PAGE
     path("contacts/", views.contacts, name="contacts"),
+    # CATALOG PAGE
+    path("catalog/product/", views.detail, name="product-detail"),
+    path("catalog/<str:slug>", views.category_products, name="catalog-products"),
+    path("catalog/", views.category_products, name="catalog"),
+    #
     path("add-to-cart/", views.add_to_cart, name="add-to-cart"),
     path("add-to-liked/", views.add_to_liked, name="add-to-liked"),
     path("remove-cart/<int:cart_id>/", views.remove_cart, name="remove-cart"),
@@ -23,9 +29,7 @@ urlpatterns = [
     path("cart/checkout/", views.checkout, name="checkout"),
     path("orders/", views.orders, name="orders"),
     # URL for Products
-    path("product/<slug:slug>/", views.detail, name="product-detail"),
-    path("catalog/", views.all_categories, name="all-categories"),
-    path("<slug:slug>/", views.category_products, name="category-products"),
+    # path("catalog/", views.all_categories, name="all-categories"),
     path("shop/", views.shop, name="shop"),
     # URL for Authentication
     path("accounts/register/", views.RegistrationView.as_view(), name="register"),

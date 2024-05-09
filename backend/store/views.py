@@ -25,6 +25,8 @@ def home(request):
         "categories": categories,
         "products": products,
     }
+    print(context)
+    print(categories[0].slug)
     return render(request, "store/index.html", context)
 
 
@@ -51,8 +53,13 @@ def contacts(request):
     return render(request, "store/contacts.html", context)
 
 
-def category_products(request, slug):
-    category = get_object_or_404(Category, slug=slug)
+def category_products(request, slug: str = None):
+    category = None
+    if slug:
+        category = get_object_or_404(Category, slug=slug)
+    else:
+        # category = get_object_or_404(Category)
+        print("SLUG", slug)
     sorting = request.GET.get("sorting")
     min_price = request.GET.get("min-price")
     max_price = request.GET.get("max-price")

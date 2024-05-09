@@ -26,7 +26,7 @@
             style="background-color: #EE6A31; border: 2px solid #FFFFFF"
             onMouseOver="this.style.border='2px solid #EE6A31'"
             onMouseOut="this.style.border='2px solid #FFFFFF'"
-             href="{% url 'store:all-categories' %}">Перейти в каталог
+            href="{% url 'store:catalog'  %}">Перейти в каталог
               <i class="bi bi-arrow-right"></i>
             </a>
             
@@ -102,7 +102,7 @@
                   style="color: rgba(0,0,0, 1)!important;"
                   onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
                   onMouseOut="this.style.color='rgba(0,0,0, 1)'"
-                  href="{% url 'store:all-categories' %}">
+                  href="{% url 'store:catalog' %}">
                   Смотреть все
               <i class="bi bi-arrow-right"></i>
             </a>
@@ -115,12 +115,13 @@
               <div class="col-md-4 mb-4">
                 <div class="card bg-light border-light">
                   <div class="row">
-                    <div class="col-7">
-                      <div class="card-body" style="height: 100%!important;">
-                        <h5 class="card-title">{{ category.title }}</h5>
+                    <div class="col-7"
+                    style="padding-right: 0px!important;">
+                      <div class="card-body" style="height: 100%!important; display: flex!important; flex-direction: column!important; justify-content: space-between!important;">
+                        <h5 class="card-title fs-6 ">{{ category.title }}</h5>
                         {% comment %} <p class="card-text">{{ category.title }}</p> {% endcomment %}
                      
-                        <a href="{% url 'store:all-categories'%}" 
+                        <a href="{% url 'store:catalog-products' slug=category.slug %}" 
                           class="text-decoration-none"
                           style="color: rgba(0,0,0, 1)!important;"
                           onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
@@ -150,115 +151,6 @@
         </div>
       </div>
           
-        
-        <!-- TRENDING PRODUCTS-->
-        <section class="py-5">
-          <header>
-            <p class="small text-muted small text-uppercase mb-1">Успейте купить!</p>
-            <h2 class="h5 text-uppercase mb-4">Топ популярных товаров</h2>
-          </header>
-          <div class="row">
-
-            {% if products %}
-              {% for product in products %}
-              
-                <!-- PRODUCT-->
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                  <div class="product text-center">
-                    <div class="position-relative mb-3">
-
-                      <div class="badge text-white badge-"></div>
-                      
-                      <a class="d-block" href="{% url 'store:product-detail' product.slug %}">
-                        {% if product.product_image %}
-                          <img class="img-fluid w-100" src="{{ product.product_image.url }}" alt="{{product.title}}">
-                        {% else %}
-                          <img class="img-fluid w-100" src="{% static 'img/product-1.jpg' %}" alt="{{product.title}}">
-                        {% endif %}
-                      </a>
-
-                      <div class="product-overlay">
-                        <ul class="mb-0 list-inline">
-                          <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          <li class="list-inline-item m-0 p-0">
-                            {% comment %} <a class="btn btn-sm btn-dark" href="{% url 'store:add-to-cart' %}">Добавить в корзину</a> {% endcomment %}
-
-                            <form action="{% url 'store:add-to-cart' %}">
-                              <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
-                              <button type="submit" class="btn btn-sm btn-dark">Добавить в корзину</button>
-                            </form>
-
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <h6> <a class="reset-anchor" href="detail.html">{{ product.title }}</a></h6>
-                    <p class="small text-muted">₽{{product.price}}</p>
-                  </div>
-                </div>
-
-              {% endfor %}
-            {% endif %}
-
-            
-
-          </div>
-        </section>
-
-
-        <!-- SERVICES-->
-        <section class="py-5 bg-light">
-          <div class="container">
-            <div class="row text-center">
-              <div class="col-lg-4 mb-3 mb-lg-0">
-                <div class="d-inline-block">
-                  <div class="media align-items-end">
-                    <svg class="svg-icon svg-icon-big svg-icon-light">
-                      <use xlink:href="#delivery-time-1"> </use>
-                    </svg>
-                    <div class="media-body text-left ml-3">
-                      <h6 class="text-uppercase mb-1">Бесплатная доставка</h6>
-                      <p class="text-small mb-0 text-muted">Бесплатная доставка по всему миру</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 mb-3 mb-lg-0">
-                <div class="d-inline-block">
-                  <div class="media align-items-end">
-                    <svg class="svg-icon svg-icon-big svg-icon-light">
-                      <use xlink:href="#helpline-24h-1"> </use>
-                    </svg>
-                    <div class="media-body text-left ml-3">
-                      <h6 class="text-uppercase mb-1">24 x 7 на связи</h6>
-                      <p class="text-small mb-0 text-muted">Круглосуточная поддержка</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="d-inline-block">
-                  <div class="media align-items-end">
-                    <svg class="svg-icon svg-icon-big svg-icon-light">
-                      <use xlink:href="#label-tag-1"> </use>
-                    </svg>
-                    <div class="media-body text-left ml-3">
-                      <h6 class="text-uppercase mb-1">Лучшие предложения</h6>
-                      <p class="text-small mb-0 text-muted">Только в нашем магазине</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-        <!-- NEWSLETTER-->
-        <section class="py-5">
-          <div class="container p-0">
-          </div>
-        </section>
-      </div>
+{% comment %}          {% endcomment %}
 
       {% endblock content %}

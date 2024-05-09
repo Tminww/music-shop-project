@@ -37,8 +37,8 @@ class Category(models.Model):
         verbose_name_plural = "Категории"
         ordering = ("-created_at",)
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
 
 
 class Product(models.Model):
