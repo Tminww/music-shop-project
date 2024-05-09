@@ -108,20 +108,18 @@
             </a>
           </div>
         </div>
-        <div class="row">
+        <div class="row ">
           {% if categories %}
             {% for category in categories %}
 
-              <div class="col-md-4">
-                <div class="card bg-light border-light" 
-                {% comment %} style="width: 25rem; height: 15rem"   {% endcomment %}
-                >
+              <div class="col-md-4 mb-4">
+                <div class="card bg-light border-light">
                   <div class="row">
-                    <div class="col-6">
-                      <div class="card-body">
+                    <div class="col-7">
+                      <div class="card-body" style="height: 100%!important;">
                         <h5 class="card-title">{{ category.title }}</h5>
-                        <p class="card-text">{{ category.title }}</p>
-                        
+                        {% comment %} <p class="card-text">{{ category.title }}</p> {% endcomment %}
+                     
                         <a href="{% url 'store:all-categories'%}" 
                           class="text-decoration-none"
                           style="color: rgba(0,0,0, 1)!important;"
@@ -134,9 +132,11 @@
                         </a>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <img class="card-img-top" src="{{ category.category_image.url }}" alt="{{ category.title }}"
-                      style="width: 260px; ">
+                    <div class="col-5">
+                      <img class="card-img-top" 
+                          src="{{ category.category_image.url }}" 
+                          alt="{{ category.title }}"
+                          style="width: 100%!important;">
                     </div>
                   </div>
                 </div>
@@ -151,38 +151,6 @@
       </div>
           
         
-      
-          
-      
-
-
-        <!-- CATEGORIES SECTION-->
-        <section class="pt-5">
-          <header class="text-center">
-            <p class="small text-muted small text-uppercase mb-1">В нашем магазине вы найдете все</p>
-            <h2 class="h5 text-uppercase mb-4">Откройте звучание по-новому</h2>
-          </header>
-          <div class="row">
-          {% if categories %}
-            {% for category in categories %}
-
-              <div class="col-md-4 mb-4 mb-md-5">
-                <a class="category-item" href="{% url 'store:category-products' category.slug %}">
-                  {% if category.category_image %}
-                    <img class="img-fluid" src="{{ category.category_image.url }}" alt="{{ category.title }}">
-                    {% else %}
-                    <img class="img-fluid" src="{% static 'img/cat-img-1.jpg' %}" alt="{{ category.title }}">
-                  {% endif %}
-                  <strong class="category-item-title">{{ category.title }}</strong>
-                </a>
-              </div>
-            
-            {% endfor %}
-          {% endif %}
-          </div>
-        </section>
-
-
         <!-- TRENDING PRODUCTS-->
         <section class="py-5">
           <header>
