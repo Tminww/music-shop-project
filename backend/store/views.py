@@ -53,6 +53,42 @@ def contacts(request):
     return render(request, "store/contacts.html", context)
 
 
+def catalog(request):
+
+    sorting = request.GET.get("sorting")
+    min_price = request.GET.get("min-price")
+    max_price = request.GET.get("max-price")
+
+    print("PRICE", min_price, max_price)
+    print("SORTING", sorting)
+    # Получаем продукты данной категории
+    products = Product.objects.filter(is_active=True)
+
+    # Применяем сортировку, если она указана
+    if sorting == "low-high":
+        products = products.order_by("price")
+    elif sorting == "high-low":
+        products = products.order_by("-price")
+
+    # Применяем фильтрацию по ценовому диапазону, если параметры заданы
+    if min_price and max_price:
+        products = products.filter(price__range=(min_price, max_price))
+        print("FILTERED_PRODUCTS", products)
+
+    categories = Category.objects.filter(is_active=True)
+
+    context = {
+        "category": "category",
+        "products": products,
+        "categories": categories,
+        "sorting": sorting,
+        "min_price": min_price,
+        "max_price": max_price,
+    }
+
+    return render(request, "store/category_products.html", context)
+
+
 def category_products(request, slug: str = None):
     category = None
     if slug:

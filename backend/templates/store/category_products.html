@@ -35,13 +35,13 @@
                 <h1 class="h2 text-uppercase mb-0">Раздел - {{category.title}}</h1>
               </div>
               <div class="col-lg-6 text-lg-right">
-                <nav aria-label="breadcrumb">
+                {% comment %} <nav aria-label="breadcrumb">
                   <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
                     <li class="breadcrumb-item"><a href="{% url 'store:home' %}">Магазин</a></li>
                     <li class="breadcrumb-item"><a href="{% url 'store:all-categories' %}">Категория</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{category.title}}</li>
                   </ol>
-                </nav>
+                </nav> {% endcomment %}
               </div>
             </div>
           </div>
@@ -98,10 +98,10 @@
 
                 {% if categories %}
                   {% for cat in categories %}
-                    <a href="{% url 'store:category-products' cat.slug %}">
+                    {% comment %} <a href="{% url 'store:category-products' cat.slug %}">
                       <div class="py-2 px-4 {% if category == cat %}bg-dark text-white {% else %}bg-light{% endif %} mb-3">
                         <strong class="small text-uppercase font-weight-bold">{{cat.title}}</strong>
-                      </div>
+                      </div> {% endcomment %}
                     </a>
                   {% endfor %}
                 {% endif %}
@@ -120,12 +120,12 @@
                       <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th-large"></i></a></li>
                       <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th"></i></a></li>
                       <li class="list-inline-item">
-                        <select id="sort" class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Без сортировки" onchange="this.options[this.selectedIndex].value && (window.location = '{% url 'store:category-products' category.slug %}?sorting=' + this.options[this.selectedIndex].value);">
+                        {% comment %} <select id="sort" class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Без сортировки" onchange="this.options[this.selectedIndex].value && (window.location = '{% url 'store:category-products' category.slug %}?sorting=' + this.options[this.selectedIndex].value);">
                           <option value="default" {% if sorting == "default" %} selected {% endif %}>Без сортировки</option>
                           <option value="popularity" {% if sorting == "popularity" %} selected {% endif %}>Популярные</option>
                           <option value="low-high" {% if sorting == "low-high" %} selected {% endif %}>Цена: С наименьшей</option>
                           <option value="high-low" {% if sorting == "high-low" %} selected {% endif %}>Цена: С наибольшей</option>
-                      </select>
+                      </select> {% endcomment %}
                       
                       </li>
                     </ul>
@@ -164,13 +164,13 @@
 
                             <div class="badge text-white badge-"></div>
 
-                            <a class="d-block" href="{% url 'store:product-detail' product.slug %}">
+                            {% comment %} <a class="d-block" href="{% url 'store:product-detail' product.slug %}">
                               {% if product.product_image %}
                                 <img class="img-fluid w-100" src="{{product.product_image.url}}" alt="{{product.title}}">
                               {% else %}
                                 <img class="img-fluid w-100" src="{% static 'img/product-1.jpg' %}" alt="{{product.title}}">
                               {% endif %}
-                            </a>
+                            </a> {% endcomment %}
 
                             <div class="product-overlay">
                               <ul class="mb-0 list-inline">
@@ -197,7 +197,7 @@
                               </ul>
                             </div>
                           </div>
-                          <h6> <a class="reset-anchor" href="{% url 'store:product-detail' product.slug %}">{{product.title}}</a></h6>
+                          {% comment %} <h6> <a class="reset-anchor" href="{% url 'store:product-detail' product.slug %}">{{product.title}}</a></h6> {% endcomment %}
                           <p class="small text-muted">₽{{product.price}}</p>
                         </div>
                       </div>

@@ -18,7 +18,7 @@ urlpatterns = [
     # CATALOG PAGE
     path("catalog/product/", views.detail, name="product-detail"),
     path("catalog/<str:slug>", views.category_products, name="catalog-products"),
-    path("catalog/", views.category_products, name="catalog"),
+    path("catalog/", views.catalog, name="catalog"),
     #
     path("add-to-cart/", views.add_to_cart, name="add-to-cart"),
     path("add-to-liked/", views.add_to_liked, name="add-to-liked"),
