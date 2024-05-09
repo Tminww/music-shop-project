@@ -121,7 +121,7 @@
                         <h5 class="card-title fs-6 ">{{ category.title }}</h5>
                         {% comment %} <p class="card-text">{{ category.title }}</p> {% endcomment %}
                      
-                        <a href="{% url 'store:catalog-products' slug=category.slug %}" 
+                        <a href="{% url 'store:catalog' %}?slug={{category.slug}}" 
                           class="text-decoration-none"
                           style="color: rgba(0,0,0, 1)!important;"
                           onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
