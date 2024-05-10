@@ -164,7 +164,7 @@ def add_to_cart(request):
     else:
         Cart(user=user, product=product).save()
 
-    return redirect("store:category-products")
+    return redirect(request.META.get("HTTP_REFERER"))
 
 
 @login_required

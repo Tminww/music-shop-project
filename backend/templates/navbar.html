@@ -48,7 +48,7 @@
             <a class="nav-link mx-2" href="{% url 'store:cart' %}"> 
               <i class="bi bi-heart position-relative fa-lg">
                 {% if liked_items.count != 0 %}
-                <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
+                <span class="position-absolute top-50 start-50 translate-middle badge rounded-pill bg-danger"
                 style="font-size:0.7rem;">
                   {{liked_items.count}}
                 </span>
