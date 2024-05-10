@@ -33,7 +33,11 @@
         .form-control:focus{
           outline: none;
           box-shadow: none;
-          border: 2px solid gray;
+          border: 2px solid gray!important;
+        }
+        .form-select:focus{
+          outline: none;
+          box-shadow: none;
         }
       </style>
      
@@ -158,18 +162,23 @@
               {% for product in products %}
               <div class="col-md-4 mb-4">
                 <div class="card position-relative" 
-                  style="border: 0px!important;">
-                  <img class="" 
-                    src={% static 'img/Frame.png' %}
-                    alt="{{product.title}}">
+                  style="border: 0px;">
+                  <a class="" href={% url 'store:product-detail' product.slug %}>
+                    <img class="img-fluid" 
+                    {% comment %} src={% static 'img/Frame.png' %} {% endcomment %}
+                    src="{{product.product_image.url}}"
+                    alt="{{product.title}}"
+                    style="width: 100%!important;"
+                    >
+                  </a>
                   <div class="position-absolute top-0 end-0">
                     <form action="{% url 'store:add-to-liked' %}">
                       <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
                       {% if product.id in liked_id %}
-
-                      <button type="submit" class="btn bi bi-heart-fill text-danger fa-lg my-2"></button>
+                      
+                      <button type="submit" class="btn"> <i class="bi bi-heart-fill text-danger fa-2x"></i></button>
                       {% else %}
-                      <button type="submit" class="btn bi bi-heart fa-lg my-2"></button>
+                      <button type="submit" class="btn"> <i class="bi bi-heart fa-2x"></i></button>
 
                       {% endif %}
 
@@ -178,7 +187,13 @@
                   <div class="row justify-content-between my-1">
 
                     <div class="col-auto">
-                      <p class="card-title fs-6 mb-2">{{ product.title }}</p>
+
+                      <a class="card-title fs-6 mb-2 text-decoration-none"
+                        href="{% url 'store:product-detail' product.slug %}"
+                          style="color: rgba(0,0,0, 1)!important;"
+                          onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+                          onMouseOut="this.style.color='rgba(0,0,0, 1)'"
+                      >{{ product.title }}</a>
                       <p class="card-text">{{ product.price }} &#8381;</p>
 
                     </div>
@@ -205,14 +220,7 @@
             {% endif %}
 
             </div>
-            <form action="{% url 'store:add-to-liked' %}">
-              <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
-              <button type="submit" class="btn btn-sm btn-outline-dark far fa-heart"></button>
-            </form>
-          </li>
-          <li class="list-inline-item m-0 p-0">
-            {% comment %} <a class="btn btn-sm btn-dark" href="{% url 'store:add-to-cart' %}">Добавить в корзину</a> {% endcomment %}
-
+           
             
             
             

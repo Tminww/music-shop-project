@@ -59,8 +59,11 @@ def catalog_products(request):
 
     if slug:
         category = get_object_or_404(Category, slug=slug)
+        # Получаем продукты данной категории
+        products = Product.objects.filter(is_active=True, category_id=category.pk)
     else:
         category = "Все товары"
+        products = Product.objects.filter(is_active=True)
         print("SLUG", slug)
 
     liked_items = Liked.objects.filter(user=request.user)
@@ -72,8 +75,6 @@ def catalog_products(request):
 
     print("PRICE", min_price, max_price)
     print("SORTING", sorting)
-    # Получаем продукты данной категории
-    products = Product.objects.filter(is_active=True)
 
     # Применяем сортировку, если она указана
     if sorting == "low-high":

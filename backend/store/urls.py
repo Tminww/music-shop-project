@@ -16,7 +16,7 @@ urlpatterns = [
     # CONTACTS PAGE
     path("contacts/", views.contacts, name="contacts"),
     # CATALOG PAGE
-    path("catalog/product/", views.detail, name="product-detail"),
+    path("catalog/product/<slug:slug>", views.detail, name="product-detail"),
     path("catalog/", views.catalog_products, name="catalog"),
     #
     path("add-to-cart/", views.add_to_cart, name="add-to-cart"),
