@@ -63,6 +63,9 @@ def catalog_products(request):
         category = "Все товары"
         print("SLUG", slug)
 
+    liked_items = Liked.objects.filter(user=request.user)
+    liked_items = [item.product.pk for item in liked_items]
+
     sorting = request.GET.get("sorting")
     min_price = request.GET.get("min-price")
     max_price = request.GET.get("max-price")
@@ -88,6 +91,7 @@ def catalog_products(request):
     context = {
         "category": category,
         "products": products,
+        "liked_id": liked_items,
         "categories": categories,
         "sorting": sorting,
         "min_price": min_price,
@@ -177,6 +181,11 @@ def add_to_liked(request):
     item_already_in_liked = Liked.objects.filter(product=product_id, user=user)
     if not item_already_in_liked:
         Liked(user=user, product=product).save()
+    else:
+        c = get_object_or_404(Liked, user=user, product=product)
+        c.delete()
+
+    return redirect(request.META.get("HTTP_REFERER"))
 
 
 @login_required

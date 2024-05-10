@@ -108,9 +108,6 @@ class Liked(models.Model):
     class Meta:
         verbose_name_plural = "Понравившиеся товары"
 
-    def __str__(self):
-        return str(self.user)
-
 
 STATUS_CHOICES = (
     ("Обрабатывается", "Обрабатывается"),
