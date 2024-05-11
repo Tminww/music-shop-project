@@ -20,18 +20,20 @@ from django.utils.decorators import method_decorator  # for Class Based Views
 
 def home(request):
     categories = Category.objects.filter(is_active=True)
-    products = Product.objects.filter(is_active=True, is_featured=True)[:8]
+    products = Product.objects.filter(is_active=True, is_featured=True)[:4]
     context = {
         "categories": categories,
         "products": products,
+        "sorting": "popularity",
     }
     print(context)
     print(categories[0].slug)
     return render(request, "store/index.html", context)
 
 
-def detail(request, slug):
-    product = get_object_or_404(Product, slug=slug)
+def detail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    print(product)
     related_products = Product.objects.exclude(id=product.id).filter(
         is_active=True, category=product.category
     )

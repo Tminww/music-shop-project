@@ -163,7 +163,7 @@
               <div class="col-md-4 mb-4">
                 <div class="card position-relative" 
                   style="border: 0px;">
-                  <a class="" href={% url 'store:product-detail' product.slug %}>
+                  <a class="" href={% url 'store:product-detail' product.id %}>
                     <img class="img-fluid" 
                     {% comment %} src={% static 'img/Frame.png' %} {% endcomment %}
                     src="{{product.product_image.url}}"
@@ -189,7 +189,7 @@
                     <div class="col-auto">
 
                       <a class="card-title fs-6 mb-2 text-decoration-none"
-                        href="{% url 'store:product-detail' product.slug %}"
+                        href="{% url 'store:product-detail' product.id %}"
                           style="color: rgba(0,0,0, 1)!important;"
                           onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
                           onMouseOut="this.style.color='rgba(0,0,0, 1)'"

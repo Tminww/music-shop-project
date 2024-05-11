@@ -13,7 +13,8 @@
                 <div class="col-sm-12 order-1 order-sm-2">
                   <div class="owl-carousel product-slider" data-slider-id="1">
                     {% if product.product_image %}
-                      <a class="d-block" href="{{product.product_image.url}}" data-lightbox="product" title="{{product.title}}"><img class="img-fluid" src="{{product.product_image.url}}" alt="{{product.title}}"></a>
+                      <a class="d-block" href="{{product.product_image.url}}" data-lightbox="product" title="{{product.title}}">
+                        <img class="img-fluid" src="{{product.product_image.url}}" alt="{{product.title}}"></a>
                       {% else %}
                       <a class="d-block" href="{% static 'img/product-detail-1.jpg' %}" data-lightbox="product" title="{{product.title}}"><img class="img-fluid" src="{% static 'img/product-detail-1.jpg' %}" alt="{{product.title}}"></a>
                     {% endif %}
@@ -56,10 +57,20 @@
 
                 </div>
 
-              </div><a class="btn btn-link text-dark p-0 mb-4" href="#"><i class="far fa-heart mr-2"></i>Добавить в избранное</a><br>
+              </div>
+              <a class="btn btn-link text-dark p-0 mb-4" href="#">
+                <i class="far fa-heart mr-2"></i>Добавить в избранное</a><br>
               <ul class="list-unstyled small d-inline-block">
-                <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">Артикул:</strong><span class="ml-2 text-muted">{{product.sku}}</span></li>
-                <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Категория:</strong><a class="reset-anchor ml-2" href="{% url 'store:category-products' product.category.slug %}">{{product.category}}</a></li>
+                <li class="px-3 py-2 mb-1 bg-white">
+                  <strong class="text-uppercase">Артикул:</strong>
+                  <span class="ml-2 text-muted">{{product.sku}}</span>
+                </li>
+                <li class="px-3 py-2 mb-1 bg-white text-muted">
+                  <strong class="text-uppercase text-dark">Категория:</strong>
+                  <a class="reset-anchor ml-2" href="{% url 'store:catalog'  %}?{{product.category.slug}}">
+                    {{product.category}}
+                  </a>
+                </li>
 <!--                <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Стили:</strong><a class="reset-anchor ml-2" href="#">Innovation</a></li>-->
               </ul>
             </div>
