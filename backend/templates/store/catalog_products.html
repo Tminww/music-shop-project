@@ -92,7 +92,7 @@ SORTING default {% endcomment %}
                   class="form-control" 
                   {% if min_price %}value="{{min_price}}" {% endif %}
                   placeholder="Мин."
-                  style="border: 0px!important; "
+                  style="border: 0px!important;"
         
                   >
                   <hr class="mt-0"
@@ -127,7 +127,7 @@ SORTING default {% endcomment %}
                   value="all" 
                   id="category" 
                   name="slug"
-                  checked>
+                  {% if "all" in slug %} checked {% endif %}>
                 <label class="form-check-label" for="category">
                   Показать все
                 </label>
@@ -137,9 +137,11 @@ SORTING default {% endcomment %}
                   <input class="form-check-input"
                      type="checkbox" 
                      name="slug"
+                     
                      value="{{cat.slug}}" 
                      id="category" 
-                     >
+                     {% if cat.slug in slug %} checked {% endif %}>
+                     
                      {{category.slug}}
                   <label class="form-check-label" for="flexCheckChecked">
                     {{cat.title}}
@@ -165,7 +167,7 @@ SORTING default {% endcomment %}
                     id="sorting" 
                     name="sorting"
                     form="filter-form"
-                    
+                    onchange="this.form.submit()"
                     class="form-select" 
                      
       

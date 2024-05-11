@@ -58,6 +58,7 @@ def contacts(request):
 def catalog_products(request):
 
     slug = request.GET.getlist("slug")
+
     print("slug_params", slug)
     if "all" not in slug:
         queryset = Category.objects.in_bulk(slug, field_name="slug")
@@ -67,9 +68,9 @@ def catalog_products(request):
         # category = get_object_or_404(Category, in slug=slug)
         # Получаем продукты данной категории
         # queryset = Product.objects.in_bulk(category, category.pk)
-        products = []
-        for cat in category:
-            products.append(Product.objects.filter(is_active=True, category_id=cat.pk))
+        cat_id = [cat.pk for cat in category]
+
+        products = Product.objects.filter(is_active=True, category_id__in=cat_id)
 
         print("PROD", products)
     else:
@@ -109,6 +110,7 @@ def catalog_products(request):
         "sorting": sorting,
         "min_price": min_price,
         "max_price": max_price,
+        "slug": slug,
     }
 
     return render(request, "store/catalog_products.html", context)
