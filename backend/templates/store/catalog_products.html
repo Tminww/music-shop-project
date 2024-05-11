@@ -52,7 +52,36 @@ SORTING default {% endcomment %}
           outline: none;
           box-shadow: none;
         }
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+          -moz-appearance: textfield;
+}
       </style>
+      <script>
+        function createValidator(element) {
+          return function() {
+              var min = parseInt(element.getAttribute("min")) || 0;
+              var max = parseInt(element.getAttribute("max")) || 0;
+      
+              var value = parseInt(element.value) || min;
+              element.value = value; // make sure we got an int
+      
+              if (value < min) element.value = min;
+              if (value > max) element.value = max;
+          }
+      }
+      
+      var elm = document.body.querySelector("input[type=number]");
+      elm.onkeyup = createValidator(elm);
+
+      </script>
      
       <!-- Иерархическая навигация -->
       <div class="container">
@@ -86,7 +115,9 @@ SORTING default {% endcomment %}
               <div class="row  justify-content-between ">
                 <div class="col-5 text-right">
                   <input 
-                  type="text" 
+                  type="number" 
+                  min="0"
+                  max="10000000"
                   id="min-price" 
                   name="min-price" 
                   class="form-control" 
@@ -105,7 +136,9 @@ SORTING default {% endcomment %}
                 </div>
                 <div class="col-5 text-right">
                   <input 
-                  type="text" 
+                  type="number" 
+                  min="0"
+                  max="10000000"
                   id="max-price" 
                   name="max-price" 
                   class="form-control" 

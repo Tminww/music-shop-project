@@ -75,6 +75,7 @@ def catalog_products(request):
         print("PROD", products)
     else:
         category = "Все товары"
+        slug = ["all"]
         products = Product.objects.filter(is_active=True)
         print("PROD", products)
         print("SLUG", slug)
