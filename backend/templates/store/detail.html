@@ -2,6 +2,34 @@
 {% load static %}
 
     {% block content %}
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-lg-start my-5">
+          <li class="breadcrumb-item">
+            <a href="{% url 'store:home' %}"
+                class="text-decoration-none"
+                style="color: rgba(0,0,0, 0.7)!important;"
+                onMouseOver="this.style.color='rgba(0,0,0, 1)'"
+                onMouseOut="this.style.color='rgba(0,0,0, 0.7)'">
+                Главная
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'store:catalog' %}"
+                class="text-decoration-none"
+                style="color: rgba(0,0,0, 0.7)!important;"
+                onMouseOver="this.style.color='rgba(0,0,0, 1)'"
+                onMouseOut="this.style.color='rgba(0,0,0, 0.7)'">
+                Каталог
+            </a>
+          </li>
+          <li class="breadcrumb-item active" 
+              aria-current="page"
+              style="color: rgba(0,0,0, 1)!important;"
+          > {{product.title}}</li>
+        </ol>
+      </nav>
+    </div>
 
       <section class="py-5">
         <div class="container">

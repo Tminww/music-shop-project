@@ -20,7 +20,9 @@ class Address(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name="Имя категории")
-    slug = models.SlugField(max_length=55, verbose_name="Web имя категории")
+    slug = models.SlugField(
+        max_length=55, unique=True, verbose_name="Web имя категории"
+    )
     description = models.TextField(blank=True, verbose_name="Описание категории")
     category_image = models.ImageField(
         upload_to="category",

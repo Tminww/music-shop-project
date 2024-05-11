@@ -57,15 +57,25 @@ def contacts(request):
 
 def catalog_products(request):
 
-    slug = request.GET.get("slug")
-
-    if slug:
-        category = get_object_or_404(Category, slug=slug)
+    slug = request.GET.getlist("slug")
+    print("slug_params", slug)
+    if "all" not in slug:
+        queryset = Category.objects.in_bulk(slug, field_name="slug")
+        print("queryset", queryset)
+        category = Category.objects.filter(slug__in=slug)
+        print("CATEG", category)
+        # category = get_object_or_404(Category, in slug=slug)
         # Получаем продукты данной категории
-        products = Product.objects.filter(is_active=True, category_id=category.pk)
+        # queryset = Product.objects.in_bulk(category, category.pk)
+        products = []
+        for cat in category:
+            products.append(Product.objects.filter(is_active=True, category_id=cat.pk))
+
+        print("PROD", products)
     else:
         category = "Все товары"
         products = Product.objects.filter(is_active=True)
+        print("PROD", products)
         print("SLUG", slug)
 
     liked_items = Liked.objects.filter(user=request.user)

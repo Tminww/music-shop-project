@@ -27,7 +27,7 @@
             style="background-color: #EE6A31; border: 2px solid #FFFFFF"
             onMouseOver="this.style.border='2px solid #EE6A31'"
             onMouseOut="this.style.border='2px solid #FFFFFF'"
-            href="{% url 'store:catalog'  %}">Перейти в каталог
+            href="{% url 'store:catalog'  %}?slug=all">Перейти в каталог
               <i class="bi bi-arrow-right"></i>
             </a>
             
@@ -99,7 +99,7 @@
                   style="color: rgba(0,0,0, 1)!important;"
                   onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
                   onMouseOut="this.style.color='rgba(0,0,0, 1)'"
-                  href="{% url 'store:catalog' %}">
+                  href="{% url 'store:catalog' %}?slug=all">
                   Смотреть все
               <i class="bi bi-arrow-right"></i>
             </a>
@@ -160,7 +160,7 @@
                   style="color: rgba(0,0,0, 1)!important;"
                   onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
                   onMouseOut="this.style.color='rgba(0,0,0, 1)'"
-                  href="{% url 'store:catalog' %}?sorting={{sorting}}">
+                  href="{% url 'store:catalog' %}?sorting={{sorting}}&slug=all">
                   Смотреть все
               <i class="bi bi-arrow-right"></i>
             </a>

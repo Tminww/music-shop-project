@@ -3,7 +3,20 @@
 
     {% block content %}
 
-      <script>
+    {% comment %} slug_params ['brass']
+queryset {'brass': <Category: Category object (9)>}
+CATEG <QuerySet [<Category: Category object (9)>]>
+PROD [<QuerySet [<Product: Панфлейта>]>]
+PRICE  
+SORTING default {% endcomment %}
+
+{% comment %} slug_params ['all']
+PROD <QuerySet [<Product: Балалайка>, <Product: Контрабас>, <Product: Гитара Lin-RB>, <Product: Superlux 271203>, <Product: Панфлейта>, <Product: Gold BitCoin>, <Product: JBL Tune 720BT Black>, <Product: Cat-Ear-AKZ-K27>, <Product: Apple AirPods Max>, <Product: MVT>, <Product: Набор колонок>]>
+SLUG ['all']
+PRICE  
+SORTING default {% endcomment %}
+
+      {% comment %} <script>
           // Получаем текущий параметр сортировки из URL
           var urlParams = new URLSearchParams(window.location.search);
           var sortingParam = {sorting};
@@ -24,7 +37,7 @@
               // Обновляем URL с новым параметром сортировки
               window.location.href = window.location.pathname + '?sorting=' + selectedValue;
           });
-      </script>
+      </script> {% endcomment %}
       <style>
         .btn:focus {
           outline: none;
@@ -41,7 +54,7 @@
         }
       </style>
      
-
+      <!-- Иерархическая навигация -->
       <div class="container">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb justify-content-lg-start my-5">
@@ -62,10 +75,12 @@
         </nav>
       </div>
       
+      <!-- Фильтры -->
       <div class="container">
         <div class="row">
           <div class="col-3">
-            <form method="GET" action="">
+            
+            <form id="filter-form" method="GET" action="">
               <h6 class="fs-5 mb-4">Цена</h6>
  
               <div class="row  justify-content-between ">
@@ -78,6 +93,7 @@
                   {% if min_price %}value="{{min_price}}" {% endif %}
                   placeholder="Мин."
                   style="border: 0px!important; "
+        
                   >
                   <hr class="mt-0"
                   style="width: 7rem">
@@ -106,8 +122,13 @@
               <h6 class="fs-5 mt-2 mb-4">Категории</h6>
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                <label class="form-check-label" for="flexCheckDefault">
+                <input class="form-check-input" 
+                  type="checkbox" 
+                  value="all" 
+                  id="category" 
+                  name="slug"
+                  checked>
+                <label class="form-check-label" for="category">
                   Показать все
                 </label>
               </div>
@@ -115,9 +136,11 @@
                 <div class="form-check my-2">
                   <input class="form-check-input"
                      type="checkbox" 
-                     value="" 
-                     id="flexCheckChecked" 
+                     name="slug"
+                     value="{{cat.slug}}" 
+                     id="category" 
                      >
+                     {{category.slug}}
                   <label class="form-check-label" for="flexCheckChecked">
                     {{cat.title}}
                   </label>
@@ -125,41 +148,49 @@
               {% endfor %}
               <div class="d-grid d-block my-4">
                 <button class="btn btn-warning text-light" 
-                  type="button"
+                  type="submit"
                   style="background-color: #EE6A31; border: 2px solid #FFFFFF"
                   onMouseOver="this.style.border='2px solid #EE6A31'"
                   onMouseOut="this.style.border='2px solid #FFFFFF'">Применить</button>
               </div>             
             </form>
           </div>
+
+          <!-- Сортировка -->
           <div class="col-9">
             <div class="container-fluid mb-4">
               <div class="row justify-content-end">
                 <div class="col-auto">
-                  <select id="sort" 
-                class="form-select" 
-                ria-label="Default select example" 
-                onchange="" 
-                style="width: 15rem!important;border: 0px!important; "
-                >
-                <option value="default" {% if sorting == "default" %} selected {% endif %}>Без сортировки</option>
-                <option value="popularity" {% if sorting == "popularity" %} selected {% endif %}>По популярности</option>
-                <option value="low-high" {% if sorting == "low-high" %} selected {% endif %}>По возрастанию цены</option>
-                <option value="high-low" {% if sorting == "high-low" %} selected {% endif %}>По убыванию цены</option>
-                </select>
+                  <select 
+                    id="sorting" 
+                    name="sorting"
+                    form="filter-form"
+                    
+                    class="form-select" 
+                     
+      
+                    style="width: 15rem!important;border: 0px!important; "
+                    >
+                    <option value="default" {% if sorting == "default" %} selected {% endif %}>Без сортировки</option>
+                    <option value="popularity" {% if sorting == "popularity" %} selected {% endif %}>По популярности</option>
+                    <option value="low-high" {% if sorting == "low-high" %} selected {% endif %}>По возрастанию цены</option>
+                    <option value="high-low" {% if sorting == "high-low" %} selected {% endif %}>По убыванию цены</option>
+                  </select>
               
-                <hr class="mt-0"
-                style="width: 15rem">
+                  <hr class="mt-0"
+                  style="width: 15rem">
                 </div>
               </div>
-              {% comment %} <select id="sort" class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Без сортировки" onchange="this.options[this.selectedIndex].value && (window.location = '{% url 'store:category-products' category.slug %}?sorting=' + this.options[this.selectedIndex].value);"> {% endcomment %}
               
               
             </div>
             
+            <!-- Продукты -->
             <div class="row">
               {% if products %}
               {% for product in products %}
+
+              
               <div class="col-md-4 mb-4">
                 <div class="card position-relative" 
                   style="border: 0px;">
@@ -245,7 +276,7 @@
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 
 
-                <script>
+                {% comment %} <script>
                   document.addEventListener('DOMContentLoaded', function () {
                       // Получаем форму и элемент сортировки
                       var form = document.getElementById('filter-form');
@@ -264,7 +295,7 @@
                           // так как форма отправляется автоматически при отправке
                       });
                   });
-              </script>
+              </script> {% endcomment %}
                 <div class="row">
 
                   
