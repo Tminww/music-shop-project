@@ -33,12 +33,14 @@ def home(request):
 
 def detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
+    popular_products = Product.objects.filter(is_active=True, is_featured=True)[:4]
     print(product)
     related_products = Product.objects.exclude(id=product.id).filter(
         is_active=True, category=product.category
     )
     context = {
         "product": product,
+        "popular_products": popular_products,
         "related_products": related_products,
     }
     return render(request, "store/detail.html", context)
