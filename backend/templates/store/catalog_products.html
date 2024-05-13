@@ -3,41 +3,7 @@
 
     {% block content %}
 
-    {% comment %} slug_params ['brass']
-queryset {'brass': <Category: Category object (9)>}
-CATEG <QuerySet [<Category: Category object (9)>]>
-PROD [<QuerySet [<Product: Панфлейта>]>]
-PRICE  
-SORTING default {% endcomment %}
-
-{% comment %} slug_params ['all']
-PROD <QuerySet [<Product: Балалайка>, <Product: Контрабас>, <Product: Гитара Lin-RB>, <Product: Superlux 271203>, <Product: Панфлейта>, <Product: Gold BitCoin>, <Product: JBL Tune 720BT Black>, <Product: Cat-Ear-AKZ-K27>, <Product: Apple AirPods Max>, <Product: MVT>, <Product: Набор колонок>]>
-SLUG ['all']
-PRICE  
-SORTING default {% endcomment %}
-
-      {% comment %} <script>
-          // Получаем текущий параметр сортировки из URL
-          var urlParams = new URLSearchParams(window.location.search);
-          var sortingParam = {sorting};
-          // Получаем элемент select
-          var selectElement = document.querySelector('select[name="sorting"]');
-
-
-          // Устанавливаем выбранный вариант в соответствии с параметром сортировки в URL
-          if (sortingParam) {
-              selectElement.value = sortingParam;
-              console.log(selectElement.value)
-          }
-
-          // Обработчик изменения выбора в элементе select
-          selectElement.addEventListener('change', function() {
-              // Получаем выбранное значение
-              var selectedValue = selectElement.value ;
-              // Обновляем URL с новым параметром сортировки
-              window.location.href = window.location.pathname + '?sorting=' + selectedValue;
-          });
-      </script> {% endcomment %}
+   
       <style>
         .btn:focus {
           outline: none;
@@ -226,7 +192,7 @@ SORTING default {% endcomment %}
               {% for product in products %}
 
               
-              <div class="col-md-4 mb-4">
+              <div class="col-md-4 col-sm-6 mb-4">
        
                 <div class="card position-relative" 
                   style="border: 0px;">
