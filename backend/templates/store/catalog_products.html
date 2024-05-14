@@ -65,7 +65,7 @@
             <li class="breadcrumb-item active" 
                 aria-current="page"
                 style="color: rgba(0,0,0, 1)!important;"
-            >Каталог ({{category.title}})</li>
+            >Каталог </li>
           </ol>
         </nav>
       </div>
@@ -205,6 +205,7 @@
                     >
                   </a>
                   <div class="position-absolute top-0 end-0">
+                    {% if request.user.is_authenticated %} 
                     <form action="{% url 'store:add-to-liked' %}">
                       <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
                       {% if product.id in liked_id %}
@@ -214,6 +215,9 @@
                       <button type="submit" class="btn"> <i class="bi bi-heart fa-2x"></i></button>
 
                       {% endif %}
+                    {% else %}
+                    <i class="bi bi-heart fa-2x" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+                    {% endif %}
 
                     </form>  
                   </div>

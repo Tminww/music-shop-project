@@ -31,6 +31,9 @@ def home(request):
     return render(request, "store/index.html", context)
 
 
+# def login(request):
+
+
 def detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     popular_products = Product.objects.filter(is_active=True, is_featured=True)[:4]
@@ -82,8 +85,11 @@ def catalog_products(request):
         print("PROD", products)
         print("SLUG", slug)
 
-    liked_items = Liked.objects.filter(user=request.user)
-    liked_items = [item.product.pk for item in liked_items]
+    if request.user.is_authenticated:
+        liked_items = Liked.objects.filter(user=request.user)
+        liked_items = [item.product.pk for item in liked_items]
+    else:
+        liked_items = None
 
     sorting = request.GET.get("sorting")
     min_price = request.GET.get("min-price")

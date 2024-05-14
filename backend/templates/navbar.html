@@ -1,5 +1,31 @@
 {% load static %}
 
+<style>
+  .nav-tabs .nav-link {
+    margin-bottom: 0px!important;
+    background: 0 0!important;
+    border: 0px solid transparent!important;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+  border-color: #FFFFFF #FFFFFF #FFFFFF!important;
+  isolation: isolate!important;
+}
+#fill-tab-0:focus, #fill-tab-1:focus, #fill-tab-2:focus {
+  color: #EE6A31!important;
+  border-bottom: 2px solid #EE6A31!important;
+}
+#fill-tab-0:hover, #fill-tab-1:hover, #fill-tab-2:hover {
+  color: #EE6A31!important;
+}
+
+
+#fill-tab-0, #fill-tab-1, #fill-tab-2{
+  color: #000000!important;
+}
+
+</style>  
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3"
       id="headerNav">
@@ -58,49 +84,179 @@
             </a>
           </li>
 
-      
           <li class="nav-item dropdown mr-3">
-            <a class="nav-link dropdown-toggle mx-2" id="dropdownMenu2" href="#" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle mx-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-person fa-lg" height="30"></i>
             </a>
-          
-            <div class="dropdown-menu mt-3 bg-dark"
-                
-                aria-labelledby="dropdownMenu2">
+            <ul class="dropdown-menu mt-3 bg-dark" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item bg-dark"
+                style="color: rgba(255,255,255, 0.7)!important;"
+                onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
+                onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
+                href="{% url 'store:profile' %}">Профиль</a>
+                {% comment %} <a class="dropdown-item bg-dark text-light" href="{% url 'store:cart' %}">Корзина</a> {% endcomment %}</li>
+              <li><a class="dropdown-item bg-dark"
+                style="color: rgba(255,255,255, 0.7)!important;"
+                onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
+                onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
+                href="{% url 'store:orders' %}">Покупки</a></li>
 
-                <a class="dropdown-item bg-dark"
-                  style="color: rgba(255,255,255, 0.7)!important;"
-                  onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-                  onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-                  href="{% url 'store:profile' %}">Профиль</a>
-                  {% comment %} <a class="dropdown-item bg-dark text-light" href="{% url 'store:cart' %}">Корзина</a> {% endcomment %}
-                <a class="dropdown-item bg-dark"
-                  style="color: rgba(255,255,255, 0.7)!important;"
-                  onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-                  onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-                  href="{% url 'store:orders' %}">Покупки</a>
-                <a class="dropdown-item bg-dark"
-                  style="color: rgba(255,255,255, 0.7)!important;"
-                  onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-                  onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-                  href="{% url 'store:password-change' %}">Смена пароля</a>
-                <hr class="bg-danger border-2 border-top border-light" />
-                
-                <a class="dropdown-item bg-dark"
-                  style="color: rgba(255,255,255, 0.7)!important;"
-                  onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-                  onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-                  href="{% url 'store:logout' %}">Выйти из профиля</a>
-            </div>
-            
+              <li><a class="dropdown-item bg-dark"
+                style="color: rgba(255,255,255, 0.7)!important;"
+                onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
+                onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
+                href="{% url 'store:password-change' %}">Смена пароля</a></li>
+              <li><hr class="dropdown-divider border-2 border-top border-light"></li>
+              <li><a class="dropdown-item bg-dark"
+                style="color: rgba(255,255,255, 0.7)!important;"
+                onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
+                onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
+                href="{% url 'store:logout' %}">Выйти из профиля</a></li>
+            </ul>
           </li>
+          
         {% else %}
           <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Войти</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Создать аккаунт</a></li>
+
+          <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Войти</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Создать&nbspаккаунт</a></li>
         {% endif %}   
         
     </div>
   </div>
 </nav>
+
+
+<!-- Всплывающее меню для регистрации и авторизации-->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="container-fluid px-0">
+      <!-- Tabs navs -->
+      <ul class="nav nav-tabs my-5" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="fill-tab-0" data-bs-toggle="tab"
+          href="#fill-tabpanel-0" role="tab" aria-controls="fill-tabpanel-0" 
+          aria-selected="true"
+          > Вход</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="fill-tab-1" data-bs-toggle="tab" 
+          href="#fill-tabpanel-1" role="tab" aria-controls="fill-tabpanel-1" 
+          aria-selected="false"> Регистрация </a>
+        </li>
+       
+      </ul>
+      <!-- Авторизация-->
+      <div class="tab-content pt-3 my-5" id="tab-content">
+        <div class="tab-pane active" id="fill-tabpanel-0" 
+        role="tabpanel" aria-labelledby="fill-tab-0">
+
+          <div class="card mb-4 bg-white border-white" id="forms">
+            
+            <div class="card-body">
+                
+              {% include 'partials/_messages.html' %}
+              <form method="post" action={% url 'store:login' %} autocomplete="off">
+                {% csrf_token %}
+                <div class="mb-3">
+                  {% comment %} <label for="user-login" class="form-label" ></label> {% endcomment %}
+                  <input type="text" class="form-control" id="user-login" placeholder="Логин">
+                  {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
+                </div>
+                <div class="mb-3">
+                  {% comment %} <label for="user-password" class="form-label" ></label> {% endcomment %}
+                  <input type="password" class="form-control" id="user-password" placeholder="Пароль">
+                  
+                </div>
+                <div  class="form-text"> 
+                  Забыли пароль?
+                  <a href="{% url 'store:password-reset' %}">Изменить</a>
+                </div>
+
+                <div class="d-grid gap-2">
+              
+              
+                  <button type="submit" class="btn btn-warning btn-lg text-light my-5"
+                    style="background-color: #EE6A31; border: 2px solid #FFFFFF"
+                    onMouseOver="this.style.border='2px solid #EE6A31'"
+                    onMouseOut="this.style.border='2px solid #FFFFFF'"
+                  >Войти</button>
+
+                </div>
+              </form>
+    
+              
+    
+              {% comment %} <hr> {% endcomment %}
+    
+              {% comment %} Забыли пароль? <a href="{% url 'store:password-reset' %}">Изменить сейчас</a> <br> {% endcomment %}
+              {% comment %} Новый пользователь? <a href="{% url 'store:register' %}">Создать аккаунт</a> {% endcomment %}
+              
+            </div>
+          </div>
+        </div>
+        <!--Регистрация-->
+      <div class="tab-pane" id="fill-tabpanel-1" 
+      role="tabpanel" aria-labelledby="fill-tab-1">
+      
+          <div class="card mb-4 bg-white border-white" id="forms">
+              
+            <div class="card-body">
+                
+              {% include 'partials/_messages.html' %}
+              <form method="post" action={% url 'store:login' %} autocomplete="off">
+                {% csrf_token %}
+                <div class="mb-3">
+                  {% comment %} <label for="user-login" class="form-label" ></label> {% endcomment %}
+                  <input type="text" class="form-control" id="user-login" placeholder="Логин">
+                  {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
+                </div>
+                <div class="mb-3">
+                  {% comment %} <label for="user-password" class="form-label" ></label> {% endcomment %}
+                  <input type="password" class="form-control" id="user-password" placeholder="Пароль">
+                  
+                </div>
+                <div class="mb-3">
+                  {% comment %} <label for="user-password" class="form-label" ></label> {% endcomment %}
+                  <input type="password" class="form-control" id="user-password2" placeholder="Повторите пароль">
+                  
+                </div>
+                
+
+                <div class="d-grid gap-2">
+              
+              
+                  <button type="submit" class="btn btn-warning btn-lg text-light my-5"
+                    style="background-color: #EE6A31; border: 2px solid #FFFFFF"
+                    onMouseOver="this.style.border='2px solid #EE6A31'"
+                    onMouseOut="this.style.border='2px solid #FFFFFF'"
+                  >Зарегистрироваться</button>
+
+                </div>
+              </form>
+
+              
+
+              {% comment %} <hr> {% endcomment %}
+
+              {% comment %} Забыли пароль? <a href="{% url 'store:password-reset' %}">Изменить сейчас</a> <br> {% endcomment %}
+              {% comment %} Новый пользователь? <a href="{% url 'store:register' %}">Создать аккаунт</a> {% endcomment %}
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      
+
+      </div>       
+    </div>
+  </div>
+</div>
 
 
