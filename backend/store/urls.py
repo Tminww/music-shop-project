@@ -18,6 +18,9 @@ urlpatterns = [
     # CATALOG PAGE
     path("catalog/product/<int:product_id>", views.detail, name="product-detail"),
     path("catalog/", views.catalog_products, name="catalog"),
+    # Кастомная регистрация и вход
+    path("login", views.user_login_controller, name="user-login"),
+    path("register", views.user_register_controller, name="user-register"),
     #
     path("add-to-cart/", views.add_to_cart, name="add-to-cart"),
     path("add-to-liked/", views.add_to_liked, name="add-to-liked"),
@@ -46,7 +49,7 @@ urlpatterns = [
     ),
     path(
         "accounts/logout/",
-        auth_views.LogoutView.as_view(next_page="store:login"),
+        auth_views.LogoutView.as_view(next_page="store:home"),
         name="logout",
     ),
     path(

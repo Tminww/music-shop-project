@@ -3,13 +3,15 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from store.models import Address, Cart, Category, Liked, Order, Product
 from django.shortcuts import redirect, render, get_object_or_404
-from .forms import RegistrationForm, AddressForm
+from .forms import RegistrationForm, AddressForm, LoginForm
 from django.contrib import messages
 from django.views import View
 from django.db.models import F
 import decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator  # for Class Based Views
+from django.contrib.auth import authenticate, login
+
 
 # from django.shortcuts import render, get_object_or_404
 # from django.db.models import Q
@@ -31,7 +33,75 @@ def home(request):
     return render(request, "store/index.html", context)
 
 
-# def login(request):
+def user_login_controller(request):
+    if request.method == "POST":
+        username = request.POST.get("user-login")
+        user_password = request.POST.get("user-login-password")
+
+        print(username)
+        print(user_password)
+        user = authenticate(username=username, password=user_password)
+
+        print(user)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect("store:home")
+                # return HttpResponse("Authenticated successfully")
+            else:
+                return HttpResponse("Disabled account")
+        else:
+            return HttpResponse("Invalid login")
+
+    redirect(request.META.get("HTTP_REFERER"))
+
+    # return render(request, 'account/login.html', {'form': form})
+
+
+def user_register_controller(request):
+    if request.method == "POST":
+        username = request.POST.get("user-register")
+        user_password = request.POST.get("user-register-password")
+        user_password2 = request.POST.get("user-register-password2")
+
+        if user_password == user_password2:
+
+            user_already_exists = User.objects.filter(username=username)
+            if user_already_exists:
+                print("User already exists")
+                return HttpResponse("User already exists")
+            else:
+                user = User.objects.create_user(
+                    username=username, password=user_password
+                )
+                user.save()
+                login(request, user)
+                return redirect("store:home")
+
+        else:
+            print("----пароли не совпадают")
+            return HttpResponse("Пароли не совпадают")
+
+    return redirect(request.META.get("HTTP_REFERER"))
+
+    #     print(username)
+    #     print(user_password)
+    #     user = authenticate(username=username, password=user_password)
+
+    #     print(user)
+
+    #     if user is not None:
+    #         if user.is_active:
+    #             login(request, user)
+    #             return redirect("store:home")
+    #             # return HttpResponse("Authenticated successfully")
+    #         else:
+    #             return HttpResponse("Disabled account")
+    #     else:
+    #         return HttpResponse("Invalid login")
+
+    # redirect(request.META.get("HTTP_REFERER"))
 
 
 def detail(request, product_id):

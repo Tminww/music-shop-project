@@ -116,10 +116,10 @@
           </li>
           
         {% else %}
-          <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Войти</a></li>
+          {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Войти</a></li> {% endcomment %}
 
           <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Войти</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Создать&nbspаккаунт</a></li>
+          {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Создать&nbspаккаунт</a></li> {% endcomment %}
         {% endif %}   
         
     </div>
@@ -160,16 +160,16 @@
             <div class="card-body">
                 
               {% include 'partials/_messages.html' %}
-              <form method="post" action={% url 'store:login' %} autocomplete="off">
+              <form method="post" action={% url 'store:user-login' %} autocomplete="off">
                 {% csrf_token %}
                 <div class="mb-3">
                   {% comment %} <label for="user-login" class="form-label" ></label> {% endcomment %}
-                  <input type="text" class="form-control" id="user-login" placeholder="Логин">
+                  <input type="text" name="user-login" class="form-control" id="user-login" placeholder="Логин">
                   {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
                 </div>
                 <div class="mb-3">
                   {% comment %} <label for="user-password" class="form-label" ></label> {% endcomment %}
-                  <input type="password" class="form-control" id="user-password" placeholder="Пароль">
+                  <input type="password" name="user-login-password" class="form-control" id="user-login-password" placeholder="Пароль">
                   
                 </div>
                 <div  class="form-text"> 
@@ -208,21 +208,21 @@
             <div class="card-body">
                 
               {% include 'partials/_messages.html' %}
-              <form method="post" action={% url 'store:login' %} autocomplete="off">
+              <form method="post" action={% url 'store:user-register' %} autocomplete="off">
                 {% csrf_token %}
                 <div class="mb-3">
                   {% comment %} <label for="user-login" class="form-label" ></label> {% endcomment %}
-                  <input type="text" class="form-control" id="user-login" placeholder="Логин">
+                  <input type="text" name="user-register" class="form-control" id="user-register" placeholder="Логин">
                   {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
                 </div>
                 <div class="mb-3">
                   {% comment %} <label for="user-password" class="form-label" ></label> {% endcomment %}
-                  <input type="password" class="form-control" id="user-password" placeholder="Пароль">
+                  <input type="password" name="user-register-password" class="form-control" id="user-register-password" placeholder="Пароль">
                   
                 </div>
                 <div class="mb-3">
                   {% comment %} <label for="user-password" class="form-label" ></label> {% endcomment %}
-                  <input type="password" class="form-control" id="user-password2" placeholder="Повторите пароль">
+                  <input type="password" name="user-register-password2" class="form-control" id="user-register-password2" placeholder="Повторите пароль">
                   
                 </div>
                 
