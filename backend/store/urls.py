@@ -27,9 +27,7 @@ urlpatterns = [
     path("remove-cart/<int:cart_id>/", views.remove_cart, name="remove-cart"),
     path("plus-cart/<int:cart_id>/", views.plus_cart, name="plus-cart"),
     path("minus-cart/<int:cart_id>/", views.minus_cart, name="minus-cart"),
-    path("cart/", views.cart, name="cart"),
     path("cart/checkout/", views.checkout, name="checkout"),
-    path("orders/", views.orders, name="orders"),
     # URL for Products
     # URL for Authentication
     path("accounts/register/", views.RegistrationView.as_view(), name="register"),
@@ -40,7 +38,14 @@ urlpatterns = [
         ),
         name="login",
     ),
+    # ЛИЧНЫЙ КАБИНЕТ
+    path("accounts/orders/", views.orders, name="orders"),
     path("accounts/profile/", views.profile, name="profile"),
+    path("accounts/settings/", views.settings, name="settings"),
+    path("accounts/cart/", views.cart, name="cart"),
+    path("accounts/liked/", views.liked, name="liked"),
+    #
+    path("accounts/address/", views.address, name="address"),
     path("accounts/add-address/", views.AddressView.as_view(), name="add-address"),
     path(
         "accounts/remove-address/<int:id>/", views.remove_address, name="remove-address"

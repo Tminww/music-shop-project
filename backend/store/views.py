@@ -33,6 +33,52 @@ def home(request):
     return render(request, "store/index.html", context)
 
 
+@login_required
+def address(request):
+    addresses = Address.objects.filter(user=request.user)
+    orders = Order.objects.filter(user=request.user)
+    context = {
+        "addresses": addresses,
+        "orders": orders,
+        "active": "address",
+    }
+    return render(request, "account/address.html", context)
+    pass
+
+
+@login_required
+def settings(request):
+    addresses = Address.objects.filter(user=request.user)
+    orders = Order.objects.filter(user=request.user)
+    context = {
+        "addresses": addresses,
+        "orders": orders,
+        "active": "settings",
+    }
+    return render(request, "account/settings.html", context)
+    pass
+
+
+@login_required
+def liked(request):
+    addresses = Address.objects.filter(user=request.user)
+    orders = Order.objects.filter(user=request.user)
+    context = {
+        "addresses": addresses,
+        "orders": orders,
+        "active": "liked",
+    }
+    return render(request, "account/liked.html", context)
+    pass
+
+
+@login_required
+def orders(request):
+    all_orders = Order.objects.filter(user=request.user).order_by("-ordered_date")
+    print(all_orders)
+    return render(request, "account/orders.html", {"orders": all_orders})
+
+
 def user_login_controller(request):
     if request.method == "POST":
         username = request.POST.get("user-login")
@@ -215,9 +261,12 @@ class RegistrationView(View):
 def profile(request):
     addresses = Address.objects.filter(user=request.user)
     orders = Order.objects.filter(user=request.user)
-    return render(
-        request, "account/profile.html", {"addresses": addresses, "orders": orders}
-    )
+    context = {
+        "addresses": addresses,
+        "orders": orders,
+        "active": "profile",
+    }
+    return render(request, "account/profile.html", context)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -355,17 +404,3 @@ def checkout(request):
         # And Deleting from Cart
         c.delete()
     return redirect("store:orders")
-
-
-@login_required
-def orders(request):
-    all_orders = Order.objects.filter(user=request.user).order_by("-ordered_date")
-    return render(request, "store/orders.html", {"orders": all_orders})
-
-
-def shop(request):
-    return render(request, "store/shop.html")
-
-
-def test(request):
-    return render(request, "store/test.html")
