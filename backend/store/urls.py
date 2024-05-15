@@ -31,8 +31,6 @@ urlpatterns = [
     path("cart/checkout/", views.checkout, name="checkout"),
     path("orders/", views.orders, name="orders"),
     # URL for Products
-    # path("catalog/", views.all_categories, name="all-categories"),
-    path("shop/", views.shop, name="shop"),
     # URL for Authentication
     path("accounts/register/", views.RegistrationView.as_view(), name="register"),
     path(
@@ -101,5 +99,4 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
-    path("product/test/", views.test, name="test"),
 ]
