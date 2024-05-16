@@ -24,10 +24,8 @@ urlpatterns = [
     #
     path("add-to-cart/", views.add_to_cart, name="add-to-cart"),
     path("add-to-liked/", views.add_to_liked, name="add-to-liked"),
-    path("remove-cart/<int:cart_id>/", views.remove_cart, name="remove-cart"),
     path("plus-cart/<int:cart_id>/", views.plus_cart, name="plus-cart"),
     path("minus-cart/<int:cart_id>/", views.minus_cart, name="minus-cart"),
-    path("cart/checkout/", views.checkout, name="checkout"),
     # URL for Products
     # URL for Authentication
     path("accounts/register/", views.RegistrationView.as_view(), name="register"),
@@ -45,6 +43,8 @@ urlpatterns = [
     path("accounts/cart/", views.cart, name="cart"),
     path("accounts/liked/", views.liked, name="liked"),
     #
+    path("accounts/cart/checkout/", views.checkout, name="checkout"),
+    path("accounts/remove-cart/<int:cart_id>/", views.remove_cart, name="remove-cart"),
     path("accounts/address/", views.address, name="address"),
     path("accounts/add-address/", views.add_address, name="add-address"),
     path(

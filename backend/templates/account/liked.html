@@ -118,31 +118,14 @@
                 <form action="{% url 'store:add-to-cart' %}">
                   <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
                   <button type="submit" class="btn "><img src={% static 'icons/cart.png' %}></img></button>
-                </form>
-                
-          
-                
-              </div>
-             
-             
+                </form>        
+              </div>     
             </div>
-          </div>
-            
-            
+          </div> 
         </div>
-        
-      
-
         {% endfor %}
       {% endif %}
-
       </div>
 </div>
-
-
-
-
-
-
 
 {% endblock profile-content %} 

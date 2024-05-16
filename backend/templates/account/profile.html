@@ -69,14 +69,14 @@
                 </div>
                 <div class="row justify-content-end my-1">
                   <div class="col-auto">
-                    <a class="text-decoration-none fs-4" href={% url 'store:settings' %}
-                    {% if active == 'settings' %}      
+                    <a class="text-decoration-none fs-4" href={% url 'store:cart'%} 
+                    {% if active == 'cart' %}      
                     style="color: #EE6A31!important;"
                     {% else %}
                     style="color: rgba(0,0,0, 1)!important;"
                     {% endif %}
                           onMouseOver="this.style.color='#EE6A31'"
-                          onMouseOut="this.style.color='rgba(0,0,0, 1)'">Настройки</a>
+                          onMouseOut="this.style.color='rgba(0,0,0, 1)'">Корзина</a>
                   </div>
                 </div>
                 <div class="row justify-content-end my-1">
@@ -91,6 +91,19 @@
                           onMouseOut="this.style.color='rgba(0,0,0, 1)'">Избранное</a>
                   </div>
                 </div>
+                <div class="row justify-content-end my-1">
+                  <div class="col-auto">
+                    <a class="text-decoration-none fs-4" href={% url 'store:settings' %}
+                    {% if active == 'settings' %}      
+                    style="color: #EE6A31!important;"
+                    {% else %}
+                    style="color: rgba(0,0,0, 1)!important;"
+                    {% endif %}
+                          onMouseOver="this.style.color='#EE6A31'"
+                          onMouseOut="this.style.color='rgba(0,0,0, 1)'">Настройки</a>
+                  </div>
+                </div>
+               
                 <div class="row justify-content-end my-1">
                   <div class="col-auto">
                     <a class="text-decoration-none fs-4" href={% url 'store:logout'%}

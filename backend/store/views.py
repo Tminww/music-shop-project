@@ -394,12 +394,13 @@ def cart(request):
 
     context = {
         "cart_products": cart_products,
+        "active": "cart",
         "amount": amount,
         "shipping_amount": shipping_amount,
         "total_amount": amount + shipping_amount,
         "addresses": addresses,
     }
-    return render(request, "store/cart.html", context)
+    return render(request, "account/cart.html", context)
 
 
 @login_required
