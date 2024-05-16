@@ -47,6 +47,22 @@ def address(request):
 
 
 @login_required
+def add_address(request):
+    form = AddressForm(request.POST)
+    print(form.is_valid())
+    locality = request.POST.get("town")
+    city = request.POST.get("street")
+    state = request.POST.get("home")
+
+    user = request.user
+
+    reg = Address(user=user, locality=locality, city=city, state=state)
+    reg.save()
+    messages.success(request, "New Address Added Successfully.")
+    return redirect("store:address")
+
+
+@login_required
 def settings(request):
     addresses = Address.objects.filter(user=request.user)
     orders = Order.objects.filter(user=request.user)
@@ -293,7 +309,7 @@ def remove_address(request, id):
     a = get_object_or_404(Address, user=request.user, id=id)
     a.delete()
     messages.success(request, "Address removed.")
-    return redirect("store:profile")
+    return redirect("store:address")
 
 
 @login_required

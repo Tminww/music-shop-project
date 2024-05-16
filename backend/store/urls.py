@@ -46,7 +46,7 @@ urlpatterns = [
     path("accounts/liked/", views.liked, name="liked"),
     #
     path("accounts/address/", views.address, name="address"),
-    path("accounts/add-address/", views.AddressView.as_view(), name="add-address"),
+    path("accounts/add-address/", views.add_address, name="add-address"),
     path(
         "accounts/remove-address/<int:id>/", views.remove_address, name="remove-address"
     ),

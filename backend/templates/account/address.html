@@ -3,13 +3,66 @@
 
 {% block profile-content %}
 
+<style>
+  .btn:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .form-control:focus{
+    outline: none;
+    box-shadow: none;
+    border: 2px solid gray!important;
+  }
+  .form-select:focus{
+    outline: none;
+    box-shadow: none;
+  }
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=text] {
+    -moz-appearance: textfield;
+}
+</style>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
+
 <div class="container-fluid">
-    <div class="row justify-content-between align-items-center">
-      <div class="col-auto">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
         <div  class="fs-2">Адреса</div>
       </div>
-      <div class="col-auto ">
-        <a href="{% url 'store:add-address' %}" 
+      <div class="col-lg-2 ">
+        <a href="#" 
+          data-bs-toggle="offcanvas" 
+          data-bs-target="#offcanvasAddress" 
+          aria-controls="offcanvasAddress"
           class="text-decoration-none"
           style="color: rgba(0,0,0, 1)!important;"
           onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
@@ -21,11 +74,108 @@
         </a>
       </div>
     </div>
+    {% if addresses %}
+          {% for address in addresses %}
+          <div class="row mt-3 align-items-center">
+                <div class="col-lg-8 text-wrap bg-light text-secondary">
+                  {{address.city}}, {{address.locality}}, {{address.state}}
+                </div>
+                <div class="col-lg-2">
+                  <div class="">
+                    <a href="{% url 'store:remove-address' address.id %}">
+                      <i class="fas fa-trash-alt text-muted"></i>
+                    </a>
+                  </div>
+                </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <div class="text-secondary">
+            У вас еще нет добавленных адресов.
+          </div>
+    {% endif %}
 
 </div>
 
 
+<!-- Всплывающее меню для регистрации и авторизации-->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddress" aria-labelledby="offcanvasAddress">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="container-fluid px-0 my-5">
+      <div class="fs-4 mb-5">
+        Добавлние адреса
+      </div>
 
+      {% include 'partials/_messages.html' %}
+              <form class="needs-validation" method="post" action={% url 'store:add-address' %} autocomplete="off">
+                {% csrf_token %}
+                <div class="text-right">
+                  <input 
+                  type="text" 
+                  id="town" 
+                  name="town" 
+                  class="form-control" 
+                  {% if min_price %}value="{{min_price}}" {% endif %}
+                  placeholder="Город"
+                  style="border: 0px!important;"
+                  required
+                  >
+                  <hr class="mt-0">
+                </div>
+
+                <div class="row">
+
+                <div class="col-6 text-right">
+                  <input 
+                  type="text" 
+                  id="street" 
+                  name="street" 
+                  class="form-control" 
+                  {% if min_price %}value="{{min_price}}" {% endif %}
+                  placeholder="Улица"
+                  style="border: 0px!important;"
+                  required
+                  >
+                  <hr class="mt-0">
+                </div>
+
+                <div class="col-6 text-right">
+                  <input 
+                  type="text" 
+                  id="home" 
+                  name="home" 
+                  class="form-control" 
+                  {% if min_price %}value="{{min_price}}" {% endif %}
+                  placeholder="Дом"
+                  style="border: 0px!important;"
+                  required
+                  >
+                  <hr class="mt-0">
+                </div>
+              </div>
+              <div class="d-grid gap-2">
+                        
+                        
+                <button type="submit" class="btn btn-warning btn-lg text-light my-5"
+                  style="background-color: #EE6A31; border: 2px solid #FFFFFF"
+                  onMouseOver="this.style.border='2px solid #EE6A31'"
+                  onMouseOut="this.style.border='2px solid #FFFFFF'"
+                >Добавить адрес</button>
+
+              </div>
+            </form>
+
+
+      
+      
+
+    </div>       
+  </div>
+</div>
 
 
 
