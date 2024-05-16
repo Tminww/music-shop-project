@@ -108,7 +108,6 @@ def liked(request):
         "liked_id": liked_products_id,
     }
     return render(request, "account/liked.html", context)
-    pass
 
 
 @login_required
@@ -192,12 +191,17 @@ def user_register_controller(request):
 def detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     popular_products = Product.objects.filter(is_active=True, is_featured=True)[:4]
-    print(product)
+
+    liked_products_id = [
+        product.product_id for product in Liked.objects.filter(user=request.user)
+    ]
+
     related_products = Product.objects.exclude(id=product.id).filter(
         is_active=True, category=product.category
     )
     context = {
         "product": product,
+        "liked_id": liked_products_id,
         "popular_products": popular_products,
         "related_products": related_products,
     }

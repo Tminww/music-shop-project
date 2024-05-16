@@ -28,7 +28,32 @@
       color: #000000!important;
     }
 
+
+      .btn:focus {
+        outline: none;
+        box-shadow: none;
+      }
+      .form-control:focus{
+        outline: none;
+        box-shadow: none;
+        border: 2px solid gray!important;
+      }
+      .form-select:focus{
+        outline: none;
+        box-shadow: none;
+      }
+      /* Chrome, Safari, Edge, Opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
   
+      /* Firefox */
+      input[type=number] {
+        -moz-appearance: textfield;
+  }
+    
     </style>
 
     <!-- Навигация -->
