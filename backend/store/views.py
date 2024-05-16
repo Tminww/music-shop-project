@@ -23,9 +23,17 @@ from django.contrib.auth import authenticate, login
 def home(request):
     categories = Category.objects.filter(is_active=True)
     products = Product.objects.filter(is_active=True, is_featured=True)[:4]
+
+    if request.user.is_authenticated:
+        liked_items = Liked.objects.filter(user=request.user)
+        liked_items = [item.product.pk for item in liked_items]
+    else:
+        liked_items = None
+
     context = {
         "categories": categories,
         "products": products,
+        "liked_id": liked_items,
         "sorting": "popularity",
     }
     print(context)
@@ -77,12 +85,27 @@ def settings(request):
 
 @login_required
 def liked(request):
-    addresses = Address.objects.filter(user=request.user)
-    orders = Order.objects.filter(user=request.user)
+    user = request.user
+
+    liked_products_id = [
+        product.product_id for product in Liked.objects.filter(user=user)
+    ]
+
+    liked_products = Product.objects.filter(is_active=True, id__in=liked_products_id)
+
+    sorting = request.GET.get("sorting")
+
+    # Применяем сортировку, если она указана
+    if sorting == "low-high":
+        liked_products = liked_products.order_by("price")
+    elif sorting == "high-low":
+        liked_products = liked_products.order_by("-price")
+
     context = {
-        "addresses": addresses,
-        "orders": orders,
+        "sorting": sorting,
+        "liked_products": liked_products,
         "active": "liked",
+        "liked_id": liked_products_id,
     }
     return render(request, "account/liked.html", context)
     pass

@@ -54,11 +54,11 @@
 </script>
 
 <div class="container-fluid">
-    <div class="row align-items-center">
-      <div class="col-lg-7">
-        <div  class="fs-2">Адреса</div>
+    <div class="row  justify-content-beetwen align-items-center">
+      <div class="col-lg-8 col-auto ps-0">
+        <div  class="fs-2 ">Адреса</div>
       </div>
-      <div class="col-lg-2 ">
+      <div class="col-lg-2 col-auto ps-5 pe-0">
         <a href="#" 
           data-bs-toggle="offcanvas" 
           data-bs-target="#offcanvasAddress" 
@@ -76,21 +76,27 @@
     </div>
     {% if addresses %}
           {% for address in addresses %}
-          <div class="row mt-3 align-items-center">
-                <div class="col-lg-8 text-wrap bg-light text-secondary">
-                  {{address.city}}, {{address.locality}}, {{address.state}}
-                </div>
-                <div class="col-lg-2">
-                  <div class="">
-                    <a href="{% url 'store:remove-address' address.id %}">
-                      <i class="fas fa-trash-alt text-muted"></i>
-                    </a>
+          <div class="row mt-3 align-items-center ">
+                <div class="col-lg-10 text-wrap bg-light text-secondary py-2">
+                  <div class="row align-items-center">
+                    <div class="col-11">
+                      {{address.city}}, {{address.locality}}, {{address.state}}
+                    </div>
+                    <div class="col-1 text-center">
+                      <a href="{% url 'store:remove-address' address.id %}">
+                        <i class="fas fa-trash-alt text-muted"></i>
+                      </a>
+                    </div>
+
                   </div>
                 </div>
+                  
+                
           </div>
+                
           {% endfor %}
           {% else %}
-          <div class="text-secondary">
+          <div class="text-secondary mt-3">
             У вас еще нет добавленных адресов.
           </div>
     {% endif %}
@@ -110,64 +116,62 @@
         Добавлние адреса
       </div>
 
-      {% include 'partials/_messages.html' %}
-              <form class="needs-validation" method="post" action={% url 'store:add-address' %} autocomplete="off">
-                {% csrf_token %}
-                <div class="text-right">
-                  <input 
-                  type="text" 
-                  id="town" 
-                  name="town" 
-                  class="form-control" 
-                  {% if min_price %}value="{{min_price}}" {% endif %}
-                  placeholder="Город"
-                  style="border: 0px!important;"
-                  required
-                  >
-                  <hr class="mt-0">
-                </div>
+      <form class="needs-validation" method="post" action={% url 'store:add-address' %} autocomplete="off">
+        {% csrf_token %}
+        <div class="text-right">
+          <input 
+          type="text" 
+          id="town" 
+          name="town" 
+          class="form-control" 
+          {% if min_price %}value="{{min_price}}" {% endif %}
+          placeholder="Город"
+          style="border: 0px!important;"
+          required
+          >
+          <hr class="mt-0">
+        </div>
 
-                <div class="row">
 
-                <div class="col-6 text-right">
-                  <input 
-                  type="text" 
-                  id="street" 
-                  name="street" 
-                  class="form-control" 
-                  {% if min_price %}value="{{min_price}}" {% endif %}
-                  placeholder="Улица"
-                  style="border: 0px!important;"
-                  required
-                  >
-                  <hr class="mt-0">
-                </div>
+        <div class="text-right">
+          <input 
+          type="text" 
+          id="street" 
+          name="street" 
+          class="form-control" 
+          {% if min_price %}value="{{min_price}}" {% endif %}
+          placeholder="Улица"
+          style="border: 0px!important;"
+          required
+          >
+          <hr class="mt-0">
+        </div>
 
-                <div class="col-6 text-right">
-                  <input 
-                  type="text" 
-                  id="home" 
-                  name="home" 
-                  class="form-control" 
-                  {% if min_price %}value="{{min_price}}" {% endif %}
-                  placeholder="Дом"
-                  style="border: 0px!important;"
-                  required
-                  >
-                  <hr class="mt-0">
-                </div>
-              </div>
-              <div class="d-grid gap-2">
-                        
-                        
-                <button type="submit" class="btn btn-warning btn-lg text-light my-5"
-                  style="background-color: #EE6A31; border: 2px solid #FFFFFF"
-                  onMouseOver="this.style.border='2px solid #EE6A31'"
-                  onMouseOut="this.style.border='2px solid #FFFFFF'"
-                >Добавить адрес</button>
+        <div class=" text-right">
+          <input 
+          type="text" 
+          id="home" 
+          name="home" 
+          class="form-control" 
+          {% if min_price %}value="{{min_price}}" {% endif %}
+          placeholder="Дом"
+          style="border: 0px!important;"
+          required
+          >
+          <hr class="mt-0">
+        </div>
+      
+      <div class="d-grid gap-2">
+                
+                
+        <button type="submit" class="btn btn-warning btn-lg text-light my-5"
+          style="background-color: #EE6A31; border: 2px solid #FFFFFF"
+          onMouseOver="this.style.border='2px solid #EE6A31'"
+          onMouseOut="this.style.border='2px solid #FFFFFF'"
+        >Добавить адрес</button>
 
-              </div>
-            </form>
+      </div>
+    </form>
 
 
       

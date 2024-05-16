@@ -94,7 +94,7 @@
             </a>
           </li>
           <li class="nav-item mr-3">
-            <a class="nav-link mx-2" href="{% url 'store:cart' %}"> 
+            <a class="nav-link mx-2" href="{% url 'store:liked' %}"> 
               <i class="bi bi-heart position-relative fa-lg">
                 {% if liked_items.count != 0 %}
                 <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
@@ -200,7 +200,7 @@
                 </div>
                 <div  class="form-text"> 
                   Забыли пароль?
-                  <a href="{% url 'store:password-reset' %}">Изменить</a>
+                  <a class=""href="{% url 'store:password-reset' %}">Изменить</a>
                 </div>
 
                 <div class="d-grid gap-2">
