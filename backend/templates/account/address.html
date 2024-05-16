@@ -3,6 +3,27 @@
 
 {% block profile-content %}
 
+<div class="container-fluid">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-auto">
+        <div  class="fs-2">Адреса</div>
+      </div>
+      <div class="col-auto ">
+        <a href="{% url 'store:add-address' %}" 
+          class="text-decoration-none"
+          style="color: rgba(0,0,0, 1)!important;"
+          onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+          onMouseOut="this.style.color='rgba(0,0,0, 1)'"> 
+          Добавить
+          <i class="bi bi-plus"></i>
+          <hr class="my-0"
+            style="width: 6rem">
+        </a>
+      </div>
+    </div>
+
+</div>
+
 
 ADDRESS
 
