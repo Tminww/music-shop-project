@@ -113,8 +113,13 @@ def liked(request):
 @login_required
 def orders(request):
     all_orders = Order.objects.filter(user=request.user).order_by("-ordered_date")
-    print(all_orders)
-    return render(request, "account/orders.html", {"orders": all_orders})
+
+    context = {
+        "orders": all_orders,
+        "active": "orders",
+    }
+
+    return render(request, "account/orders.html", context)
 
 
 def user_login_controller(request):

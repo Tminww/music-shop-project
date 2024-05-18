@@ -53,23 +53,73 @@
       </a>
     </div>
   </div>
-  {% if addresses %}
-        {% for address in addresses %}
+  {% if cart_products %}
+        {% for product in cart_products %}
         <div class="row mt-3 align-items-center ">
-              <div class="col-lg-12 text-wrap bg-light text-secondary py-2">
-                
-                <div class="row align-items-center">
-                  <div class="col-11">
-                    {{address.city}}, {{address.locality}}, {{address.state}}
-                  </div>
-                  <div class="col-1 text-center">
-                    <a href="{% url 'store:remove-address' address.id %}">
-                      <i class="fas fa-trash-alt text-muted"></i>
-                    </a>
-                  </div>
 
+          <div class="card mb-3 position-relative" style="max-width: 100%;">
+            <div class="position-absolute top-0 end-0"> 
+              <form action="{% url 'store:remove-cart' product.id %}">
+                <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
+
+                {% comment %} <a class=" btn reset-anchor"id="liveToastBtn" href="{% url 'store:remove-cart' cart_product.id %}"><i class="fas fa-trash-alt small text-muted"></i></a> {% endcomment %}
+                <button type="submit" class="btn"> <i class="bi bi-x-lg text-dark"></i></button>
+               
+
+
+              </form>  
+            </div>
+            <div class="row g-0">
+              <div class="col-md-4">
+                <a class="" href={% url 'store:product-detail' product.product.id %}>
+                  <img class="img-fluid rounded-start" 
+                  {% comment %} src={% static 'img/Frame.png' %} {% endcomment %}
+                  src="{{product.product.product_image.url}}"
+                  alt="{{product.product.title}}"
+                  style="width: 100%!important; filter: brightness(0.975)!important;"
+                  >
+                </a>
+                {% comment %} <img src="..." class="img-fluid rounded-start" alt="..."> {% endcomment %}
+              </div>
+              <div class="col-md-8">
+                <div class="card-body my-0 py-0">
+                  <h5 class="card-title ">{{product.product.title}}</h5>
+                  <p class="card-text">
+                    <div class="row justify-content-start">
+                      <div class="col-auto">
+                        <a href="{% url 'store:minus-cart' product.id %}" class="dec-btn text-dark"><i class="bi bi-dash-lg"></i></a>
+
+                      </div>
+                      <div class="col-1">
+                        <input 
+                          type="number" 
+                          min="0"
+                          max="100"
+                          class="form-control px-0" 
+                          value="{{product.quantity}}"
+                          style="border: 0px!important;"
+                
+                          >
+                        {% comment %} <input class="form-control" type="number" value="{{product.quantity}}"> {% endcomment %}
+                      </div>
+                      <div class="col-auto">
+                        шт.
+                      </div>
+                      <div class="col-auto">
+                        <a href="{% url 'store:plus-cart' product.id %}" class="inc-btn text-dark"><i class="bi bi-plus-lg"></i></a>
+
+                      </div>
+
+                    </div>
+                  </p>
+                  
+                  <p class="card-text"><small class="fs-5">{{product.total_price|intcomma}} &#8381;</small></p>
                 </div>
               </div>
+            </div>
+          </div>
+          
+        
                 
               
         </div>
@@ -77,7 +127,7 @@
         {% endfor %}
         {% else %}
         <div class="text-secondary mt-3">
-          У вас еще нет добавленных адресов.
+          У вас еще нет добавленных товаров.
         </div>
   {% endif %}
 
