@@ -427,6 +427,16 @@ def plus_cart(request, cart_id):
 
 
 @login_required
+def update_quantity_product_in_cart(request, cart_id):
+    if request.method == "GET":
+        count = request.GET.get("count")
+        cp = get_object_or_404(Cart, id=cart_id)
+        cp.quantity = count
+        cp.save()
+    return redirect("store:cart")
+
+
+@login_required
 def minus_cart(request, cart_id):
     if request.method == "GET":
         cp = get_object_or_404(Cart, id=cart_id)

@@ -26,6 +26,11 @@ urlpatterns = [
     path("add-to-liked/", views.add_to_liked, name="add-to-liked"),
     path("plus-cart/<int:cart_id>/", views.plus_cart, name="plus-cart"),
     path("minus-cart/<int:cart_id>/", views.minus_cart, name="minus-cart"),
+    path(
+        "update-cart/<int:cart_id>/",
+        views.update_quantity_product_in_cart,
+        name="update-cart",
+    ),
     # URL for Products
     # URL for Authentication
     path("accounts/register/", views.RegistrationView.as_view(), name="register"),
