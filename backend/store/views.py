@@ -1,3 +1,4 @@
+import uuid
 import django
 from yookassa import Configuration, Settings
 from django.contrib.auth.models import User
@@ -461,8 +462,8 @@ def minus_cart(request, cart_id):
 
 
 @login_required
-def checkout(request):
-    user = request.user
+def after_checkout(request):
+
     try:
         address_id = request.GET.get("address")
         address = get_object_or_404(Address, id=address_id)
@@ -470,6 +471,25 @@ def checkout(request):
         address_id = None
         address = None
     print(address_id)
+
+    # Get all the products of User in Cart
+    cart = Cart.objects.filter(user=request.user)
+    current_order = None
+    for c in cart:
+        # Saving all the products from Cart to Order
+        current_order = Order(
+            user=request.user, address=address, product=c.product, quantity=c.quantity
+        )
+        current_order.save()
+        # And Deleting from Cart
+        c.delete()
+
+    return redirect("store:orders")
+
+
+@login_required
+def checkout(request):
+    user = request.user
 
     amount: int = 0
     percentage_discount = 5
@@ -481,24 +501,12 @@ def checkout(request):
 
     total_amount = int(amount) - int((amount / 100) * percentage_discount)
 
-    # Get all the products of User in Cart
-    cart = Cart.objects.filter(user=user)
-    current_order = None
-    for c in cart:
-        # Saving all the products from Cart to Order
-        current_order = Order(
-            user=user, address=address, product=c.product, quantity=c.quantity
-        )
-        current_order.save()
-        # And Deleting from Cart
-        c.delete()
-
     res = Payment.create(
         {
             "amount": {"value": f"{int(total_amount)}", "currency": "RUB"},
             "confirmation": {"type": "embedded"},
             "capture": 1,
-            "description": f"Заказ №{current_order.pk}",
+            "description": f"Заказ №{uuid.uuid4()}",
         }
     )
 

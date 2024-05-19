@@ -48,6 +48,7 @@ urlpatterns = [
     path("accounts/cart/", views.cart, name="cart"),
     path("accounts/liked/", views.liked, name="liked"),
     #
+    path("accounts/cart/checkout/done", views.after_checkout, name="after-checkout"),
     path("accounts/cart/checkout/", views.checkout, name="checkout"),
     path("accounts/remove-cart/<int:cart_id>/", views.remove_cart, name="remove-cart"),
     path("accounts/clear-cart", views.clear_cart, name="clear-cart"),
