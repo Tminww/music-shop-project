@@ -300,6 +300,7 @@
 
     radio1 = document.getElementById('self-transport');
     radio2 = document.getElementById('courier');
+
     AddressForCourier = document.getElementById('address-for-courier');
     AddressOfShop = document.getElementById('address-of-shop');
 
@@ -309,6 +310,7 @@
       if (radio1.checked == true){
         AddressForCourier.hidden = true;
         AddressOfShop.hidden = false; 
+        document.querySelector('input[name="address"]').required = false;
 
       }
     });
@@ -318,6 +320,8 @@
       if (radio2.checked == true){
         AddressForCourier.hidden = false;
         AddressOfShop.hidden = true; 
+        document.querySelector('input[name="address"]').required = true;
+
 
       }
     });
