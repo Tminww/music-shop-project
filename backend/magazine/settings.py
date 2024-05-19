@@ -1,6 +1,11 @@
 from pathlib import Path
 from config import settings
 import os
+from yookassa import Configuration
+from config import settings
+
+Configuration.account_id = settings.ID_SHOP_YOOKASSA
+Configuration.secret_key = settings.API_KEY_YOOKASSA
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

@@ -1,4 +1,5 @@
 import django
+from yookassa import Configuration, Settings
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from store.models import Address, Cart, Category, Liked, Order, Product
@@ -12,12 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator  # for Class Based Views
 from django.contrib.auth import authenticate, login
 
-
-# from django.shortcuts import render, get_object_or_404
-# from django.db.models import Q
-# from .models import Category, Product
-
-# Create your views here.
+from yookassa import Payment
 
 
 def home(request):
@@ -397,12 +393,15 @@ def cart(request):
     # Customer Addresses
     addresses = Address.objects.filter(user=user)
 
+    percentage_discount = 5
+
     context = {
         "cart_products": cart_products,
         "active": "cart",
-        "amount": amount,
+        "amount": int(amount),
         "shipping_amount": shipping_amount,
-        "total_amount": amount + shipping_amount,
+        "discount": int((amount / 100) * percentage_discount),
+        "total_amount": int(amount) - int((amount / 100) * percentage_discount),
         "addresses": addresses,
     }
     return render(request, "account/cart.html", context)
@@ -452,14 +451,47 @@ def minus_cart(request, cart_id):
 @login_required
 def checkout(request):
     user = request.user
-    address_id = request.GET.get("address")
+    try:
+        address_id = request.GET.get("address")
+        address = get_object_or_404(Address, id=address_id)
+    except:
+        address_id = None
+        address = None
+    print(address_id)
 
-    address = get_object_or_404(Address, id=address_id)
+    amount: int = 0
+    percentage_discount = 5
+    cp = [p for p in Cart.objects.all() if p.user == user]
+    if cp:
+        for p in cp:
+            temp_amount = p.quantity * p.product.price
+            amount += temp_amount
+
+    total_amount = int(amount) - int((amount / 100) * percentage_discount)
+
     # Get all the products of User in Cart
     cart = Cart.objects.filter(user=user)
+    current_order = None
     for c in cart:
         # Saving all the products from Cart to Order
-        Order(user=user, address=address, product=c.product, quantity=c.quantity).save()
+        current_order = Order(
+            user=user, address=address, product=c.product, quantity=c.quantity
+        )
+        current_order.save()
         # And Deleting from Cart
         c.delete()
-    return redirect("store:orders")
+
+    res = Payment.create(
+        {
+            "amount": {"value": f"{int(total_amount)}", "currency": "RUB"},
+            "confirmation": {"type": "embedded"},
+            "capture": 1,
+            "description": f"Заказ №{current_order.pk}",
+        }
+    )
+
+    context = {
+        "confirmation_token": res.confirmation.confirmation_token,
+    }
+
+    return render(request, "payments/payment.html", context)

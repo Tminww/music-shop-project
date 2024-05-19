@@ -126,7 +126,7 @@ class Order(models.Model):
         User, verbose_name="Пользователь", on_delete=models.CASCADE
     )
     address = models.ForeignKey(
-        Address, verbose_name="Адрес доставки", on_delete=models.CASCADE
+        Address, null=True, verbose_name="Адрес доставки", on_delete=models.CASCADE
     )
     product = models.ForeignKey(
         Product, verbose_name="Продукт", on_delete=models.CASCADE

@@ -35,6 +35,8 @@
     -moz-appearance: textfield;
 }
 </style>
+
+
 <div class="container-fluid">
   <div class="row justify-content-beetwen align-items-center">
     <div class="col-lg-10 col-auto">
@@ -66,7 +68,7 @@
               <!-- CLOSE BUTTON-->
               <div class="position-absolute top-0 end-0"> 
                 <form action="{% url 'store:remove-cart' product.id %}">
-                  <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
+                  <input type="hidden" name="prod_id" value="{{product.id}}" id="{{product.id}}">
                   <button type="submit" class="btn"> <i class="bi bi-x-lg text-dark"></i></button>
                 </form>  
               </div>
@@ -136,13 +138,8 @@
         {% endfor %}
               
         <!-- СПОСОБ ДОСТАВКИ-->
-        <div class="row justify-content-beetwen align-items-center mt-5">
-          <div class="col-lg-10 col-auto ">
-            <div  class="fs-2 mb-3">Способ доставки</div>   
-            
-          </div>
-          <div class="col-lg-2 col-auto ps-0">
-
+        <div class="d-flex align-items-center justify-content-between my-5 fs-2"> Способ доставки 
+          <span>
             <a href={% url 'store:address' %} 
               class="btn text-decoration-none ps-0"
               style="color: rgba(0,0,0, 1)!important;"
@@ -153,26 +150,93 @@
               <hr class="my-0"
                 style="width: 8rem">
             </a>
-          
-          </div>
+          </span>
         </div>
+
+        
         <div class="row justify-content-beetwen align-items-center">
           <div class="col-lg-12 col-auto">
-            <div class="fs-5">Самовывоз из магазина</div>
-            <div class="fs-5"> Курьерская доставка</div>
+           
+            <div class="form-check form-check-inline">
+              <input class="form-check-input fs-5" 
+                type="radio" 
+                form="proceed-to-checkout"
+                name="delivery" 
+                id="self-transport" 
+                value="self-transport"
+                required>
+              <label class="form-check-label fs-5" for="exampleRadios2">
+                Самовывоз из магазина
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input 
+                class="form-check-input fs-5" 
+                type="radio" 
+                form="proceed-to-checkout"
+
+                name="delivery" 
+                id="courier" 
+                value="courier" 
+                required
+                >
+              <label class="form-check-label fs-5" for="exampleRadios3">
+                Курьерская доставка
+              </label>
+            </div>
+            <div id="address-for-courier" hidden>
+              {% if addresses %}
+                    {% for address in addresses %}
+                    <div class="row mt-3 align-items-center ">
+                          <div class="col-lg-10 text-wrap bg-light text-secondary py-2">
+                            <div class="row align-items-center">
+                              <div class="col-11">
+                                <div class="form-check my-2">
+                                  <input class="form-check-input"
+                                     type="radio"
+                                     name="address"
+                                     form="proceed-to-checkout"
+                                     value="{{address.id}}" 
+                                     id="{{address.id}}"
+                                     
+                                      >
+                                  <label class="form-check-label" for="flexCheckChecked">
+                                    {{address.city}}, {{address.locality}}, {{address.state}}
+                                  </label>
+                                </div> 
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                          
+                    {% endfor %}
+                    {% else %}
+                    <div class="text-secondary mt-3">
+                      У вас еще нет добавленных адресов.
+                    </div>
+              {% endif %}
+            </div>
+            <div id="address-of-shop" hidden>
+              <div class="row mt-3 align-items-center ">
+                <div class="col-lg-10 text-wrap bg-light text-secondary py-2">
+                  <div class="row align-items-center">
+                    <div class="col-11">
+                      
+                      Санкт-Петербург, ​Бассейная улица, 37
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
           </div>         
         </div>
 
         <!-- ПОЛУЧАТЕЛЬ-->
-        <div class="row justify-content-beetwen align-items-center mt-5">
-          <div class="col-lg-10 col-auto">
-            <div  class="fs-2 mb-3">Получатель</div>   
-            
-          </div>
-          <div class="col-lg-2 col-auto text-end">
-
+        <div class="d-flex align-items-center justify-content-between my-5 fs-2"> Получатель 
+          <span>
             <a href={% url 'store:settings' %} 
-              class="btn text-decoration-none"
+              class="btn text-decoration-none "
               style="color: rgba(0,0,0, 1)!important;"
               onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
               onMouseOut="this.style.color='rgba(0,0,0, 1)'"> 
@@ -181,9 +245,10 @@
               <hr class="my-0"
                 style="width: 6rem">
             </a>
-          
-          </div>
+          </span>
         </div>
+
+        
 
         <div class="row justify-content-beetwen align-items-center">
           <div class="col-lg-12 col-auto">
@@ -193,37 +258,35 @@
         </div>
 
         <!-- СУММА ЗАКАЗА-->
-        <div class="row justify-content-beetwen align-items-center mt-5">
+        <div class="row justify-content-beetwen align-items-center my-5">
           <div class="col-lg-12 col-auto">
             <div  class="fs-2 mb-3">Сумма заказа</div>  
+            
+          </div>
+        </div>
+        <div class="row justify-content-beetwen align-items-center">
+          <div class="col-lg-12 col-12">
             <ul class="list-unstyled mb-0">
-              <li class="my-1">
-                <form action="#">
-                  <div class="form-group mb-0">
-                    <input class="form-control" type="text" placeholder="Введите примокод">
-                    <button class="btn btn-dark btn-sm btn-block" type="submit"> <i class="fas fa-gift mr-2"></i>Применить купон</button>
-                  </div>
-                </form>
-
-              </li>
+            
               <li class="d-flex align-items-center justify-content-between my-1 fs-5"> Стоимость товаров <span>{{amount|intcomma}} ₽</span></li>
               <li class="d-flex align-items-center justify-content-between my-1 fs-5"
-                style="color: #EE6A31!important;">Скидка<span >{{0}} ₽ </span></li>
+                style="color: #EE6A31!important;">Скидка<span >{{discount}} ₽ </span></li>
             
               <li class="d-flex align-items-center justify-content-between mt-3 fs-5">Итого <strong class="fs-3">{{total_amount|intcomma}} ₽ </strong></li>
               
             </ul> 
-          </div>
-          
+          </div>         
         </div>
-        <button type="submit" class="btn btn-warning btn-lg text-light my-5"
-                    style="background-color: #EE6A31; border: 2px solid #FFFFFF"
-                    onMouseOver="this.style.border='2px solid #EE6A31'"
-                    onMouseOut="this.style.border='2px solid #FFFFFF'"
-                  >Перейти к оплате <i class="bi bi-arrow-right"></i></button>
+          <form id="proceed-to-checkout" method="GET" action="checkout">
+            <button type="submit" class="btn btn-warning btn-lg text-light my-5"
+                        style="background-color: #EE6A31; border: 2px solid #FFFFFF"
+                        onMouseOver="this.style.border='2px solid #EE6A31'"
+                        onMouseOut="this.style.border='2px solid #FFFFFF'"
+                      >Перейти к оплате <i class="bi bi-arrow-right"></i></button>
 
-         
+         </form>
         </div>
+      
         {% else %}
         <div class="text-secondary mt-3">
           У вас еще нет добавленных товаров.
@@ -232,6 +295,34 @@
   {% endif %}
 
 
+  <script>
+
+    radio1 = document.getElementById('self-transport');
+    radio2 = document.getElementById('courier');
+    AddressForCourier = document.getElementById('address-for-courier');
+    AddressOfShop = document.getElementById('address-of-shop');
+
+    radio1.addEventListener('change', function () {
+      // Отправляем форму
+      console.log("work1");
+      if (radio1.checked == true){
+        AddressForCourier.hidden = true;
+        AddressOfShop.hidden = false; 
+
+      }
+    });
+    radio2.addEventListener('change', function () {
+      // Отправляем форму
+      console.log("work2");
+      if (radio2.checked == true){
+        AddressForCourier.hidden = false;
+        AddressOfShop.hidden = true; 
+
+      }
+    });
+
+   
+  </script>
 
 </div>
 
