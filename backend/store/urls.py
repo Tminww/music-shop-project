@@ -50,6 +50,7 @@ urlpatterns = [
     #
     path("accounts/cart/checkout/", views.checkout, name="checkout"),
     path("accounts/remove-cart/<int:cart_id>/", views.remove_cart, name="remove-cart"),
+    path("accounts/clear-cart", views.clear_cart, name="clear-cart"),
     path("accounts/address/", views.address, name="address"),
     path("accounts/add-address/", views.add_address, name="add-address"),
     path(

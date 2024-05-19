@@ -408,6 +408,18 @@ def cart(request):
 
 
 @login_required
+def clear_cart(request):
+    if request.method == "GET":
+
+        # c = get_object_or_404(Cart, user=request.user)
+        c = Cart.objects.filter(user=request.user)
+        c.delete()
+        messages.success(request, "Product removed from Cart.")
+
+    return redirect("store:cart")
+
+
+@login_required
 def remove_cart(request, cart_id):
     if request.method == "GET":
         c = get_object_or_404(Cart, id=cart_id)
