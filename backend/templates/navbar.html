@@ -152,7 +152,14 @@
 
 
 <!-- Всплывающее меню для регистрации и авторизации-->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<div 
+{% if previous_page %}
+class="offcanvas offcanvas-end show"
+{% else %}
+class="offcanvas offcanvas-end"
+{% endif %}
+
+tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
     <h5 id="offcanvasRightLabel"></h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
@@ -162,55 +169,82 @@
       <!-- Tabs navs -->
       <ul class="nav nav-tabs my-5" role="tablist">
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="fill-tab-0" data-bs-toggle="tab"
+          <a 
+
+          
+          class="nav-link active" 
+         
+          
+          id="fill-tab-0" data-bs-toggle="tab"
           href="#fill-tabpanel-0" role="tab" aria-controls="fill-tabpanel-0" 
-          aria-selected="true"
+          aria-selected="false"
           > Вход</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link" id="fill-tab-1" data-bs-toggle="tab" 
+          <a 
+         
+          class="nav-link" 
+        
+
+          id="fill-tab-1" data-bs-toggle="tab" 
           href="#fill-tabpanel-1" role="tab" aria-controls="fill-tabpanel-1" 
-          aria-selected="false"> Регистрация </a>
+      
+          aria-selected="true"
+         
+        
+          > Регистрация </a>
         </li>
        
       </ul>
       <!-- Авторизация-->
       <div class="tab-content pt-3 my-5" id="tab-content">
-        <div class="tab-pane active" id="fill-tabpanel-0" 
+        <div 
+        
+        {% if previous_page != 'register' %}
+        class="tab-pane active" 
+        {% else %}
+        class="tab-pane"
+        {% endif %}
+
+        id="fill-tabpanel-0" 
         role="tabpanel" aria-labelledby="fill-tab-0">
 
           <div class="card mb-4 bg-white border-white" id="forms">
             
             <div class="card-body">
                 
-              {% include 'partials/_messages.html' %}
+          
               <form method="post" action={% url 'store:user-login' %} autocomplete="off">
                 {% csrf_token %}
                 <div class="mb-3">
                   {% comment %} <label for="user-login" class="form-label" ></label> {% endcomment %}
-                  <input type="text" name="user-login" class="form-control" id="user-login" placeholder="Логин">
+                  <input type="text" name="user-login" class="form-control" id="user-login" placeholder="Логин" required>
                   {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
                 </div>
                 <div class="mb-3">
                   {% comment %} <label for="user-password" class="form-label" ></label> {% endcomment %}
                   <p>
-                  <input type="password" name="user-login-password" class="form-control" id="user-login-password" placeholder="Пароль">
+                  <input type="password" name="user-login-password" class="form-control" id="user-login-password" placeholder="Пароль" requiredz>
                   
                   </p>
                 </div>
+                {% if previous_page == 'login' %}
+                {% include 'partials/_messages.html' %}
+                {% endif %}
                 <div  class="form-text"> 
                   Забыли пароль?
                   <a class=""href="{% url 'store:password-reset' %}">Изменить</a>
                 </div>
-
+                
                 <div class="d-grid gap-2">
               
               
-                  <button type="submit" class="btn btn-warning btn-lg text-light my-5"
+                  <button type="submit" class="btn btn-warning btn-lg text-light mt-3"
                     style="background-color: #EE6A31; border: 2px solid #FFFFFF"
                     onMouseOver="this.style.border='2px solid #EE6A31'"
                     onMouseOut="this.style.border='2px solid #FFFFFF'"
                   >Войти</button>
+                  
 
                 </div>
               </form>
@@ -226,32 +260,41 @@
           </div>
         </div>
         <!--Регистрация-->
-      <div class="tab-pane" id="fill-tabpanel-1" 
+      <div 
+      {% if previous_page == 'register' %}
+        class="tab-pane active" 
+        {% else %}
+        class="tab-pane"
+        {% endif %}
+      
+      id="fill-tabpanel-1" 
       role="tabpanel" aria-labelledby="fill-tab-1">
       
           <div class="card mb-4 bg-white border-white" id="forms">
               
             <div class="card-body">
                 
-              {% include 'partials/_messages.html' %}
-              <form method="post" action={% url 'store:user-register' %} autocomplete="off">
+             <form method="post" action={% url 'store:user-register' %} autocomplete="off">
                 {% csrf_token %}
                 <div class="mb-3">
                   {% comment %} <label for="user-login" class="form-label" ></label> {% endcomment %}
-                  <input type="text" name="user-register" class="form-control" id="user-register" placeholder="Логин">
+                  <input type="text" name="user-register" class="form-control" id="user-register" placeholder="Логин" required>
                   {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
                 </div>
                 <div class="mb-3">
                   {% comment %} <label for="user-password" class="form-label" ></label> {% endcomment %}
-                  <input type="password" name="user-register-password" class="form-control" id="user-register-password" placeholder="Пароль">
+                  <input type="password" minlength="8" name="user-register-password" class="form-control" id="user-register-password" placeholder="Пароль" required>
                   
                 </div>
                 <div class="mb-3">
                   {% comment %} <label for="user-password" class="form-label" ></label> {% endcomment %}
-                  <input type="password" name="user-register-password2" class="form-control" id="user-register-password2" placeholder="Повторите пароль">
+                  <input type="password" minlength="8" name="user-register-password2" class="form-control" id="user-register-password2" placeholder="Повторите пароль" required>
                   
                 </div>
                 
+                {% if previous_page == 'register' %}
+                {% include 'partials/_messages.html' %}
+                {% endif %}
 
                 <div class="d-grid gap-2">
               

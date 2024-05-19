@@ -128,7 +128,22 @@ def user_login_controller(request):
         print(user_password)
         user = authenticate(username=username, password=user_password)
 
-        print(user)
+        categories = Category.objects.filter(is_active=True)
+        products = Product.objects.filter(is_active=True, is_featured=True)[:4]
+
+        if request.user.is_authenticated:
+            liked_items = Liked.objects.filter(user=request.user)
+            liked_items = [item.product.pk for item in liked_items]
+        else:
+            liked_items = None
+
+        context = {
+            "categories": categories,
+            "products": products,
+            "liked_id": liked_items,
+            "sorting": "popularity",
+            "previous_page": "login",
+        }
 
         if user is not None:
             if user.is_active:
@@ -136,11 +151,13 @@ def user_login_controller(request):
                 return redirect("store:home")
                 # return HttpResponse("Authenticated successfully")
             else:
-                return HttpResponse("Disabled account")
+                messages.warning(request=request, message="Неверный логин или пароль")
+                return render(request, "store/index.html", context)
         else:
-            return HttpResponse("Invalid login")
+            messages.warning(request=request, message="Неверный логин или пароль")
+            return render(request, "store/index.html", context)
 
-    redirect(request.META.get("HTTP_REFERER"))
+    # redirect(request.META.get("HTTP_REFERER"))
 
     # return render(request, 'account/login.html', {'form': form})
 
@@ -151,13 +168,31 @@ def user_register_controller(request):
         user_password = request.POST.get("user-register-password")
         user_password2 = request.POST.get("user-register-password2")
 
+        categories = Category.objects.filter(is_active=True)
+        products = Product.objects.filter(is_active=True, is_featured=True)[:4]
+
+        if request.user.is_authenticated:
+            liked_items = Liked.objects.filter(user=request.user)
+            liked_items = [item.product.pk for item in liked_items]
+        else:
+            liked_items = None
+
+        context = {
+            "categories": categories,
+            "products": products,
+            "liked_id": liked_items,
+            "sorting": "popularity",
+            "previous_page": "register",
+        }
+
         if user_password == user_password2:
 
             user_already_exists = User.objects.filter(username=username)
             if user_already_exists:
-                print("User already exists")
-                return HttpResponse("User already exists")
+                messages.warning(request=request, message="Имя пользователя занято")
+                return render(request, "store/index.html", context)
             else:
+
                 user = User.objects.create_user(
                     username=username, password=user_password
                 )
@@ -166,10 +201,10 @@ def user_register_controller(request):
                 return redirect("store:home")
 
         else:
-            print("----пароли не совпадают")
-            return HttpResponse("Пароли не совпадают")
+            messages.warning(request=request, message="Пароли не совпадают")
+            return render(request, "store/index.html", context)
 
-    return redirect(request.META.get("HTTP_REFERER"))
+    return render(request, "store/index.html", context)
 
     #     print(username)
     #     print(user_password)
