@@ -1,313 +1,253 @@
 {% extends 'base.html' %}
 {% load static %}
-
-    {% block content %}
-
-   
-      <style>
+{% block content %}
+    <style>
         .btn:focus {
-          outline: none;
-          box-shadow: none;
+            outline: none;
+            box-shadow: none;
         }
-        .form-control:focus{
-          outline: none;
-          box-shadow: none;
-          border: 2px solid gray!important;
+
+        .form-control:focus {
+            outline: none;
+            box-shadow: none;
+            border: 2px solid gray !important;
         }
-        .form-select:focus{
-          outline: none;
-          box-shadow: none;
+
+        .form-select:focus {
+            outline: none;
+            box-shadow: none;
         }
+
         /* Chrome, Safari, Edge, Opera */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
+            -webkit-appearance: none;
+            margin: 0;
         }
 
         /* Firefox */
         input[type=number] {
-          -moz-appearance: textfield;
-}
-      </style>
-      <script>
+            -moz-appearance: textfield;
+        }
+    </style>
+    <script>
         function createValidator(element) {
-          return function() {
-              var min = parseInt(element.getAttribute("min")) || 0;
-              var max = parseInt(element.getAttribute("max")) || 0;
-      
-              var value = parseInt(element.value) || min;
-              element.value = value; // make sure we got an int
-      
-              if (value < min) element.value = min;
-              if (value > max) element.value = max;
-          }
-      }
-      
-      var elm = document.body.querySelector("input[type=number]");
-      elm.onkeyup = createValidator(elm);
+            return function() {
+                var min = parseInt(element.getAttribute("min")) || 0;
+                var max = parseInt(element.getAttribute("max")) || 0;
 
-      </script>
-     
-      <!-- Иерархическая навигация -->
-      <div class="container">
+                var value = parseInt(element.value) || min;
+                element.value = value; // make sure we got an int
+
+                if (value < min) element.value = min;
+                if (value > max) element.value = max;
+            }
+        }
+
+        var elm = document.body.querySelector("input[type=number]");
+        elm.onkeyup = createValidator(elm);
+    </script>
+    <!-- Иерархическая навигация -->
+    <div class="container">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb justify-content-lg-start my-5">
-            <li class="breadcrumb-item">
-              <a href="{% url 'store:home' %}"
-                  class="text-decoration-none"
-                  style="color: rgba(0,0,0, 0.7)!important;"
-                  onMouseOver="this.style.color='rgba(0,0,0, 1)'"
-                  onMouseOut="this.style.color='rgba(0,0,0, 0.7)'">
-                  Главная
-              </a>
-            </li>
-            <li class="breadcrumb-item active" 
-                aria-current="page"
-                style="color: rgba(0,0,0, 1)!important;"
-            >Каталог </li>
-          </ol>
+            <ol class="breadcrumb justify-content-lg-start my-5">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'store:home' %}"
+                       class="text-decoration-none"
+                       style="color: rgba(0,0,0, 0.7)!important"
+                       onMouseOver="this.style.color='rgba(0,0,0, 1)'"
+                       onMouseOut="this.style.color='rgba(0,0,0, 0.7)'">Главная</a>
+                </li>
+                <li class="breadcrumb-item active"
+                    aria-current="page"
+                    style="color: rgba(0,0,0, 1)!important">Каталог</li>
+            </ol>
         </nav>
-      </div>
-      
-      <!-- Фильтры -->
-      <div class="container">
+    </div>
+    <!-- Фильтры -->
+    <div class="container">
         <div class="row">
-          <div class="col-lg-3 col-sm-6">
-            
-            <form id="filter-form" method="GET" action="">
-              <h6 class="fs-5 mb-4">Цена</h6>
- 
-              <div class="row  justify-content-between ">
-                <div class="col-5 text-right">
-                  <input 
-                  type="number" 
-                  min="0"
-                  max="10000000"
-                  id="min-price" 
-                  name="min-price" 
-                  class="form-control" 
-                  {% if min_price %}value="{{min_price}}" {% endif %}
-                  placeholder="Мин."
-                  style="border: 0px!important;"
-        
-                  >
-                  <hr class="mt-0"
-                  style="width: 7rem">
-                  
-                </div>
-                <div class="col-auto text-center mx-0 px-0">
-                  <hr class="border-2 border-top  mx-0 px-0" 
-                  style="width: 1rem!important; border: 2px solid rgb(0,0,0)!important;"/>
-                </div>
-                <div class="col-5 text-right">
-                  <input 
-                  type="number" 
-                  min="0"
-                  max="10000000"
-                  id="max-price" 
-                  name="max-price" 
-                  class="form-control" 
-                  {% if max_price %}value="{{max_price}}" {% endif %}
-                  placeholder="Макс."
-                  style="border: 0px!important; "
-                  >
-                  <hr class="mt-0"
-                  style="width: 7rem">
-                </div>
-
-                
-              </div>
-              <h6 class="fs-5 mt-2 mb-4">Категории</h6>
-
-              <div class="form-check">
-                <input class="form-check-input" 
-                  type="checkbox" 
-                  value="all" 
-                  id="category" 
-                  name="slug"
-                  {% if "all" in slug %} checked {% endif %}>
-                <label class="form-check-label" for="category">
-                  Показать все
-                </label>
-              </div>
-              {% for cat in categories %}  
-                <div class="form-check my-2">
-                  <input class="form-check-input"
-                     type="checkbox" 
-                     name="slug"
-                     
-                     value="{{cat.slug}}" 
-                     id="category" 
-                     {% if cat.slug in slug %} checked {% endif %}>
-                     
-                     {{category.slug}}
-                  <label class="form-check-label" for="flexCheckChecked">
-                    {{cat.title}}
-                  </label>
-                </div> 
-              {% endfor %}
-              <div class="d-grid d-block my-4">
-                <button class="btn btn-warning text-light" 
-                  type="submit"
-                  style="background-color: #EE6A31; border: 2px solid #FFFFFF"
-                  onMouseOver="this.style.border='2px solid #EE6A31'"
-                  onMouseOut="this.style.border='2px solid #FFFFFF'">Применить</button>
-              </div>             
-            </form>
-          </div>
-
-          <!-- Сортировка -->
-          <div class="col-lg-9 col-sm-6">
-            <div class="container-fluid mb-4">
-              <div class="row justify-content-end">
-                <div class="col-auto">
-                  <select 
-                    id="sorting" 
-                    name="sorting"
-                    form="filter-form"
-                    onchange="this.form.submit()"
-                    class="form-select" 
-                     
-      
-                    style="width: 15rem!important;border: 0px!important; "
-                    >
-                    <option value="default" {% if sorting == "default" %} selected {% endif %}>Без сортировки</option>
-                    <option value="popularity" {% if sorting == "popularity" %} selected {% endif %}>По популярности</option>
-                    <option value="low-high" {% if sorting == "low-high" %} selected {% endif %}>По возрастанию цены</option>
-                    <option value="high-low" {% if sorting == "high-low" %} selected {% endif %}>По убыванию цены</option>
-                  </select>
-              
-                  <hr class="mt-0"
-                  style="width: 15rem">
-                </div>
-              </div>
-              
-              
-            </div>
-            
-            <!-- Продукты -->
-            <div class="row">
-              {% if products %}
-              {% for product in products %}
-
-              
-              <div class="col-md-4 col-sm-6 mb-4">
-       
-                <div class="card position-relative" 
-                  style="border: 0px;">
-                  <a class="" href={% url 'store:product-detail' product.id %}>
-                    <img class="img-fluid" 
-                    {% comment %} src={% static 'img/Frame.png' %} {% endcomment %}
-                    src="{{product.product_image.url}}"
-                    alt="{{product.title}}"
-                    style="width: 100%!important; filter: brightness(0.975)!important;"
-                    >
-                  </a>
-                  <div class="position-absolute top-0 end-0">
-                    {% if request.user.is_authenticated %} 
-                    <form action="{% url 'store:add-to-liked' %}">
-                      <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
-                      {% if product.id in liked_id %}
-                      
-                      <button type="submit" class="btn"> <i class="bi bi-heart-fill text-danger fa-2x"></i></button>
-                      {% else %}
-                      <button type="submit" class="btn"> <i class="bi bi-heart fa-2x"></i></button>
-
-                      {% endif %}
-                    {% else %}
-                    <i class="bi bi-heart fa-2x" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
-                    {% endif %}
-
-                    </form>  
-                  </div>
-                  <div class="row justify-content-between my-1">
-
-                    <div class="col-auto">
-
-                      <a class="card-title fs-6 mb-2 text-decoration-none"
-                        href="{% url 'store:product-detail' product.id %}"
-                          style="color: rgba(0,0,0, 1)!important;"
-                          onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
-                          onMouseOut="this.style.color='rgba(0,0,0, 1)'"
-                      >{{ product.title }}</a>
-                      <p class="card-text">{{ product.price }} &#8381;</p>
-
+            <div class="col-lg-3 col-sm-6">
+                <form id="filter-form" method="GET" action="">
+                    <h6 class="fs-5 mb-4">Цена</h6>
+                    <div class="row  justify-content-between ">
+                        <div class="col-5 text-right">
+                            <input type="number"
+                                   min="0"
+                                   max="10000000"
+                                   id="min-price"
+                                   name="min-price"
+                                   class="form-control"
+                                   {% if min_price %}value="{{ min_price }}"{% endif %}
+                                   placeholder="Мин."
+                                   style="border: 0px!important">
+                            <hr class="mt-0" style="width: 7rem">
+                        </div>
+                        <div class="col-auto text-center mx-0 px-0">
+                            <hr class="border-2 border-top  mx-0 px-0"
+                                style="width: 1rem!important;
+                                       border: 2px solid rgb(0,0,0)!important" />
+                        </div>
+                        <div class="col-5 text-right">
+                            <input type="number"
+                                   min="0"
+                                   max="10000000"
+                                   id="max-price"
+                                   name="max-price"
+                                   class="form-control"
+                                   {% if max_price %}value="{{ max_price }}"{% endif %}
+                                   placeholder="Макс."
+                                   style="border: 0px!important">
+                            <hr class="mt-0" style="width: 7rem">
+                        </div>
                     </div>
-                    <div class="col-auto">
-                      <form action="{% url 'store:add-to-cart' %}">
-                        <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
-                        <button type="submit" class="btn "><img src={% static 'icons/cart.png' %}></img></button>
-                      </form>
-                      
-                
-                      
+                    <h6 class="fs-5 mt-2 mb-4">Категории</h6>
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               value="all"
+                               id="category"
+                               name="slug"
+                               {% if "all" in slug %}checked{% endif %}>
+                        <label class="form-check-label" for="category">Показать все</label>
                     </div>
-                   
-                   
-                  </div>
-                </div>
-                  
-                  
-              </div>
-              
-            
-
-              {% endfor %}
-            {% endif %}
-
+                    {% for cat in categories %}
+                        <div class="form-check my-2">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="slug"
+                                   value="{{ cat.slug }}"
+                                   id="category"
+                                   {% if cat.slug in slug %}checked{% endif %}>
+                            {{ category.slug }}
+                            <label class="form-check-label" for="flexCheckChecked">{{ cat.title }}</label>
+                        </div>
+                    {% endfor %}
+                    <div class="d-grid d-block my-4">
+                        <button class="btn btn-warning text-light"
+                                type="submit"
+                                style="background-color: #EE6A31;
+                                       border: 2px solid #FFFFFF"
+                                onMouseOver="this.style.border='2px solid #EE6A31'"
+                                onMouseOut="this.style.border='2px solid #FFFFFF'">Применить</button>
+                    </div>
+                </form>
             </div>
-           
-            
-            
-            
-          </div>
-        
-        </div>
-      </div>
-
-        <section class="py-5">
-          <div class="container p-0">
-            <div class="row">
-              <!-- SHOP SIDEBAR-->
-              
-                
-              <div class="col-lg-3 order-2 order-lg-1">
-
-
-                
-
-              </div>
-              <!-- SHOP LISTING-->
-              <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
-                
-
-                {% comment %} <script>
-                  document.addEventListener('DOMContentLoaded', function () {
-                      // Получаем форму и элемент сортировки
-                      var form = document.getElementById('filter-form');
-                      var sortSelect = document.getElementById('sort');
-              
-                      // Обработчик изменения выбора сортировки
-                      sortSelect.addEventListener('change', function () {
-                          // Отправляем форму
-                          form.submit();
-                      });
-              
-                      // Обработчик отправки формы
-                      form.addEventListener('submit', function () {
-                          // Посылаем данные формы на сервер
-                          // В этом случае JavaScript не требуется,
-                          // так как форма отправляется автоматически при отправке
-                      });
-                  });
-              </script> {% endcomment %}
+            <!-- Сортировка -->
+            <div class="col-lg-9 col-sm-6">
+                <div class="container-fluid mb-4">
+                    <div class="row justify-content-end">
+                        <div class="col-auto">
+                            <select id="sorting"
+                                    name="sorting"
+                                    form="filter-form"
+                                    onchange="this.form.submit()"
+                                    class="form-select"
+                                    style="width: 15rem!important;
+                                           border: 0px!important">
+                                <option value="default" {% if sorting == "default" %}selected{% endif %}>Без сортировки</option>
+                                <option value="popularity"
+                                        {% if sorting == "popularity" %}selected{% endif %}>По популярности</option>
+                                <option value="low-high" {% if sorting == "low-high" %}selected{% endif %}>По возрастанию цены</option>
+                                <option value="high-low" {% if sorting == "high-low" %}selected{% endif %}>По убыванию цены</option>
+                            </select>
+                            <hr class="mt-0" style="width: 15rem">
+                        </div>
+                    </div>
+                </div>
+                <!-- Продукты -->
                 <div class="row">
+                    {% if products %}
+                        {% for product in products %}
+                            <div class="col-md-4 col-sm-6 mb-4">
+                                <div class="card position-relative" style="border: 0px;">
+                                    <a class="" href={% url 'store:product-detail' product.id %}>
+                                        <img class="img-fluid"
+                                             {% comment %}
+                                             src="{% static 'img/Frame.png' %}"
+                                             {% endcomment %}
+                                             src="{{ product.product_image.url }}"
+                                             alt="{{ product.title }}"
+                                             style="width: 100%!important;
+                                                    filter: brightness(0.975)!important">
+                                    </a>
+                                    <div class="position-absolute top-0 end-0">
+                                        {% if request.user.is_authenticated %}
+                                            <form action="{% url 'store:add-to-liked' %}">
+                                                <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                                {% if product.id in liked_id %}
+                                                    <button type="submit" class="btn">
+                                                        <i class="bi bi-heart-fill text-danger fa-2x"></i>
+                                                    </button>
+                                                {% else %}
+                                                    <button type="submit" class="btn">
+                                                        <i class="bi bi-heart fa-2x"></i>
+                                                    </button>
+                                                {% endif %}
+                                            {% else %}
+                                                <i class="bi bi-heart fa-2x"
+                                                   href="#"
+                                                   data-bs-toggle="offcanvas"
+                                                   data-bs-target="#offcanvasRight"
+                                                   aria-controls="offcanvasRight"></i>
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                                    <div class="row justify-content-between my-1">
+                                        <div class="col-auto">
+                                            <a class="card-title fs-6 mb-2 text-decoration-none"
+                                               href="{% url 'store:product-detail' product.id %}"
+                                               style="color: rgba(0,0,0, 1)!important"
+                                               onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+                                               onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
+                                            <p class="card-text">{{ product.price }} &#8381;</p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <form action="{% url 'store:add-to-cart' %}">
+                                                <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                                <button type="submit" class="btn ">
+                                                    <img src={% static 'icons/cart.png' %}>
+                                                </img>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<section class="py-5">
+    <div class="container p-0">
+        <div class="row">
+            <!-- SHOP SIDEBAR-->
+            <div class="col-lg-3 order-2 order-lg-1"></div>
+            <!-- SHOP LISTING-->
+            <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
+                {% comment %} <script>
+     document.addEventListener('DOMContentLoaded', function() {
+         // Получаем форму и элемент сортировки
+         var form = document.getElementById('filter-form');
+         var sortSelect = document.getElementById('sort');
 
-                  
+         // Обработчик изменения выбора сортировки
+         sortSelect.addEventListener('change', function() {
+             // Отправляем форму
+             form.submit();
+         });
 
-
-                </div>
+         // Обработчик отправки формы
+         form.addEventListener('submit', function() {
+             // Посылаем данные формы на сервер
+             // В этом случае JavaScript не требуется,
+             // так как форма отправляется автоматически при отправке
+         });
+     });
+ </script> {% endcomment %}
+                <div class="row"></div>
                 <!-- PAGINATION-->
                 {% comment %} <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center justify-content-lg-end">
@@ -318,10 +258,9 @@
                     <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
                   </ul>
                 </nav> {% endcomment %}
-              </div>
             </div>
-          </div>
-        </section>
-      </div>
-
-      {% endblock content %}
+        </div>
+    </div>
+</section>
+</div>
+{% endblock content %}

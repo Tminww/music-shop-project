@@ -1,140 +1,112 @@
 {% extends 'base.html' %}
 {% load static %}
-
-    {% block content %}
+{% block content %}
     <style>
-      body{
-          display: flex;
-          flex-direction: column;
-          height:100vh;
-          margin: 0;
-          padding: 0;
-          
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+
         }
-        
-        .container{
-          flex: 1;
+
+        .container {
+            flex: 1;
         }
     </style>
- 
     <!-- LEFT MENU-->
     <div class="container my-5">
-      <div class="row ">
-        <div class="col-lg-4 col-sm-6 ">
-          <div class="row justify-content-center align-items-center my-5">
-            <div class="col-auto">
-              <div class="row justify-content-end">
-                <div class="col-auto">
-                  {{request.user.username}}
+        <div class="row ">
+            <div class="col-lg-4 col-sm-6 ">
+                <div class="row justify-content-center align-items-center my-5">
+                    <div class="col-auto">
+                        <div class="row justify-content-end">
+                            <div class="col-auto">{{ request.user.username }}</div>
+                            <div class="row justify-content-end">
+                                <div class="col-auto">{{ request.user.email }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mr-0 pr-0">
+                        <img src={% static 'icons/circle.png' %}>
+                    </img>
                 </div>
-              <div class="row justify-content-end">
-                <div class="col-auto">
-                  {{request.user.email}}
-                </div>
-              </div> 
             </div>
-          </div>
-            <div class="col-auto mr-0 pr-0">
-              <img  src={% static 'icons/circle.png' %}> </img>
+            <div class="row justify-content-end my-5">
+                <div class="col-auto mx-2">
+                    <div class="container "
+                         style="height: 100%!important;
+                                display: flex!important;
+                                flex-direction: column!important;
+                                justify-content: space-between!important">
+                        <div class="row justify-content-end mt-5">
+                            <div class="col-auto">
+                                <a class="text-decoration-none fs-4 "
+                                   href="{% url 'store:orders' %}"
+                                   {% if active == 'orders' %} style="color: #EE6A31!important;" {% else %} style="color: rgba(0,0,0, 1)!important;" {% endif %}
+                                   onMouseOver="this.style.color='#EE6A31'"
+                                   onMouseOut="this.style.color='rgba(0,0,0, 1)'">Заказы</a>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end my-1">
+                            <div class="col-auto">
+                                <a class="text-decoration-none fs-4"
+                                   href="{% url 'store:address' %}"
+                                   {% if active == 'address' %} style="color: #EE6A31!important;" {% else %} style="color: rgba(0,0,0, 1)!important;" {% endif %}
+                                   onMouseOver="this.style.color='#EE6A31'"
+                                   onMouseOut="this.style.color='rgba(0,0,0, 1)'">Адреса</a>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end my-1">
+                            <div class="col-auto">
+                                <a class="text-decoration-none fs-4"
+                                   href="{% url 'store:cart' %}"
+                                   {% if active == 'cart' %} style="color: #EE6A31!important;" {% else %} style="color: rgba(0,0,0, 1)!important;" {% endif %}
+                                   onMouseOver="this.style.color='#EE6A31'"
+                                   onMouseOut="this.style.color='rgba(0,0,0, 1)'">Корзина</a>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end my-1">
+                            <div class="col-auto">
+                                <a class="text-decoration-none fs-4"
+                                   href="{% url 'store:liked' %}"
+                                   {% if active == 'liked' %} style="color: #EE6A31!important;" {% else %} style="color: rgba(0,0,0, 1)!important;" {% endif %}
+                                   onMouseOver="this.style.color='#EE6A31'"
+                                   onMouseOut="this.style.color='rgba(0,0,0, 1)'">Избранное</a>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end my-1">
+                            <div class="col-auto">
+                                <a class="text-decoration-none fs-4"
+                                   href="{% url 'store:settings' %}"
+                                   {% if active == 'settings' %} style="color: #EE6A31!important;" {% else %} style="color: rgba(0,0,0, 1)!important;" {% endif %}
+                                   onMouseOver="this.style.color='#EE6A31'"
+                                   onMouseOut="this.style.color='rgba(0,0,0, 1)'">Настройки</a>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end my-1">
+                            <div class="col-auto">
+                                <a class="text-decoration-none fs-4"
+                                   href="{% url 'store:logout' %}"
+                                   style="color: rgba(0,0,0, 1)!important"
+                                   onMouseOver="this.style.color='#EE6A31'"
+                                   onMouseOut="this.style.color='rgba(0,0,0, 1)'">Выйти</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <div class="row justify-content-end my-5">
-            <div class="col-auto mx-2">
-              <div class="container " style="height: 100%!important; display: flex!important; flex-direction: column!important; justify-content: space-between!important;">
-                <div class="row justify-content-end mt-5">
-                  <div class="col-auto">
-                    <a class="text-decoration-none fs-4 " href={% url 'store:orders' %}
-                    {% if active == 'orders' %}      
-                    style="color: #EE6A31!important;"
-                    {% else %}
-                    style="color: rgba(0,0,0, 1)!important;"
-                    {% endif %}
-                          onMouseOver="this.style.color='#EE6A31'"
-                          onMouseOut="this.style.color='rgba(0,0,0, 1)'">Заказы</a>
-                  </div>
-                </div>
-                
-                <div class="row justify-content-end my-1">
-                  <div class="col-auto">
-                    <a class="text-decoration-none fs-4" href={% url 'store:address' %}
-                    {% if active == 'address' %}      
-                    style="color: #EE6A31!important;"
-                    {% else %}
-                    style="color: rgba(0,0,0, 1)!important;"
-                    {% endif %}
-                          onMouseOver="this.style.color='#EE6A31'"
-                          onMouseOut="this.style.color='rgba(0,0,0, 1)'">Адреса</a>
-                  </div>
-                </div>
-                <div class="row justify-content-end my-1">
-                  <div class="col-auto">
-                    <a class="text-decoration-none fs-4" href={% url 'store:cart'%} 
-                    {% if active == 'cart' %}      
-                    style="color: #EE6A31!important;"
-                    {% else %}
-                    style="color: rgba(0,0,0, 1)!important;"
-                    {% endif %}
-                          onMouseOver="this.style.color='#EE6A31'"
-                          onMouseOut="this.style.color='rgba(0,0,0, 1)'">Корзина</a>
-                  </div>
-                </div>
-                <div class="row justify-content-end my-1">
-                  <div class="col-auto">
-                    <a class="text-decoration-none fs-4" href={% url 'store:liked'%} 
-                    {% if active == 'liked' %}      
-                    style="color: #EE6A31!important;"
-                    {% else %}
-                    style="color: rgba(0,0,0, 1)!important;"
-                    {% endif %}
-                          onMouseOver="this.style.color='#EE6A31'"
-                          onMouseOut="this.style.color='rgba(0,0,0, 1)'">Избранное</a>
-                  </div>
-                </div>
-                <div class="row justify-content-end my-1">
-                  <div class="col-auto">
-                    <a class="text-decoration-none fs-4" href={% url 'store:settings' %}
-                    {% if active == 'settings' %}      
-                    style="color: #EE6A31!important;"
-                    {% else %}
-                    style="color: rgba(0,0,0, 1)!important;"
-                    {% endif %}
-                          onMouseOver="this.style.color='#EE6A31'"
-                          onMouseOut="this.style.color='rgba(0,0,0, 1)'">Настройки</a>
-                  </div>
-                </div>
-               
-                <div class="row justify-content-end my-1">
-                  <div class="col-auto">
-                    <a class="text-decoration-none fs-4" href={% url 'store:logout'%}
-                          style="color: rgba(0,0,0, 1)!important;"
-                          onMouseOver="this.style.color='#EE6A31'"
-                          onMouseOut="this.style.color='rgba(0,0,0, 1)'">Выйти</a>
-                  </div>
-                </div>
-                
-              </div>
-            </div>
-
-          </div> 
         </div>
         <div class="col-lg-8 col-sm-6 ">
-          <div class="row my-5">
-
-            {% block profile-content %}
-
-            {% endblock profile-content %}
-            
-          </div>
+            <div class="row my-5">
+                {% block profile-content %}
+                {% endblock profile-content %}
+            </div>
         </div>
-
-      </div>
     </div>
-
-
-     
-    
-      {% comment %} <div class="container py-5">
+</div>
+{% comment %} <div class="container py-5">
         {% include 'partials/_messages.html' %}
 
         <div class="jumbotron">
@@ -216,5 +188,5 @@
     
         
         
-      </div> {% endcomment %}
+</div> {% endcomment %}
 {% endblock content %}

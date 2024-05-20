@@ -1,262 +1,223 @@
 {% extends 'base.html' %}
 {% load static %}
-
-      {% block content %}
-      
-      <style>
+{% block content %}
+    <style>
         .btn:focus {
-          outline: none;
-          box-shadow: none;
+            outline: none;
+            box-shadow: none;
         }
-        .form-control:focus{
-          outline: none;
-          box-shadow: none;
-          border: 2px solid gray!important;
+
+        .form-control:focus {
+            outline: none;
+            box-shadow: none;
+            border: 2px solid gray !important;
         }
-        .form-select:focus{
-          outline: none;
-          box-shadow: none;
+
+        .form-select:focus {
+            outline: none;
+            box-shadow: none;
         }
+
         /* Chrome, Safari, Edge, Opera */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
+            -webkit-appearance: none;
+            margin: 0;
         }
 
         /* Firefox */
         input[type=number] {
-          -moz-appearance: textfield;
-}
-      </style>
-      
-      <!-- Интересуем клиента -->
-      <div class="container my-5">
+            -moz-appearance: textfield;
+        }
+    </style>
+    <!-- Интересуем клиента -->
+    <div class="container my-5">
         <div class="row align-items-center">
-          <div class="col-lg-6">
-      
-            <h1 class="text-uppercase fw-bold display-4 mb-3">
-              откройте звучание по-новому
-               
-            
-            </h1>
-            <br>
-            <div class="text-secondary lh-base text-wrap text-truncate mb-5 "
-            style="width: 300px; font-size: 1rem!important;" >
-              Новая коллекция, вдохновленная <br>
-              творчеством Квентина Тарантино, <br>
-              в частности личностью персонажа<br>
-              Мии Вуоллес  (поменять текст)
+            <div class="col-lg-6">
+                <h1 class="text-uppercase fw-bold display-4 mb-3">откройте звучание по-новому</h1>
+                <br>
+                <div class="text-secondary lh-base text-wrap text-truncate mb-5 "
+                     style="width: 300px;
+                            font-size: 1rem!important">
+                    Новая коллекция, вдохновленная
+                    <br>
+                    творчеством Квентина Тарантино,
+                    <br>
+                    в частности личностью персонажа
+                    <br>
+                    Мии Вуоллес  (поменять текст)
+                </div>
+                <a class="btn btn-warning btn-lg text-light px-5"
+                   style="background-color: #EE6A31;
+                          border: 2px solid #FFFFFF"
+                   onMouseOver="this.style.border='2px solid #EE6A31'"
+                   onMouseOut="this.style.border='2px solid #FFFFFF'"
+                   href="{% url 'store:catalog' %}?slug=all">Перейти в каталог
+                    <i class="bi bi-arrow-right"></i>
+                </a>
             </div>
-         
-         
-            <a class="btn btn-warning btn-lg text-light px-5"
-            style="background-color: #EE6A31; border: 2px solid #FFFFFF"
-            onMouseOver="this.style.border='2px solid #EE6A31'"
-            onMouseOut="this.style.border='2px solid #FFFFFF'"
-            href="{% url 'store:catalog'  %}?slug=all">Перейти в каталог
-              <i class="bi bi-arrow-right"></i>
-            </a>
-            
-          </div>
-          <div class="col-6">
-            <img class="img-fluid d-none d-lg-block " src={% static 'img/banner.jpg' %} alt="баннер">
-          </div>
+            <div class="col-6">
+                <img class="img-fluid d-none d-lg-block "
+                     src="{% static 'img/banner.jpg' %}"
+                     alt="баннер">
+            </div>
         </div>
-      </div>
-
-      <!-- Хвалим себя -->
-      <div class="container-fluid bg-dark">
+    </div>
+    <!-- Хвалим себя -->
+    <div class="container-fluid bg-dark">
         <div class="container">
-
-          <div class="row align-items-center">
-            <div class="col-lg-4 text-center my-5">
-              <div class="container my-5">
-                <img src={% static 'icons/cart.png' %}></img>
-                <div class="text-light font-weight-bold mt-4" >
-                  Бесплатная доставка
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-center my-5">
+                    <div class="container my-5">
+                        <img src={% static 'icons/cart.png' %}>
+                    </img>
+                    <div class="text-light font-weight-bold mt-4">Бесплатная доставка</div>
+                    <div class="mt-1" style="color: rgba(255,255,255, 0.7)!important;">Бесплатная доставка по всему миру</div>
                 </div>
-                <div class="mt-1" 
-                style="color: rgba(255,255,255, 0.7)!important;" >
-                  Бесплатная доставка по всему миру
-                </div>
-              
-              </div>
             </div>
             <div class="col-lg-4 text-center  my-5">
-              <div class="container my-5">
-                <img src={% static 'icons/cart.png' %}></img>
-                <div class="text-light font-weight-bold mt-4" >
-                  24 х 7 на связи
-                </div>
-                <div class="mt-1" 
-                style="color: rgba(255,255,255, 0.7)!important;" >
-                  Круглосуточная поддержка
-                </div>
-              
-              </div>
+                <div class="container my-5">
+                    <img src={% static 'icons/cart.png' %}>
+                </img>
+                <div class="text-light font-weight-bold mt-4">24 х 7 на связи</div>
+                <div class="mt-1" style="color: rgba(255,255,255, 0.7)!important;">Круглосуточная поддержка</div>
             </div>
-            <div class="col-lg-4 text-center  my-5">
-              <div class="container my-5">
-                <img src={% static 'icons/cart.png' %}></img>
-                <div class="text-light font-weight-bold mt-4" >
-                  Лучшие предложения
-                </div>
-                <div class="mt-1" 
-                style="color: rgba(255,255,255, 0.7)!important;" >
-                  Только в нашем магазине
-                </div>
-              
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-
-      <!-- Категории -->
-      <div class="container my-5">
-        <div class="row justify-content-between align-items-center">
-          <div class=" col-auto ">
-            <h1 class=" fw-bold mb-3">
-              Категории
-            </h1>
-          </div>
-          <div class=" col-auto ">
+        <div class="col-lg-4 text-center  my-5">
+            <div class="container my-5">
+                <img src={% static 'icons/cart.png' %}>
+            </img>
+            <div class="text-light font-weight-bold mt-4">Лучшие предложения</div>
+            <div class="mt-1" style="color: rgba(255,255,255, 0.7)!important;">Только в нашем магазине</div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- Категории -->
+<div class="container my-5">
+    <div class="row justify-content-between align-items-center">
+        <div class=" col-auto ">
+            <h1 class=" fw-bold mb-3">Категории</h1>
+        </div>
+        <div class=" col-auto ">
             <a class="text-decoration-none "
-                  style="color: rgba(0,0,0, 1)!important;"
-                  onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
-                  onMouseOut="this.style.color='rgba(0,0,0, 1)'"
-                  href="{% url 'store:catalog' %}?slug=all">
-                  Смотреть все
-              <i class="bi bi-arrow-right"></i>
+               style="color: rgba(0,0,0, 1)!important"
+               onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+               onMouseOut="this.style.color='rgba(0,0,0, 1)'"
+               href="{% url 'store:catalog' %}?slug=all">
+                Смотреть все
+                <i class="bi bi-arrow-right"></i>
             </a>
-          </div>
         </div>
-        <div class="row ">
-          {% if categories %}
+    </div>
+    <div class="row ">
+        {% if categories %}
             {% for category in categories %}
-
-              <div class="col-md-4 mb-4">
-                <div class="card bg-light border-light">
-                  <div class="row">
-                    <div class="col-7"
-                    style="padding-right: 0px!important;">
-                      <div class="card-body" style="height: 100%!important; display: flex!important; flex-direction: column!important; justify-content: space-between!important;">
-                        <h5 class="card-title fs-6 ">{{ category.title }}</h5>
-                        {% comment %} <p class="card-text">{{ category.title }}</p> {% endcomment %}
-                     
-                        <a href="{% url 'store:catalog' %}?slug={{category.slug}}" 
-                          class="text-decoration-none"
-                          style="color: rgba(0,0,0, 1)!important;"
-                          onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
-                          onMouseOut="this.style.color='rgba(0,0,0, 1)'"> 
-                          Перейти
-                          <i class="bi bi-arrow-right"></i>
-                          <hr class="mt-2"
-                            style="width: 6rem">
-                        </a>
-                      </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-light border-light">
+                        <div class="row">
+                            <div class="col-7" style="padding-right: 0px!important;">
+                                <div class="card-body"
+                                     style="height: 100%!important;
+                                            display: flex!important;
+                                            flex-direction: column!important;
+                                            justify-content: space-between!important">
+                                    <h5 class="card-title fs-6 ">{{ category.title }}</h5>
+                                    {% comment %} <p class="card-text">{{ category.title }}</p> {% endcomment %}
+                                    <a href="{% url 'store:catalog' %}?slug={{ category.slug }}"
+                                       class="text-decoration-none"
+                                       style="color: rgba(0,0,0, 1)!important"
+                                       onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+                                       onMouseOut="this.style.color='rgba(0,0,0, 1)'">
+                                        Перейти
+                                        <i class="bi bi-arrow-right"></i>
+                                        <hr class="mt-2" style="width: 6rem">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <img class="card-img-top"
+                                     src="{{ category.category_image.url }}"
+                                     alt="{{ category.title }}"
+                                     style="width: 100%!important">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-5">
-                      <img class="card-img-top" 
-                          src="{{ category.category_image.url }}" 
-                          alt="{{ category.title }}"
-                          style="width: 100%!important;">
-                    </div>
-                  </div>
                 </div>
-               
-              </div>
-            
             {% endfor %}
-          {% endif %}
-          
-        </div>
-      </div>
-    
-      <!--- Популярное -->
-      <div class="container my-5">
-        <div class="row justify-content-between align-items-center">
-          <div class=" col-auto ">
-            <h1 class=" fw-bold mb-3">
-              Популярное
-            </h1>
-          </div>
-          <div class=" col-auto ">
-            <a class="text-decoration-none "
-                  style="color: rgba(0,0,0, 1)!important;"
-                  onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
-                  onMouseOut="this.style.color='rgba(0,0,0, 1)'"
-                  href="{% url 'store:catalog' %}?sorting={{sorting}}&slug=all">
-                  Смотреть все
-              <i class="bi bi-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-        <div class="row">
-          {% if products %}
-          {% for product in products %}
-          <div class="col-md-3 mb-4">
-            <div class="card position-relative" 
-              style="border: 0px;">
-              <a class="" href={% url 'store:product-detail' product.id %}>
-                <img class="img-fluid" 
-                {% comment %} src={% static 'img/Frame.png' %} {% endcomment %}
-                src="{{product.product_image.url}}"
-                alt="{{product.title}}"
-                style="width: 100%!important;filter: brightness(0.975)!important;"
-                >
-              </a>
-              <div class="position-absolute top-0 end-0">
-                <form action="{% url 'store:add-to-liked' %}">
-                  <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
-                  {% if product.id in liked_id %}
-                  
-                  <button type="submit" class="btn"> <i class="bi bi-heart-fill text-danger fa-2x"></i></button>
-                  {% else %}
-                  <button type="submit" class="btn"> <i class="bi bi-heart fa-2x"></i></button>
-
-                  {% endif %}
-
-                </form>  
-              </div>
-              <div class="row justify-content-between my-1">
-
-                <div class="col-auto">
-
-                  <a class="card-title fs-6 mb-2 text-decoration-none"
-                    href="{% url 'store:product-detail' product.id %}"
-                      style="color: rgba(0,0,0, 1)!important;"
-                      onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
-                      onMouseOut="this.style.color='rgba(0,0,0, 1)'"
-                  >{{ product.title }}</a>
-                  <p class="card-text">{{ product.price }} &#8381;</p>
-
-                </div>
-                <div class="col-auto">
-                  <form action="{% url 'store:add-to-cart' %}">
-                    <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
-                    <button type="submit" class="btn "><img src={% static 'icons/cart.png' %}></img></button>
-                  </form>
-                  
-            
-                  
-                </div>
-               
-               
-              </div>
-            </div>
-              
-              
-          </div>
-          
-        
-
-          {% endfor %}
         {% endif %}
-
+    </div>
+</div>
+<!--- Популярное -->
+<div class="container my-5">
+    <div class="row justify-content-between align-items-center">
+        <div class=" col-auto ">
+            <h1 class=" fw-bold mb-3">Популярное</h1>
         </div>
-      </div>
-
-
-      {% endblock content %}
+        <div class=" col-auto ">
+            <a class="text-decoration-none "
+               style="color: rgba(0,0,0, 1)!important"
+               onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+               onMouseOut="this.style.color='rgba(0,0,0, 1)'"
+               href="{% url 'store:catalog' %}?sorting={{ sorting }}&slug=all">
+                Смотреть все
+                <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        {% if products %}
+            {% for product in products %}
+                <div class="col-md-3 mb-4">
+                    <div class="card position-relative" style="border: 0px;">
+                        <a class="" href={% url 'store:product-detail' product.id %}>
+                            <img class="img-fluid"
+                                 {% comment %}
+                                 src="{% static 'img/Frame.png' %}"
+                                 {% endcomment %}
+                                 src="{{ product.product_image.url }}"
+                                 alt="{{ product.title }}"
+                                 style="width: 100%!important;
+                                        filter: brightness(0.975)!important">
+                        </a>
+                        <div class="position-absolute top-0 end-0">
+                            <form action="{% url 'store:add-to-liked' %}">
+                                <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                {% if product.id in liked_id %}
+                                    <button type="submit" class="btn">
+                                        <i class="bi bi-heart-fill text-danger fa-2x"></i>
+                                    </button>
+                                {% else %}
+                                    <button type="submit" class="btn">
+                                        <i class="bi bi-heart fa-2x"></i>
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </div>
+                        <div class="row justify-content-between my-1">
+                            <div class="col-auto">
+                                <a class="card-title fs-6 mb-2 text-decoration-none"
+                                   href="{% url 'store:product-detail' product.id %}"
+                                   style="color: rgba(0,0,0, 1)!important"
+                                   onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+                                   onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
+                                <p class="card-text">{{ product.price }} &#8381;</p>
+                            </div>
+                            <div class="col-auto">
+                                <form action="{% url 'store:add-to-cart' %}">
+                                    <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                    <button type="submit" class="btn ">
+                                        <img src={% static 'icons/cart.png' %}>
+                                    </img>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+</div>
+{% endblock content %}
