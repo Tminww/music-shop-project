@@ -1,5 +1,89 @@
 {% extends 'account/profile.html' %}
 {% load static %}
 {% block profile-content %}
-    SETTINGS
+<style>
+    .btn:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .form-control:focus {
+        outline: none;
+        box-shadow: none;
+   }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=text] {
+        -moz-appearance: textfield;
+    }
+    input{
+        border: 0px!important
+    }
+</style>
+
+    <div class="container-fluid">
+        <div class="d-flex align-items-center justify-content-between mb-5 fs-2">Настройки</div>
+        <form method="GET" action="">
+            <div class="d-flex align-items-center justify-content-between my-4 fs-4">Личная информация</div>
+            <div class="d-flex align-items-center justify-content-between mb-0 fs-4">
+                <input type="text"
+                       name="username"
+                       id="username"
+                       class="form-control"
+                       placeholder="Логин"
+                       required>
+                       <i class="bi bi-pencil  text-secondary fs-5"></i>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex align-items-center justify-content-between mb-0 fs-4">
+                <input type="text"
+                       name="name"
+                       id="username"
+                       class="form-control"
+                       placeholder="Имя">
+                       <i class="bi bi-pencil  text-secondary fs-5"></i>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex align-items-center justify-content-between mb-0 fs-4">
+                <input type="text"
+                       name="surname"
+                       id="surname"
+                       class="form-control"
+                       placeholder="Фамилия">
+                       <i class="bi bi-pencil  text-secondary fs-5"></i>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex align-items-center justify-content-between my-4 fs-4">Контакты</div>
+            <div class="d-flex align-items-center justify-content-between mb-0 fs-4">
+                <input type="email"
+                       name="email"
+                       id="email"
+                       pattern=".+@example\.com"
+                       size="30"
+                       class="form-control"
+                       placeholder="Электронная почта">
+                       <i class="bi bi-pencil  text-secondary fs-5"></i>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex align-items-center justify-content-between my-4 fs-4">Пароль</div>
+            <div class="d-flex align-items-center justify-content-between mb-0 fs-4">
+                <input type="password"
+                       minlength="8"
+                       name="user-register-password"
+                       class="form-control"
+                       id="user-register-password"
+                       placeholder="Пароль">
+                <i class="bi bi-pencil  text-secondary fs-5 "></i>
+            </div>
+            <hr class="mt-0">
+        </div>
+    </form>
+</div>
 {% endblock profile-content %}

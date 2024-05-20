@@ -37,14 +37,10 @@
         }
     </style>
     <div class="container-fluid">
-        <div class="row justify-content-beetwen align-items-center">
-            <div class="col-lg-10 col-auto">
-                <div class="fs-2 ">
-                    Корзина
-                    {% if cart_items != 0 %}<span class="text-secondary fs-4">/ {{ cart_items }} шт.</span>{% endif %}
-                </div>
-            </div>
-            <div class="col-lg-2 col-auto">
+        <div class="d-flex align-items-center justify-content-between mb-5 fs-2">
+            Корзина
+            {% if cart_items != 0 %}/ {{ cart_items }} шт.{% endif %}
+            <span>
                 {% if cart_products %}
                     <a href="{% url 'store:clear-cart' %}"
                        class="btn text-decoration-none"
@@ -55,7 +51,7 @@
                         <hr class="my-0" style="width: 6rem">
                     </a>
                 {% endif %}
-            </div>
+            </span>
         </div>
         {% if cart_products %}
             {% for product in cart_products %}

@@ -31,37 +31,26 @@
         }
     </style>
     <div class="container-fluid">
-        <div class="row  justify-content-beetwen align-items-center mb-4">
-            <div class="col-lg-8 col-auto ">
-                <div class="fs-2 ">Избранное</div>
-            </div>
-            <div class="col-lg-4 col-auto pe-0">
-                <!-- Сортировка -->
-                <div class="container-fluid">
-                    <div class="row justify-content-end">
-                        <div class="col-auto">
-                            <form id="filter-form" method="GET" action="">
-                                <select id="sorting"
-                                        name="sorting"
-                                        form="filter-form"
-                                        onchange="this.form.submit()"
-                                        class="form-select"
-                                        style="width: 15rem!important;
-                                               border: 0px!important">
-                                    <option value="default" {% if sorting == "default" %}selected{% endif %}>Без сортировки</option>
-                                    <option value="popularity"
-                                            {% if sorting == "popularity" %}selected{% endif %}>
-                                        По популярности
-                                    </option>
-                                    <option value="low-high" {% if sorting == "low-high" %}selected{% endif %}>По возрастанию цены</option>
-                                    <option value="high-low" {% if sorting == "high-low" %}selected{% endif %}>По убыванию цены</option>
-                                </select>
-                                <hr class="my-0" style="width: 15rem">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="d-flex align-items-center justify-content-between mb-5 fs-2">
+            Избранное
+            <span>
+                <form id="filter-form" method="GET" action="">
+                    <select id="sorting"
+                            name="sorting"
+                            form="filter-form"
+                            onchange="this.form.submit()"
+                            class="form-select"
+                            style="width: 15rem!important;
+                                   border: 0px!important">
+                        <option value="default" {% if sorting == "default" %}selected{% endif %}>Без сортировки</option>
+                        <option value="popularity"
+                                {% if sorting == "popularity" %}selected{% endif %}>По популярности</option>
+                        <option value="low-high" {% if sorting == "low-high" %}selected{% endif %}>По возрастанию цены</option>
+                        <option value="high-low" {% if sorting == "high-low" %}selected{% endif %}>По убыванию цены</option>
+                    </select>
+                    <hr class="my-0" style="width: 15rem">
+                </form>
+            </span>
         </div>
         <!-- Продукты -->
         <div class="row">
