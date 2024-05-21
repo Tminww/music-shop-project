@@ -64,15 +64,15 @@ for url in subcategories_urls:
                 0
             ].text.strip()
 
-            p_tags = soup.find_all("div", role="tabpanel")
-            # characteristic = soup.find_all(
-            #     "div", role="tabpanel", class_="tab-pane fade active in"
-            # )[1]
+            # p_tags = soup.find_all("div", role="tabpanel")
+            # # characteristic = soup.find_all(
+            # #     "div", role="tabpanel", class_="tab-pane fade active in"
+            # # )[1]
 
-            print(p_tags[0])
+            # print(p_tags[0])
 
-            prod_description = p_tags[0].text
-
+            # prod_description = p_tags[0].text
+            save_img(prod_img_url, prod_vendor_code)
             print(
                 prod_category,
                 prod_title,
