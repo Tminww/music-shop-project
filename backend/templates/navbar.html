@@ -63,6 +63,12 @@
     .form-control:focus {
         outline: none;
         box-shadow: none;
+        border: 0px!important;
+    }
+
+    input:focus {
+        outline: none;
+        box-shadow: none;
     }
 
     /* Chrome, Safari, Edge, Opera */
@@ -300,7 +306,7 @@
                                         <input type="email"
                                             name="email"
                                             id="email"
-                                            pattern=".+@example\.com"
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                             size="30"
                                             class="form-control"
                                             placeholder="Электронная почта"

@@ -10,7 +10,7 @@
         .form-control:focus {
             outline: none;
             box-shadow: none;
-            border: 2px solid gray !important;
+            border: 0px !important;
         }
 
         .form-select:focus {
@@ -178,59 +178,83 @@
     </div>
     <div class="row">
         {% if products %}
-            {% for product in products %}
-                <div class="col-md-3 mb-4">
-                    <div class="card position-relative" style="border: 0px;">
-                        <div style="width: 100%!important;
-                                    backdrop-filter: brightness(0.975)!important">
-                            <a class="" href={% url 'store:product-detail' product.id %}>
-                                <img class="img-fluid contain narrow"
-                                     {% comment %}
-                                     src="{% static 'img/Frame.png' %}"
-                                     {% endcomment %}
-                                     src="{{ product.product_image.url }}"
-                                     alt="{{ product.title }}"
-                                     style="width: 100%!important;
-                                            filter: brightness(0.975)!important">
-                            </a>
-                        </div>
-                        <div class="position-absolute top-0 end-0">
-                            <form action="{% url 'store:add-to-liked' %}">
-                                <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
-                                {% if product.id in liked_id %}
-                                    <button type="submit" class="btn">
-                                        <i class="bi bi-heart-fill text-danger fa-2x"></i>
-                                    </button>
-                                {% else %}
-                                    <button type="submit" class="btn">
-                                        <i class="bi bi-heart fa-2x"></i>
-                                    </button>
-                                {% endif %}
-                            </form>
-                        </div>
-                        <div class="row justify-content-between my-1">
-                            <div class="col-9">
-                                <a class="card-title fs-6 mb-2 text-decoration-none"
-                                   href="{% url 'store:product-detail' product.id %}"
-                                   style="color: rgba(0,0,0, 1)!important"
-                                   onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
-                                   onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
-                                <p class="card-text">{{ product.price }} &#8381;</p>
+                        {% for product in products %}
+                            <div class="col-md-3 col-sm-6 mb-4">
+                                <div class="card position-relative" style="border: 0px;">
+                                    <div style="width: 100%!important;
+                                                backdrop-filter: brightness(0.975)!important">
+                                        <a class="" href={% url 'store:product-detail' product.id %}>
+                                            <img class="img-fluid contain narrow"
+                                                 {% comment %}
+                                                 src="{% static 'img/Frame.png' %}"
+                                                 {% endcomment %}
+                                                 src="{{ product.product_image.url }}"
+                                                 alt="{{ product.title }}"
+                                                 style="width: 100%!important;
+                                                        filter: brightness(0.975)!important">
+                                        </a>
+                                    </div>
+                                    <div class="position-absolute top-0 end-0 m-2">
+                                        {% if request.user.is_authenticated %}
+                                            <form action="{% url 'store:add-to-liked' %}">
+                                                <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                                {% if product.id in liked_id %}
+                                                    <button type="submit" class="btn">
+                                                        <i class="bi bi-heart-fill text-danger fa-2x"></i>
+                                                    </button>
+                                                {% else %}
+                                                    <button type="submit" class="btn">
+                                                        <i class="bi bi-heart fa-2x"></i>
+                                                    </button>
+                                                {% endif %}
+                                            {% else %}
+                                                <i class="bi bi-heart fa-2x"
+                                                   href="#"
+                                                   data-bs-toggle="offcanvas"
+                                                   data-bs-target="#offcanvasRight"
+                                                   aria-controls="offcanvasRight"></i>
+                                            
+                                        </form>
+                                        {% endif %}
+                                    </div>
+                                    <div class="row justify-content-between my-1">
+                                        <div class="col-9">
+                                            <a class="card-title fs-6 mb-2 text-decoration-none"
+                                               href="{% url 'store:product-detail' product.id %}"
+                                               style="color: rgba(0,0,0, 1)!important"
+                                               onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+                                               onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
+                                            <p class="card-text">{{ product.price }} &#8381;</p>
+                                        </div>
+                                        <div class="col-3">
+                                            {% if request.user.is_authenticated %}
+                                            <form action="{% url 'store:add-to-cart' %}">
+                                                <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                                <button type="submit" class="btn ">
+                                                    <img src={% static 'icons/cart.png' %}>
+                                                    </img>
+                                                    
+                                                </button>
+                                            </form>
+                                            {% else %}
+                                            
+                                                <i 
+                                                   href="#"
+                                                   data-bs-toggle="offcanvas"
+                                                   data-bs-target="#offcanvasRight"
+                                                   aria-controls="offcanvasRight">
+                                                   <img src={% static 'icons/cart.png' %}/>
+                                                </i>
+                                            
+                                        </form>
+                                        {% endif %}
+                                            
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-3">
-                                <form action="{% url 'store:add-to-cart' %}">
-                                    <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
-                                    <button type="submit" class="btn ">
-                                        <img src={% static 'icons/cart.png' %}>
-                                    </img>
-                                </button>
-                            </form>
                         </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+                    {% endfor %}
+                {% endif %}
 </div>
 </div>
 {% endblock content %}
