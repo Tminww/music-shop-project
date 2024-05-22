@@ -55,6 +55,31 @@
     #fill-tab-2 {
         color: #000000 !important;
     }
+    .btn:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .form-control:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=text] {
+        -moz-appearance: textfield;
+    }
+    
+    input {
+        border: 0px !important
+    }
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3"
      id="headerNav">
@@ -259,7 +284,7 @@
                                       action="{% url 'store:user-register' %}"
                                       autocomplete="off">
                                     {% csrf_token %}
-                                    <div class="mb-3">
+                                    <div class="mb-0">
                                         {% comment %} <label for="user-login" class="form-label"></label> {% endcomment %}
                                         <input type="text"
                                                name="user-register"
@@ -269,7 +294,20 @@
                                                required>
                                         {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
                                     </div>
-                                    <div class="mb-3">
+                                    <hr class="mt-0">
+
+                                    <div class="mb-0">
+                                        <input type="email"
+                                            name="email"
+                                            id="email"
+                                            pattern=".+@example\.com"
+                                            size="30"
+                                            class="form-control"
+                                            placeholder="Электронная почта"
+                                            required>
+                                    </div>
+                                    <hr class="mt-0">
+                                    <div class="mb-0">
                                         {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
                                         <input type="password"
                                                minlength="8"
@@ -279,7 +317,8 @@
                                                placeholder="Пароль"
                                                required>
                                     </div>
-                                    <div class="mb-3">
+                                    <hr class="mt-0">
+                                    <div class="mb-0">
                                         {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
                                         <input type="password"
                                                minlength="8"
@@ -289,6 +328,7 @@
                                                placeholder="Повторите пароль"
                                                required>
                                     </div>
+                                    <hr class="mt-0">
                                     {% if previous_page == 'register' %}
                                         {% include 'partials/_messages.html' %}
                                     {% endif %}

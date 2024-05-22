@@ -167,6 +167,7 @@ def user_register_controller(request):
         username = request.POST.get("user-register")
         user_password = request.POST.get("user-register-password")
         user_password2 = request.POST.get("user-register-password2")
+        user_email = request.POST.get("email")
 
         categories = Category.objects.filter(is_active=True)
         products = Product.objects.filter(is_active=True, is_featured=True)[:4]
@@ -194,7 +195,9 @@ def user_register_controller(request):
             else:
 
                 user = User.objects.create_user(
-                    username=username, password=user_password
+                    username=username,
+                    password=user_password,
+                    email=user_email,
                 )
                 user.save()
                 login(request, user)
