@@ -62,6 +62,7 @@ urlpatterns = [
         auth_views.LogoutView.as_view(next_page="store:home"),
         name="logout",
     ),
+    path("accounts/change-user-info/", views.change_info, name="change-user-info"),
     path(
         "accounts/password-change/",
         auth_views.PasswordChangeView.as_view(

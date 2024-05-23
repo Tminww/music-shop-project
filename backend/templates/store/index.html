@@ -196,7 +196,7 @@
                             </div>
                             <div class="position-absolute top-0 end-0 m-2">
                                 {% if request.user.is_authenticated %}
-                                    <form action="{% url 'store:add-to-liked' %}">
+                                    <form id="add-to-liked" action="{% url 'store:add-to-liked' %}">
                                         <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
                                         {% if product.id in liked_id %}
                                             <button type="submit" class="btn">
@@ -224,18 +224,20 @@
                                         style="color: rgba(0,0,0, 1)!important"
                                         onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
                                         onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
+                                        <p class="text-secondary">{{ product.slug }}</p>
                                     <p class="card-text">{{ product.price }} &#8381;</p>
                                 </div>
                                 <div class="col-3">
+                                    <form></form>
                                     {% if request.user.is_authenticated %}
-                                    <form action="{% url 'store:add-to-cart' %}">
-                                        <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                    <form id="add-to-cart"action="{% url 'store:add-to-cart' %}">
+                                        <input type="hidden" name="card-prod_id" value="{{ product.id }}" id="product_id">
                                         <button type="submit" class="btn ">
                                             <img src={% static 'icons/cart.png' %}>
                                             </img>
                                             
                                         </button>
-                                    </form>
+                               
                                     {% else %}
                                     
                                         <i 
@@ -246,7 +248,7 @@
                                             <img src={% static 'icons/cart.png' %}/>
                                         </i>
                                     
-                                </form>
+                                    </form>
                                 {% endif %}
                                     
                             </div>

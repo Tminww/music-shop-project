@@ -503,32 +503,6 @@ def minus_cart(request, cart_id):
 
 
 @login_required
-def after_checkout(request):
-
-    try:
-        address_id = request.GET.get("address")
-        address = get_object_or_404(Address, id=address_id)
-    except:
-        address_id = None
-        address = None
-    print(address_id)
-
-    # Get all the products of User in Cart
-    cart = Cart.objects.filter(user=request.user)
-    current_order = None
-    for c in cart:
-        # Saving all the products from Cart to Order
-        current_order = Order(
-            user=request.user, address=address, product=c.product, quantity=c.quantity
-        )
-        current_order.save()
-        # And Deleting from Cart
-        c.delete()
-
-    return redirect("store:orders")
-
-
-@login_required
 def checkout(request):
     user = request.user
 
@@ -556,3 +530,49 @@ def checkout(request):
     }
 
     return render(request, "payments/payment.html", context)
+
+
+@login_required
+def after_checkout(request):
+
+    try:
+        address_id = request.GET.get("address")
+        address = get_object_or_404(Address, id=address_id)
+    except:
+        address_id = None
+        address = None
+    print(address_id)
+
+    # Get all the products of User in Cart
+    cart = Cart.objects.filter(user=request.user)
+    current_order = None
+    for c in cart:
+        # Saving all the products from Cart to Order
+        current_order = Order(
+            user=request.user,
+            uuid=uuid.uuid4(),
+            address=address,
+            product=c.product,
+            quantity=c.quantity,
+        )
+        current_order.save()
+        # And Deleting from Cart
+        c.delete()
+
+    return redirect("store:orders")
+
+
+@login_required
+def change_info(request):
+    if request.method == "POST":
+
+        user = request.user
+
+        user.first_name = request.POST.get("name")
+        user.last_name = request.POST.get("surname")
+        user.email = request.POST.get("email")
+        user.password = request.POST.get("user-change-password")
+
+        user.save()
+
+        return redirect("store:settings")

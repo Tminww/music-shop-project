@@ -125,6 +125,7 @@ class Order(models.Model):
     user = models.ForeignKey(
         User, verbose_name="Пользователь", on_delete=models.CASCADE
     )
+    uuid = models.TextField(null=True, verbose_name="uuid")
     address = models.ForeignKey(
         Address, null=True, verbose_name="Адрес доставки", on_delete=models.CASCADE
     )

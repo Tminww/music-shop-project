@@ -10,7 +10,7 @@
         .form-control:focus {
             outline: none;
             box-shadow: none;
-            border: 2px solid gray !important;
+            border: 2px solid gray;
         }
 
         .form-select:focus {
@@ -39,6 +39,12 @@
             width: 300px;
             height: 300px;
             margin-top: 0px;
+        }
+        .custom{
+            accent-color: #EE6A31!important;
+            width: 15px;
+            height: 15px;
+
         }
     </style>
     <script>
@@ -113,8 +119,8 @@
                         </div>
                     </div>
                     <h6 class="fs-5 mt-2 mb-4">Категории</h6>
-                    <div class="form-check">
-                        <input class="form-check-input"
+                    <div class="form-check ps-0">
+                        <input class="custom"
                                type="checkbox"
                                value="all"
                                id="category"
@@ -123,8 +129,8 @@
                         <label class="form-check-label" for="category">Показать все</label>
                     </div>
                     {% for cat in categories %}
-                        <div class="form-check my-2">
-                            <input class="form-check-input"
+                        <div class="form-check my-2 ps-0">
+                            <input class="custom"
                                    type="checkbox"
                                    name="slug"
                                    value="{{ cat.slug }}"
@@ -215,9 +221,13 @@
                                                style="color: rgba(0,0,0, 1)!important"
                                                onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
                                                onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
+                                            
+                                            <p class="text-secondary">{{ product.slug }}</p>
+
                                             <p class="card-text">{{ product.price }} &#8381;</p>
                                         </div>
                                         <div class="col-3">
+                                            <form></form>
                                             {% if request.user.is_authenticated %}
                                             <form action="{% url 'store:add-to-cart' %}">
                                                 <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
@@ -226,7 +236,6 @@
                                                     </img>
                                                     
                                                 </button>
-                                            </form>
                                             {% else %}
                                             
                                                 <i 
@@ -250,47 +259,5 @@
         </div>
     </div>
 </div>
-<section class="py-5">
-    <div class="container p-0">
-        <div class="row">
-            <!-- SHOP SIDEBAR-->
-            <div class="col-lg-3 order-2 order-lg-1"></div>
-            <!-- SHOP LISTING-->
-            <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
-                {% comment %} <script>
-     document.addEventListener('DOMContentLoaded', function() {
-         // Получаем форму и элемент сортировки
-         var form = document.getElementById('filter-form');
-         var sortSelect = document.getElementById('sort');
 
-         // Обработчик изменения выбора сортировки
-         sortSelect.addEventListener('change', function() {
-             // Отправляем форму
-             form.submit();
-         });
-
-         // Обработчик отправки формы
-         form.addEventListener('submit', function() {
-             // Посылаем данные формы на сервер
-             // В этом случае JavaScript не требуется,
-             // так как форма отправляется автоматически при отправке
-         });
-     });
- </script> {% endcomment %}
-                <div class="row"></div>
-                <!-- PAGINATION-->
-                {% comment %} <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center justify-content-lg-end">
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                  </ul>
-                </nav> {% endcomment %}
-            </div>
-        </div>
-    </div>
-</section>
-</div>
 {% endblock content %}

@@ -68,7 +68,12 @@
             object-fit: contain;
         }
 
-        .narrow {
+        .narrow-50 {
+            width: 50rem;
+            height: 50rem;
+            margin-top: 0px;
+        }
+        .narrow{
             width: 300px;
             height: 300px;
             margin-top: 0px;
@@ -104,25 +109,24 @@
         <div class="row ">
             <div class="col-lg-8 col-sm-6">
                 <div class="row justify-content-center">
-                    <div class="col-2 px-0 d-none d-lg-block ">
-                        
-                    </div>
-                    <div class="col-10 ">
-                        <div class="card">
-                        <img class="img-fluid contain narrow"
-                                        {% comment %}
-                                        src="{% static 'img/Frame.png' %}"
-                                        {% endcomment %}
-                                        src="{{ product.product_image.url }}"
-                                        alt="{{ product.title }}"
-                                        style="width: 100%!important;
-                                            filter: brightness(0.975)!important">
+
+                    <div class="col-12">
+                        <div style="backdrop-filter: brightness(0.975)!important">
+
+                            <img class="img-fluid contain narrow-50"
+                            {% comment %}
+                            src="{% static 'img/Frame.png' %}"
+                            {% endcomment %}
+                            src="{{ product.product_image.url }}"
+                            alt="{{ product.title }}"
+                            style="filter: brightness(0.975)!important;">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-12 ">
                 <h1 class="">{{ product.title }}</h1>
+                <h4 class="text-secondary">{{ product.slug }}</h4>
                 <h3 class="py-4">{{ product.price }} ₽</h3>
                 <div class="row">
                     <div class="col-auto">
@@ -189,7 +193,7 @@
                            aria-controls="fill-tabpanel-0"
                            aria-selected="true">Описание</a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    {% comment %} <li class="nav-item" role="presentation">
                         <a class="nav-link"
                            id="product-tab-1"
                            data-bs-toggle="tab"
@@ -197,7 +201,7 @@
                            role="tab"
                            aria-controls="fill-tabpanel-1"
                            aria-selected="false">Характеристики</a>
-                    </li>
+                    </li> {% endcomment %}
                     <li class="nav-item" role="presentation">
                         <a class="nav-link"
                            id="product-tab-2"
@@ -290,9 +294,11 @@
                                     style="color: rgba(0,0,0, 1)!important"
                                     onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
                                     onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
+                                    <p class="text-secondary">{{ product.slug }}</p>
                                 <p class="card-text">{{ product.price }} &#8381;</p>
                             </div>
                             <div class="col-3">
+                                <form></form>
                                 {% if request.user.is_authenticated %}
                                 <form action="{% url 'store:add-to-cart' %}">
                                     <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
@@ -301,7 +307,7 @@
                                         </img>
                                         
                                     </button>
-                                </form>
+                                
                                 {% else %}
                                 
                                     <i 

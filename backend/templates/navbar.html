@@ -63,7 +63,7 @@
     .form-control:focus {
         outline: none;
         box-shadow: none;
-        border: 0px!important;
+        border: 0px;
     }
 
     input:focus {
@@ -82,10 +82,20 @@
     input[type=text] {
         -moz-appearance: textfield;
     }
-    
-    input {
-        border: 0px !important
+    input[type=text], input[type=email], input[type=password] {
+        border: 0px;
     }
+    input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+        outline: none;
+        box-shadow: none;
+        border: 0px;
+    }
+    input[type=text]:active, input[type=email]:focus, input[type=password]:focus {
+        outline: none;
+        box-shadow: none;
+        border: 0px!important;
+    }
+
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3"
      id="headerNav">
