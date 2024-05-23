@@ -232,9 +232,12 @@ def detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     popular_products = Product.objects.filter(is_active=True, is_featured=True)[:4]
 
-    liked_products_id = [
-        product.product_id for product in Liked.objects.filter(user=request.user)
-    ]
+    if request.user.is_authenticated:
+        liked_products_id = [
+            product.product_id for product in Liked.objects.filter(user=request.user)
+        ]
+    else:
+        liked_products_id = None
 
     related_products = Product.objects.exclude(id=product.id).filter(
         is_active=True, category=product.category
