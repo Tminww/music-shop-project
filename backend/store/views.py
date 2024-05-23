@@ -571,8 +571,9 @@ def change_info(request):
         user.first_name = request.POST.get("name")
         user.last_name = request.POST.get("surname")
         user.email = request.POST.get("email")
-        user.password = request.POST.get("user-change-password")
+        user.set_password(request.POST.get("user-change-password"))
 
         user.save()
+        login(request, user)
 
         return redirect("store:settings")

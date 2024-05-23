@@ -32,7 +32,7 @@
 
         .contain {
             object-fit: contain;
-            
+
         }
 
         .narrow {
@@ -40,8 +40,9 @@
             height: 300px;
             margin-top: 0px;
         }
-        .custom{
-            accent-color: #EE6A31!important;
+
+        .custom {
+            accent-color: #EE6A31 !important;
             width: 15px;
             height: 15px;
 
@@ -210,8 +211,7 @@
                                                    data-bs-toggle="offcanvas"
                                                    data-bs-target="#offcanvasRight"
                                                    aria-controls="offcanvasRight"></i>
-                                            
-                                        </form>
+                                            </form>
                                         {% endif %}
                                     </div>
                                     <div class="row justify-content-between my-1">
@@ -221,34 +221,28 @@
                                                style="color: rgba(0,0,0, 1)!important"
                                                onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
                                                onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
-                                            
                                             <p class="text-secondary">{{ product.slug }}</p>
-
                                             <p class="card-text">{{ product.price }} &#8381;</p>
                                         </div>
                                         <div class="col-3">
-                                            <form></form>
+                                            <form>
+                                            </form>
                                             {% if request.user.is_authenticated %}
-                                            <form action="{% url 'store:add-to-cart' %}">
-                                                <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
-                                                <button type="submit" class="btn ">
-                                                    <img src={% static 'icons/cart.png' %}>
+                                                <form action="{% url 'store:add-to-cart' %}">
+                                                    <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                                    <button type="submit" class="btn m-0 p-0 ">
+                                                        <img src={% static 'icons/cart.png' %}>
                                                     </img>
-                                                    
                                                 </button>
                                             {% else %}
-                                            
-                                                <i 
-                                                   href="#"
+                                                <i href="#"
                                                    data-bs-toggle="offcanvas"
                                                    data-bs-target="#offcanvasRight"
                                                    aria-controls="offcanvasRight">
-                                                   <img src={% static 'icons/cart.png' %}/>
+                                                    <img src={% static 'icons/cart.png' %} />
                                                 </i>
-                                            
-                                        </form>
+                                            </form>
                                         {% endif %}
-                                            
                                     </div>
                                 </div>
                             </div>
@@ -259,5 +253,4 @@
         </div>
     </div>
 </div>
-
 {% endblock content %}

@@ -64,6 +64,7 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
+
         .contain {
             object-fit: contain;
         }
@@ -73,7 +74,8 @@
             height: 50rem;
             margin-top: 0px;
         }
-        .narrow{
+
+        .narrow {
             width: 300px;
             height: 300px;
             margin-top: 0px;
@@ -109,17 +111,15 @@
         <div class="row ">
             <div class="col-lg-8 col-sm-6">
                 <div class="row justify-content-center">
-
                     <div class="col-12">
                         <div style="backdrop-filter: brightness(0.975)!important">
-
                             <img class="img-fluid contain narrow-50"
-                            {% comment %}
-                            src="{% static 'img/Frame.png' %}"
-                            {% endcomment %}
-                            src="{{ product.product_image.url }}"
-                            alt="{{ product.title }}"
-                            style="filter: brightness(0.975)!important;">
+                                 {% comment %}
+                                 src="{% static 'img/Frame.png' %}"
+                                 {% endcomment %}
+                                 src="{{ product.product_image.url }}"
+                                 alt="{{ product.title }}"
+                                 style="filter: brightness(0.975)!important">
                         </div>
                     </div>
                 </div>
@@ -136,49 +136,43 @@
                                 <button type="submit"
                                         class="btn btn-warning btn-lg text-light px-5"
                                         style="background-color: #EE6A31;
-                                            border: 2px solid #FFFFFF"
+                                               border: 2px solid #FFFFFF"
                                         onMouseOver="this.style.border='2px solid #EE6A31'"
                                         onMouseOut="this.style.border='2px solid #FFFFFF'">Добавить в корзину</button>
                             </form>
                         {% else %}
-                        <i 
-                            href="#"
-                            data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasRight"
-                            aria-controls="offcanvasRight">
-                            <button type=""
-                            class="btn btn-warning btn-lg text-light px-5"
-                            style="background-color: #EE6A31;
-                                border: 2px solid #FFFFFF"
-                            onMouseOver="this.style.border='2px solid #EE6A31'"
-                            onMouseOut="this.style.border='2px solid #FFFFFF'">Добавить в корзину
-                            </button>
-                        </i>
-                       
-                          
+                            <i href="#"
+                               data-bs-toggle="offcanvas"
+                               data-bs-target="#offcanvasRight"
+                               aria-controls="offcanvasRight">
+                                <button type=""
+                                        class="btn btn-warning btn-lg text-light px-5"
+                                        style="background-color: #EE6A31;
+                                               border: 2px solid #FFFFFF"
+                                        onMouseOver="this.style.border='2px solid #EE6A31'"
+                                        onMouseOut="this.style.border='2px solid #FFFFFF'">Добавить в корзину</button>
+                            </i>
                         {% endif %}
                     </div>
                     <div class="col-auto px-0 pb-5">
                         {% if request.user.is_authenticated %}
-                        <form action="{% url 'store:add-to-liked' %}">
-                            <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
-                            
-                        </form>
+                            <form action="{% url 'store:add-to-liked' %}">
+                                <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                            </form>
                         {% else %}
-                        <i 
-                        href="#"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasRight"
-                        aria-controls="offcanvasRight">
-                        <button type=""
-                                    class="btn btn-warning btn-lg text-light"
-                                    style="background-color: #EE6A31;
-                                           border: 2px solid #FFFFFF"
-                                    onMouseOver="this.style.border='2px solid #EE6A31'"
-                                    onMouseOut="this.style.border='2px solid #FFFFFF'">
-                                <i class="bi bi-heart"></i>
-                            </button>
-                    </i>
+                            <i href="#"
+                               data-bs-toggle="offcanvas"
+                               data-bs-target="#offcanvasRight"
+                               aria-controls="offcanvasRight">
+                                <button type=""
+                                        class="btn btn-warning btn-lg text-light"
+                                        style="background-color: #EE6A31;
+                                               border: 2px solid #FFFFFF"
+                                        onMouseOver="this.style.border='2px solid #EE6A31'"
+                                        onMouseOut="this.style.border='2px solid #FFFFFF'">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </i>
                         {% endif %}
                     </div>
                 </div>
@@ -194,13 +188,7 @@
                            aria-selected="true">Описание</a>
                     </li>
                     {% comment %} <li class="nav-item" role="presentation">
-                        <a class="nav-link"
-                           id="product-tab-1"
-                           data-bs-toggle="tab"
-                           href="#tabpanel-1"
-                           role="tab"
-                           aria-controls="fill-tabpanel-1"
-                           aria-selected="false">Характеристики</a>
+                        <a class="nav-link" id="product-tab-1" data-bs-toggle="tab" href="#tabpanel-1" role="tab" aria-controls="fill-tabpanel-1" aria-selected="false">Характеристики</a>
                     </li> {% endcomment %}
                     <li class="nav-item" role="presentation">
                         <a class="nav-link"
@@ -249,82 +237,76 @@
         <div class="row">
             {% if popular_products %}
                 {% for product in popular_products %}
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card position-relative" style="border: 0px;">
-                        <div style="width: 100%!important;
-                                    backdrop-filter: brightness(0.975)!important">
-                            <a class="" href={% url 'store:product-detail' product.id %}>
-                                <img class="img-fluid contain narrow"
-                                        {% comment %}
-                                        src="{% static 'img/Frame.png' %}"
-                                        {% endcomment %}
-                                        src="{{ product.product_image.url }}"
-                                        alt="{{ product.title }}"
-                                        style="width: 100%!important;
-                                            filter: brightness(0.975)!important">
-                            </a>
-                        </div>
-                        <div class="position-absolute top-0 end-0 m-2">
-                            {% if request.user.is_authenticated %}
-                                <form action="{% url 'store:add-to-liked' %}">
-                                    <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
-                                    {% if product.id in liked_id %}
-                                        <button type="submit" class="btn">
-                                            <i class="bi bi-heart-fill text-danger fa-2x"></i>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="card position-relative" style="border: 0px;">
+                            <div style="width: 100%!important;
+                                        backdrop-filter: brightness(0.975)!important">
+                                <a class="" href={% url 'store:product-detail' product.id %}>
+                                    <img class="img-fluid contain narrow"
+                                         {% comment %}
+                                         src="{% static 'img/Frame.png' %}"
+                                         {% endcomment %}
+                                         src="{{ product.product_image.url }}"
+                                         alt="{{ product.title }}"
+                                         style="width: 100%!important;
+                                                filter: brightness(0.975)!important">
+                                </a>
+                            </div>
+                            <div class="position-absolute top-0 end-0 m-2">
+                                {% if request.user.is_authenticated %}
+                                    <form action="{% url 'store:add-to-liked' %}">
+                                        <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                        {% if product.id in liked_id %}
+                                            <button type="submit" class="btn">
+                                                <i class="bi bi-heart-fill text-danger fa-2x"></i>
+                                            </button>
+                                        {% else %}
+                                            <button type="submit" class="btn">
+                                                <i class="bi bi-heart fa-2x"></i>
+                                            </button>
+                                        {% endif %}
+                                    {% else %}
+                                        <i class="bi bi-heart fa-2x"
+                                           href="#"
+                                           data-bs-toggle="offcanvas"
+                                           data-bs-target="#offcanvasRight"
+                                           aria-controls="offcanvasRight"></i>
+                                    </form>
+                                {% endif %}
+                            </div>
+                            <div class="row justify-content-between my-1">
+                                <div class="col-9">
+                                    <a class="card-title fs-6 mb-2 text-decoration-none"
+                                       href="{% url 'store:product-detail' product.id %}"
+                                       style="color: rgba(0,0,0, 1)!important"
+                                       onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+                                       onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
+                                    <p class="text-secondary">{{ product.slug }}</p>
+                                    <p class="card-text">{{ product.price }} &#8381;</p>
+                                </div>
+                                <div class="col-3">
+                                    <form>
+                                    </form>
+                                    {% if request.user.is_authenticated %}
+                                        <form action="{% url 'store:add-to-cart' %}">
+                                            <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                            <button type="submit" class="btn m-0 p-0">
+                                                <img src={% static 'icons/cart.png' %}>
+                                            </img>
                                         </button>
                                     {% else %}
-                                        <button type="submit" class="btn">
-                                            <i class="bi bi-heart fa-2x"></i>
-                                        </button>
-                                    {% endif %}
-                                {% else %}
-                                    <i class="bi bi-heart fa-2x"
-                                        href="#"
-                                        data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvasRight"
-                                        aria-controls="offcanvasRight"></i>
-                                
-                            </form>
-                            {% endif %}
-                        </div>
-                        <div class="row justify-content-between my-1">
-                            <div class="col-9">
-                                <a class="card-title fs-6 mb-2 text-decoration-none"
-                                    href="{% url 'store:product-detail' product.id %}"
-                                    style="color: rgba(0,0,0, 1)!important"
-                                    onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
-                                    onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
-                                    <p class="text-secondary">{{ product.slug }}</p>
-                                <p class="card-text">{{ product.price }} &#8381;</p>
+                                        <i href="#"
+                                           data-bs-toggle="offcanvas"
+                                           data-bs-target="#offcanvasRight"
+                                           aria-controls="offcanvasRight">
+                                            <img src={% static 'icons/cart.png' %} />
+                                        </i>
+                                    </form>
+                                {% endif %}
                             </div>
-                            <div class="col-3">
-                                <form></form>
-                                {% if request.user.is_authenticated %}
-                                <form action="{% url 'store:add-to-cart' %}">
-                                    <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
-                                    <button type="submit" class="btn ">
-                                        <img src={% static 'icons/cart.png' %}>
-                                        </img>
-                                        
-                                    </button>
-                                
-                                {% else %}
-                                
-                                    <i 
-                                        href="#"
-                                        data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvasRight"
-                                        aria-controls="offcanvasRight">
-                                        <img src={% static 'icons/cart.png' %}/>
-                                    </i>
-                                
-                            </form>
-                            {% endif %}
-                                
                         </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         {% endif %}
     </div>
