@@ -211,7 +211,7 @@
         </div>
     </nav>
     <!-- Всплывающее меню для регистрации и авторизации-->
-    <div {% if previous_page %} class="offcanvas offcanvas-end show" {% else %} class="offcanvas offcanvas-end" {% endif %}
+    <div {% if previous_page and previous_page != 'settings' %} class="offcanvas offcanvas-end show" {% else %} class="offcanvas offcanvas-end" {% endif %}
          tabindex="-1"
          id="offcanvasRight"
          aria-labelledby="offcanvasRightLabel">
@@ -255,7 +255,7 @@
                             <div class="card-body">
                                 <form method="post" action={% url 'store:user-login' %} autocomplete="off">
                                     {% csrf_token %}
-                                    <div class="mb-3">
+                                    <div class="mb-0">
                                         {% comment %} <label for="user-login" class="form-label"></label> {% endcomment %}
                                         <input type="text"
                                                name="user-login"
@@ -265,17 +265,19 @@
                                                required>
                                         {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
                                     </div>
-                                    <div class="mb-3">
+                                    <hr class="mt-0">
+                                    <div class="mb-0">
                                         {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
-                                        <p>
+                                       
                                             <input type="password"
                                                    name="user-login-password"
                                                    class="form-control"
                                                    id="user-login-password"
                                                    placeholder="Пароль"
                                                    required>
-                                        </p>
+                                       
                                     </div>
+                                    <hr class="mt-0">
                                     {% if previous_page == 'login' %}
                                         {% include 'partials/_messages.html' %}
                                     {% endif %}

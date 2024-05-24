@@ -69,15 +69,11 @@ def add_address(request):
 
 @login_required
 def settings(request):
-    addresses = Address.objects.filter(user=request.user)
-    orders = Order.objects.filter(user=request.user)
+
     context = {
-        "addresses": addresses,
-        "orders": orders,
         "active": "settings",
     }
     return render(request, "account/settings.html", context)
-    pass
 
 
 @login_required
@@ -151,6 +147,7 @@ def user_login_controller(request):
                 return redirect("store:home")
                 # return HttpResponse("Authenticated successfully")
             else:
+
                 messages.warning(request=request, message="Неверный логин или пароль")
                 return render(request, "store/index.html", context)
         else:
@@ -566,14 +563,35 @@ def after_checkout(request):
 def change_info(request):
     if request.method == "POST":
 
-        user = request.user
+        user_confirmation_password = request.POST.get("user-confirmation-password")
 
-        user.first_name = request.POST.get("name")
-        user.last_name = request.POST.get("surname")
-        user.email = request.POST.get("email")
-        user.set_password(request.POST.get("user-change-password"))
+        user = authenticate(
+            username=request.user.username, password=user_confirmation_password
+        )
+        context = {
+            "active": "settings",
+            "previous_page": "settings",
+        }
 
-        user.save()
-        login(request, user)
+        if user is not None:
+            if user.is_active:
 
-        return redirect("store:settings")
+                if request.POST.get("name"):
+                    user.first_name = request.POST.get("name")
+
+                if request.POST.get("surname"):
+                    user.last_name = request.POST.get("surname")
+
+                if request.POST.get("email"):
+                    user.email = request.POST.get("email")
+
+                if request.POST.get("user-new-password"):
+                    user.set_password(request.POST.get("user-new-password"))
+
+                user.save()
+                login(request, user)
+                return redirect("store:settings")
+                # return HttpResponse("Authenticated successfully")
+        else:
+            messages.warning(request=request, message="Неверный пароль")
+            return render(request, "account/settings.html", context)
