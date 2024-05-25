@@ -59,7 +59,7 @@ class Product(models.Model):
         upload_to="product", blank=True, null=True, verbose_name="Изображение продукта"
     )
     price = models.DecimalField(
-        max_digits=8, decimal_places=2, verbose_name="Цена товара"
+        max_digits=8, decimal_places=0, verbose_name="Цена товара"
     )
     category = models.ForeignKey(
         Category, verbose_name="Категория продукта", on_delete=models.CASCADE
@@ -129,11 +129,15 @@ class Order(models.Model):
     address = models.ForeignKey(
         Address, null=True, verbose_name="Адрес доставки", on_delete=models.CASCADE
     )
+    price = models.IntegerField(null=True, verbose_name="Цена заказа")
     product = models.ForeignKey(
         Product, verbose_name="Продукт", on_delete=models.CASCADE
     )
     quantity = models.PositiveIntegerField(verbose_name="Количество")
     ordered_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата заказа")
+    delivery_date = models.DateTimeField(
+        auto_now_add=False, null=True, verbose_name="Дата доставки"
+    )
     status = models.CharField(
         choices=STATUS_CHOICES,
         max_length=50,

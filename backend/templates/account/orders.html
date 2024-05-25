@@ -1,76 +1,87 @@
 {% extends 'account/profile.html' %}
 {% load static %}
 {% load humanize %}
+{% load my_filter %}
 {% block profile-content %}
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card mb-4" id="tables">
-                    <div class="card-header text-center">Заказы</div>
-                    <div class="card-body">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Продукт</th>
-                                    <th>Изображение</th>
-                                    <th>Количество</th>
-                                    <th>Дата заказа</th>
-                                    <th>Статус</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% if orders %}
-                                    {% for order in orders %}
-                                        <tr>
-                                            <td>{{ forloop.counter }}</td>
-                                            <td>{{ order.product.title }}</td>
-                                            <td>
-                                                {% if order.product.product_image %}
-                                                    <img src="{{ order.product.product_image.url }}"
-                                                         alt="{{ order.product.product_ttile }}"
-                                                         style="width:150px">
-                                                {% endif %}
-                                            </td>
-                                            <td>{{ order.quantity }}</td>
-                                            <td>{{ order.ordered_date|naturaltime }}</td>
-                                            <td>
-                                                {% if order.status == 'Обрабатывается' %}{% endif %}
-                                                {% if order.status == 'Принял' %}
-                                                    <div class="bg-light border border-primary">
-                                                        <div class="p-3 bg-primary" style="width:0;"></div>
-                                                    </div>
-                                                {% endif %}
-                                                {% if order.status == 'Упакован' %}
-                                                    <div class="bg-light border border-primary">
-                                                        <div class="p-3 bg-primary" style="width:40%;"></div>
-                                                    </div>
-                                                {% endif %}
-                                                {% if order.status == 'В пути' %}
-                                                    <div class="bg-light border border-primary">
-                                                        <div class="p-3 bg-primary" style="width:70%;"></div>
-                                                    </div>
-                                                {% endif %}
-                                                {% if order.status == 'Доставлен' %}
-                                                    <div class="bg-light border border-primary">
-                                                        <div class="p-3 bg-primary" style="width:100%;"></div>
-                                                    </div>
-                                                {% endif %}
-                                                {% if order.status == 'Отменен' %}
-                                                    <div class="bg-light border border-danger">
-                                                        <div class="p-3 bg-danger" style="width:100%;"></div>
-                                                    </div>
-                                                {% endif %}
-                                                {{ order.status }}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                {% endif %}
-                            </tbody>
-                        </table>
+    <style>
+        .contain {
+            object-fit: contain;
+        }
+
+        .narrow-50 {
+            width: 50rem;
+            height: 50rem;
+            margin-top: 0px;
+        }
+
+        .narrow-15 {
+            width: 150px;
+            height: 150px;
+            margin-top: 0px;
+        }
+
+        .narrow {
+            width: 300px;
+            height: 300px;
+            margin-top: 0px;
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="d-flex align-items-center justify-content-between mb-5 fs-2">Заказы</div>
+        {% if orders %}
+            {% for orders in orders %}
+                <div class="row mb-5">
+                    <div class="col-3">
+                        <div class="fs-5 mb-2" style="color: #EE6A31!important">№ {{ 1270037|add:orders.first.id }}</div>
+                        <div class="fs-5 ">Дата заказа</div>
+                        <div class="fs-3 fw-bold mb-2">{{ orders.first.ordered_date|date:"SHORT_DATE_FORMAT" }}</div>
+                        <div class="fs-5 ">
+                            {% if orders.first.status == 'Обрабатывается' %}{% endif %}
+                            {% if orders.first.status == 'Принял' %}{{ orders.first.status }}{% endif %}
+                            {% if orders.first.status == 'Обрабатывается' %}{{ orders.first.status }}{% endif %}
+                            {% if orders.first.status == 'Упакован' %}{{ orders.first.status }}{% endif %}
+                            {% if orders.first.status == 'В пути' %}{{ orders.first.status }}{% endif %}
+                            {% if orders.first.status == 'Доставлен' %}
+                                {{ orders.first.status }}
+                                <div class="fs-3 fw-bold mb-2">{{ orders.first.delivery_date|date:"SHORT_DATE_FORMAT" }}</div>
+                            {% endif %}
+                            {% if orders.first.status == 'Отменен' %}{{ orders.first.status }}{% endif %}
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="fs-5 mb-2">
+                            Состав  <span class="text-secondary">/ {{ orders.count }} шт.</span>
+                        </div>
+                        <div class="row">
+                            {% for order in orders %}
+                                
+                                    <div class="col-lg-4 col-sm-12 mb-3">
+                                        <div style="width: 100%!important;
+                                                    backdrop-filter: brightness(0.975)!important">
+                                            {{ product.id }}
+                                            <a class="" href="{% url 'store:product-detail' order.product.id %}">
+                                                <img class="img-fluid contain narrow-15"
+                                                     src="{{ order.product.product_image.url }}"
+                                                     alt="{{ order.product.product_title }}"
+                                                     style="width: 100%!important;
+                                                            filter: brightness(0.975)!important">
+                                            </a>
+                                        </div>
+                                        {% comment %} <img src="..." class="img-fluid rounded-start" alt="..."> {% endcomment %}
+                                    </div>
+                                
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-2 align-self-end pb-2 text-end">
+                        <div class="fs-5">Сумма</div>
+                        <div class="fs-3 fw-bold">{{ orders.first.price|intcomma }}&#8381;</div>
                     </div>
                 </div>
-            </div>
-        </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-secondary mt-3">У вас еще нет заказов.</div>
+        {% endif %}
     </div>
+    
 {% endblock profile-content %}

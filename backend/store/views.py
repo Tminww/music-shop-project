@@ -15,6 +15,7 @@ from django.utils.decorators import method_decorator  # for Class Based Views
 from django.contrib.auth import authenticate, login
 
 from yookassa import Payment
+from itertools import chain
 
 
 def home(request):
@@ -105,11 +106,37 @@ def liked(request):
 
 @login_required
 def orders(request):
-    all_orders = Order.objects.filter(user=request.user).order_by("-ordered_date")
+
+    orders_uuids = set(
+        Order.objects.filter(user=request.user).values_list("uuid", flat=True)
+    )
+
+    order = Order.objects.filter(user=request.user).order_by("-ordered_date")
+    print(orders_uuids)
+    all_orders = []
+    prices = []
+    for uuid in orders_uuids:
+        order = Order.objects.filter(user=request.user, uuid=uuid).order_by(
+            "-ordered_date"
+        )
+        price = 0
+
+        for product in order:
+            print(product)
+            # for duplicate in range(1, product.quantity):
+            #     order = chain(order, product)
+
+            price += product.product.price * product.quantity
+            prices.append(price)
+
+        all_orders.append(order)
+
+    print(prices)
 
     context = {
         "orders": all_orders,
         "active": "orders",
+        "prices": prices,
     }
 
     return render(request, "account/orders.html", context)
@@ -383,8 +410,12 @@ def remove_address(request, id):
 def add_to_cart(request):
     user = request.user
     product_id = request.GET.get("prod_id")
+    print(
+        "product_id",
+        product_id,
+    )
     product = get_object_or_404(Product, id=product_id)
-
+    print(product.id)
     # Check whether the Product is alread in Cart or Not
     item_already_in_cart = Cart.objects.filter(product=product_id, user=user)
     if item_already_in_cart:
@@ -543,16 +574,32 @@ def after_checkout(request):
     # Get all the products of User in Cart
     cart = Cart.objects.filter(user=request.user)
     current_order = None
+
+    order_uuid = uuid.uuid4()
+
+    amount: int = 0
+    percentage_discount = 5
+    cp = [p for p in Cart.objects.all() if p.user == request.user]
+    if cp:
+        for p in cp:
+            temp_amount = p.quantity * p.product.price
+            amount += temp_amount
+
+    total_amount = int(amount) - int((amount / 100) * percentage_discount)
+
     for c in cart:
         # Saving all the products from Cart to Order
-        current_order = Order(
-            user=request.user,
-            uuid=uuid.uuid4(),
-            address=address,
-            product=c.product,
-            quantity=c.quantity,
-        )
-        current_order.save()
+        for i in range(c.quantity):
+
+            current_order = Order(
+                user=request.user,
+                uuid=order_uuid,
+                address=address,
+                product=c.product,
+                quantity=1,
+                price=total_amount,
+            )
+            current_order.save()
         # And Deleting from Cart
         c.delete()
 
