@@ -120,263 +120,286 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav mx-auto ">
-                <li class="nav-item px-0">
-                    <a class="nav-link  " href="{% url 'store:catalog' %}?slug=all">Каталог</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'store:contacts' %}">Контакты</a>
-                </li>
-                <li class="nav-item d-none d-lg-block">
-                    {% comment %} <a class="nav-link mx-2" href="{% url 'store:home' %}">
-            <img src="{% static 'icons/icon2.png' %}" height="40" />
-                    </a> {% endcomment %}
-                    <a class="nav-link text-light fa-lg"
-                       style="margin-right: 25rem!important;
-                              margin-left: 25rem!important"
-                       href="{% url 'store:home' %}">MUSIC&nbspSHOP</a>
-                </li>
-                {% if request.user.is_authenticated %}
-                    <li class="nav-item mr-3">
-                        <a class="nav-link mx-2" href="{% url 'store:cart' %}">
-                            <i class="bi bi-bag position-relative fa-lg">
-                                {% if cart_items != 0 %}
-                                    <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
-                                          style="font-size:0.7rem">{{ cart_items }}</span>
-                                {% endif %}
-                            </i>
-                        </a>
-                    </li>
-                    <li class="nav-item mr-3">
-                        <a class="nav-link mx-2" href="{% url 'store:liked' %}">
-                            <i class="bi bi-heart position-relative fa-lg">
-                                {% if liked_items.count != 0 %}
-                                    <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
-                                          style="font-size:0.7rem">{{ liked_items.count }}</span>
-                                {% endif %}
-                            </i>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown mr-3">
-                        <a class="nav-link dropdown-toggle mx-2"
-                           href="#"
-                           id="navbarDropdown"
-                           role="button"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            <i class="bi bi-person fa-lg" height="30"></i>
-                        </a>
-                        <ul class="dropdown-menu mt-3 bg-dark" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item bg-dark"
-                                   style="color: rgba(255,255,255, 0.7)!important"
-                                   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-                                   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-                                   href="{% url 'store:orders' %}">Профиль</a>
-                                {% comment %} <a class="dropdown-item bg-dark text-light"
-    href="{% url 'store:cart' %}">Корзина</a> {% endcomment %}
-                            </li>
-                            <li>
-                                <a class="dropdown-item bg-dark"
-                                   style="color: rgba(255,255,255, 0.7)!important"
-                                   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-                                   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-                                   href="{% url 'store:settings' %}">Настройки</a>
-                            </li>
-                            {% comment %} <li><a class="dropdown-item bg-dark" style="color: rgba(255,255,255, 0.7)!important;" onMouseOver="this.style.color='rgba(255,255,255, 0.9)'" onMouseOut="this.style.color='rgba(255,255,255, 0.7)'" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightChangePassword" aria-controls="offcanvasRightChangePassword">Смена пароля</a></li> {% endcomment %}
-                            <li>
-                                <hr class="dropdown-divider border-2 border-top border-light">
-                            </li>
-                            <li>
-                                <a class="dropdown-item bg-dark"
-                                   style="color: rgba(255,255,255, 0.7)!important"
-                                   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-                                   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-                                   href="{% url 'store:logout' %}">Выйти из профиля</a>
-                            </li>
-                        </ul>
-                    </li>
-                {% else %}
-                    {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Войти</a></li> {% endcomment %}
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="#"
-                           data-bs-toggle="offcanvas"
-                           data-bs-target="#offcanvasRight"
-                           aria-controls="offcanvasRight">Войти</a>
-                    </li>
-                    {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Создать&nbspаккаунт</a></li> {% endcomment %}
-                {% endif %}
-            </div>
-        </div>
-    </nav>
-    <!-- Всплывающее меню для регистрации и авторизации-->
-    <div {% if previous_page and previous_page != 'settings' %} class="offcanvas offcanvas-end show" {% else %} class="offcanvas offcanvas-end" {% endif %}
-         tabindex="-1"
-         id="offcanvasRight"
-         aria-labelledby="offcanvasRightLabel">
-        <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel"></h5>
-            <button type="button"
-                    class="btn-close text-reset"
-                    data-bs-dismiss="offcanvas"
-                    aria-label="Закрыть"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div class="container-fluid px-0">
-                <!-- Tabs navs -->
-                <ul class="nav nav-tabs my-5" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active"
-                           id="fill-tab-0"
-                           data-bs-toggle="tab"
-                           href="#fill-tabpanel-0"
-                           role="tab"
-                           aria-controls="fill-tabpanel-0"
-                           aria-selected="false">Вход</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link"
-                           id="fill-tab-1"
-                           data-bs-toggle="tab"
-                           href="#fill-tabpanel-1"
-                           role="tab"
-                           aria-controls="fill-tabpanel-1"
-                           aria-selected="true">Регистрация</a>
-                    </li>
-                </ul>
-                <!-- Авторизация-->
-                <div class="tab-content pt-3 my-5" id="tab-content">
-                    <div {% if previous_page != 'register' %} class="tab-pane active" {% else %} class="tab-pane" {% endif %}
-                         id="fill-tabpanel-0"
-                         role="tabpanel"
-                         aria-labelledby="fill-tab-0">
-                        <div class="card mb-4 bg-white border-white" id="forms">
-                            <div class="card-body">
-                                <form method="post" action={% url 'store:user-login' %} autocomplete="off">
-                                    {% csrf_token %}
-                                    <div class="mb-0">
-                                        {% comment %} <label for="user-login" class="form-label"></label> {% endcomment %}
-                                        <input type="text"
-                                               name="user-login"
-                                               class="form-control"
-                                               id="user-login"
-                                               placeholder="Логин"
-                                               required>
-                                        {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
-                                    </div>
-                                    <hr class="mt-0">
-                                    <div class="mb-0">
-                                        {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
-                                       
-                                            <input type="password"
-                                                   name="user-login-password"
-                                                   class="form-control"
-                                                   id="user-login-password"
-                                                   placeholder="Пароль"
-                                                   required>
-                                       
-                                    </div>
-                                    <hr class="mt-0">
-                                    {% if previous_page == 'login' %}
-                                        {% include 'partials/_messages.html' %}
-                                    {% endif %}
-                                    <div class="form-text">
-                                        Забыли пароль?
-                                        <a class=""href="{% url 'store:password-reset' %}">Изменить</a>
-                                    </div>
-                                    <div class="d-grid gap-2">
-                                        <button type="submit"
-                                                class="btn btn-warning btn-lg text-light mt-3"
-                                                style="background-color: #EE6A31;
-                                                       border: 2px solid #FFFFFF"
-                                                onMouseOver="this.style.border='2px solid #EE6A31'"
-                                                onMouseOut="this.style.border='2px solid #FFFFFF'">Войти</button>
-                                    </div>
-                                </form>
-                                {% comment %} <hr> {% endcomment %}
-                                {% comment %} Забыли пароль? <a href="{% url 'store:password-reset' %}">Изменить сейчас</a> <br> {% endcomment %}
-                                {% comment %} Новый пользователь? <a href="{% url 'store:register' %}">Создать аккаунт</a> {% endcomment %}
+            <div class=" container-fluid">
+                <div class="navbar-nav row justify-content-between">
+                    <div class="col-lg-auto col-sm-12 ">
+                        <div class="row">
+                            <div class="col-lg-auto col-sm-12">
+                                <a class="nav-link  " href="{% url 'store:catalog' %}?slug=all">Каталог</a>
+                            </div>
+                            <div class="col-lg-auto col-sm-12">
+                                <a class="nav-link" href="{% url 'store:contacts' %}">Контакты</a>
                             </div>
                         </div>
                     </div>
-                    <!--Регистрация-->
-                    <div {% if previous_page == 'register' %} class="tab-pane active" {% else %} class="tab-pane" {% endif %}
-                         id="fill-tabpanel-1"
-                         role="tabpanel"
-                         aria-labelledby="fill-tab-1">
-                        <div class="card mb-4 bg-white border-white" id="forms">
-                            <div class="card-body">
-                                <form method="post"
-                                      action="{% url 'store:user-register' %}"
-                                      autocomplete="off">
-                                    {% csrf_token %}
-                                    <div class="mb-0">
-                                        {% comment %} <label for="user-login" class="form-label"></label> {% endcomment %}
-                                        <input type="text"
-                                               name="user-register"
-                                               class="form-control"
-                                               id="user-register"
-                                               placeholder="Логин"
-                                               required>
-                                        {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
+                    <div class="col-lg-auto col-sm-12">
+                        <div class="nav-item d-none d-lg-block">
+                            {% comment %} <a class="nav-link mx-2" href="{% url 'store:home' %}">
+                    <img src="{% static 'icons/icon2.png' %}" height="40" />
+                            </a> {% endcomment %}
+                            <a class="nav-link text-light fa-lg"  href="{% url 'store:home' %}">MUSIC&nbspSHOP</a>
+                        </div>
+                    </div>
+                    {% if request.user.is_authenticated %}
+                        <div class="col-lg-auto col-sm-12 ">
+                            <div class="row">
+                                <div class="col-lg-auto col-sm-12">
+                                    <div class="nav-item mr-3">
+                                        <a class="nav-link mx-2" href="{% url 'store:cart' %}">
+                                            <i class="bi bi-bag position-relative fa-lg">
+                                                {% if cart_items != 0 %}
+                                                    <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
+                                                          style="font-size:0.7rem">{{ cart_items }}</span>
+                                                {% endif %}
+                                            </i>
+                                        </a>
                                     </div>
-                                    <hr class="mt-0">
-                                    <div class="mb-0">
-                                        <input type="email"
-                                               name="email"
-                                               id="email"
-                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                               size="30"
-                                               class="form-control"
-                                               placeholder="Электронная почта"
-                                               required>
+                                </div>
+                                <div class="col-lg-auto col-sm-12">
+                                    <div class="nav-item mr-3">
+                                        <a class="nav-link mx-2" href="{% url 'store:liked' %}">
+                                            <i class="bi bi-heart position-relative fa-lg">
+                                                {% if liked_items.count != 0 %}
+                                                    <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
+                                                          style="font-size:0.7rem">{{ liked_items.count }}</span>
+                                                {% endif %}
+                                            </i>
+                                        </a>
                                     </div>
-                                    <hr class="mt-0">
-                                    <div class="mb-0">
-                                        {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
-                                        <input type="password"
-                                               minlength="8"
-                                               name="user-register-password"
-                                               class="form-control"
-                                               id="user-register-password"
-                                               placeholder="Пароль"
-                                               required>
+                                </div>
+                                <div class="col-lg-auto col-sm-12">
+                                    <div class="nav-item dropdown mr-3">
+                                        <a class="nav-link dropdown-toggle mx-2"
+                                           href="#"
+                                           id="navbarDropdown"
+                                           role="button"
+                                           data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            <i class="bi bi-person fa-lg" height="30"></i>
+                                        </a>
+                                        <ul class="dropdown-menu mt-3 bg-dark" aria-labelledby="navbarDropdown">
+                                            <li>
+                                                <a class="dropdown-item bg-dark"
+                                                   style="color: rgba(255,255,255, 0.7)!important"
+                                                   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
+                                                   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
+                                                   href="{% url 'store:orders' %}">Профиль</a>
+                                                {% comment %} <a class="dropdown-item bg-dark text-light"
+    href="{% url 'store:cart' %}">Корзина</a> {% endcomment %}
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item bg-dark"
+                                                   style="color: rgba(255,255,255, 0.7)!important"
+                                                   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
+                                                   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
+                                                   href="{% url 'store:settings' %}">Настройки</a>
+                                            </li>
+                                            {% comment %} <li><a class="dropdown-item bg-dark"
+   style="color: rgba(255,255,255, 0.7)!important"
+   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
+   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
+   href="#"
+   data-bs-toggle="offcanvas"
+   data-bs-target="#offcanvasRightChangePassword"
+   aria-controls="offcanvasRightChangePassword">Смена пароля</a></li> {% endcomment %}
+                                            <li>
+                                                <hr class="dropdown-divider border-2 border-top border-light">
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item bg-dark"
+                                                   style="color: rgba(255,255,255, 0.7)!important"
+                                                   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
+                                                   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
+                                                   href="{% url 'store:logout' %}">Выйти из профиля</a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <hr class="mt-0">
-                                    <div class="mb-0">
-                                        {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
-                                        <input type="password"
-                                               minlength="8"
-                                               name="user-register-password2"
-                                               class="form-control"
-                                               id="user-register-password2"
-                                               placeholder="Повторите пароль"
-                                               required>
-                                    </div>
-                                    <hr class="mt-0">
-                                    {% if previous_page == 'register' %}
-                                        {% include 'partials/_messages.html' %}
-                                    {% endif %}
-                                    <div class="d-grid gap-2">
-                                        <button type="submit"
-                                                class="btn btn-warning btn-lg text-light my-5"
-                                                style="background-color: #EE6A31;
-                                                       border: 2px solid #FFFFFF"
-                                                onMouseOver="this.style.border='2px solid #EE6A31'"
-                                                onMouseOut="this.style.border='2px solid #FFFFFF'">
-                                            Зарегистрироваться
-                                        </button>
-                                    </div>
-                                </form>
-                                {% comment %} <hr> {% endcomment %}
-                                {% comment %} Забыли пароль? <a href="{% url 'store:password-reset' %}">Изменить сейчас</a> <br> {% endcomment %}
-                                {% comment %} Новый пользователь? <a href="{% url 'store:register' %}">Создать аккаунт</a> {% endcomment %}
+                                </div>
                             </div>
+                        {% else %}
+                            <div class="col-lg-auto col-sm-12 ">
+                                <div class="nav-item">
+                                    <a class="nav-link"
+                                       href="#"
+                                       data-bs-toggle="offcanvas"
+                                       data-bs-target="#offcanvasRight"
+                                       aria-controls="offcanvasRight">Войти</a>
+                                </div>
+                            </div>
+                            {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Войти</a></li> {% endcomment %}
+                            {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Создать&nbspаккаунт</a></li> {% endcomment %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Всплывающее меню для регистрации и авторизации-->
+<div {% if previous_page and previous_page != 'settings' %} class="offcanvas offcanvas-end show" {% else %} class="offcanvas offcanvas-end" {% endif %}
+     tabindex="-1"
+     id="offcanvasRight"
+     aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel"></h5>
+        <button type="button"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="container-fluid px-0">
+            <!-- Tabs navs -->
+            <ul class="nav nav-tabs my-5" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active"
+                       id="fill-tab-0"
+                       data-bs-toggle="tab"
+                       href="#fill-tabpanel-0"
+                       role="tab"
+                       aria-controls="fill-tabpanel-0"
+                       aria-selected="false">Вход</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link"
+                       id="fill-tab-1"
+                       data-bs-toggle="tab"
+                       href="#fill-tabpanel-1"
+                       role="tab"
+                       aria-controls="fill-tabpanel-1"
+                       aria-selected="true">Регистрация</a>
+                </li>
+            </ul>
+            <!-- Авторизация-->
+            <div class="tab-content pt-3 my-5" id="tab-content">
+                <div {% if previous_page != 'register' %} class="tab-pane active" {% else %} class="tab-pane" {% endif %}
+                     id="fill-tabpanel-0"
+                     role="tabpanel"
+                     aria-labelledby="fill-tab-0">
+                    <div class="card mb-4 bg-white border-white" id="forms">
+                        <div class="card-body">
+                            <form method="post" action={% url 'store:user-login' %} autocomplete="off">
+                                {% csrf_token %}
+                                <div class="mb-0">
+                                    {% comment %} <label for="user-login" class="form-label"></label> {% endcomment %}
+                                    <input type="text"
+                                           name="user-login"
+                                           class="form-control"
+                                           id="user-login"
+                                           placeholder="Логин"
+                                           required>
+                                    {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
+                                </div>
+                                <hr class="mt-0">
+                                <div class="mb-0">
+                                    {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
+                                    <input type="password"
+                                           name="user-login-password"
+                                           class="form-control"
+                                           id="user-login-password"
+                                           placeholder="Пароль"
+                                           required>
+                                </div>
+                                <hr class="mt-0">
+                                {% if previous_page == 'login' %}
+                                    {% include 'partials/_messages.html' %}
+                                {% endif %}
+                                <div class="form-text">
+                                    Забыли пароль?
+                                    <a class=""href="{% url 'store:password-reset' %}">Изменить</a>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit"
+                                            class="btn btn-warning btn-lg text-light mt-3"
+                                            style="background-color: #EE6A31;
+                                                   border: 2px solid #FFFFFF"
+                                            onMouseOver="this.style.border='2px solid #EE6A31'"
+                                            onMouseOut="this.style.border='2px solid #FFFFFF'">Войти</button>
+                                </div>
+                            </form>
+                            {% comment %} <hr> {% endcomment %}
+                            {% comment %} Забыли пароль? <a href="{% url 'store:password-reset' %}">Изменить сейчас</a> <br> {% endcomment %}
+                            {% comment %} Новый пользователь? <a href="{% url 'store:register' %}">Создать аккаунт</a> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+                <!--Регистрация-->
+                <div {% if previous_page == 'register' %} class="tab-pane active" {% else %} class="tab-pane" {% endif %}
+                     id="fill-tabpanel-1"
+                     role="tabpanel"
+                     aria-labelledby="fill-tab-1">
+                    <div class="card mb-4 bg-white border-white" id="forms">
+                        <div class="card-body">
+                            <form method="post"
+                                  action="{% url 'store:user-register' %}"
+                                  autocomplete="off">
+                                {% csrf_token %}
+                                <div class="mb-0">
+                                    {% comment %} <label for="user-login" class="form-label"></label> {% endcomment %}
+                                    <input type="text"
+                                           name="user-register"
+                                           class="form-control"
+                                           id="user-register"
+                                           placeholder="Логин"
+                                           required>
+                                    {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
+                                </div>
+                                <hr class="mt-0">
+                                <div class="mb-0">
+                                    <input type="email"
+                                           name="email"
+                                           id="email"
+                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                           size="30"
+                                           class="form-control"
+                                           placeholder="Электронная почта"
+                                           required>
+                                </div>
+                                <hr class="mt-0">
+                                <div class="mb-0">
+                                    {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
+                                    <input type="password"
+                                           minlength="8"
+                                           name="user-register-password"
+                                           class="form-control"
+                                           id="user-register-password"
+                                           placeholder="Пароль"
+                                           required>
+                                </div>
+                                <hr class="mt-0">
+                                <div class="mb-0">
+                                    {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
+                                    <input type="password"
+                                           minlength="8"
+                                           name="user-register-password2"
+                                           class="form-control"
+                                           id="user-register-password2"
+                                           placeholder="Повторите пароль"
+                                           required>
+                                </div>
+                                <hr class="mt-0">
+                                {% if previous_page == 'register' %}
+                                    {% include 'partials/_messages.html' %}
+                                {% endif %}
+                                <div class="d-grid gap-2">
+                                    <button type="submit"
+                                            class="btn btn-warning btn-lg text-light my-5"
+                                            style="background-color: #EE6A31;
+                                                   border: 2px solid #FFFFFF"
+                                            onMouseOver="this.style.border='2px solid #EE6A31'"
+                                            onMouseOut="this.style.border='2px solid #FFFFFF'">
+                                        Зарегистрироваться
+                                    </button>
+                                </div>
+                            </form>
+                            {% comment %} <hr> {% endcomment %}
+                            {% comment %} Забыли пароль? <a href="{% url 'store:password-reset' %}">Изменить сейчас</a> <br> {% endcomment %}
+                            {% comment %} Новый пользователь? <a href="{% url 'store:register' %}">Создать аккаунт</a> {% endcomment %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
