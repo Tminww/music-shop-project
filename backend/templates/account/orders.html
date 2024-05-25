@@ -54,22 +54,20 @@
                         </div>
                         <div class="row">
                             {% for order in orders %}
-                                
-                                    <div class="col-lg-4 col-sm-12 mb-3">
-                                        <div style="width: 100%!important;
-                                                    backdrop-filter: brightness(0.975)!important">
-                                            {{ product.id }}
-                                            <a class="" href="{% url 'store:product-detail' order.product.id %}">
-                                                <img class="img-fluid contain narrow-15"
-                                                     src="{{ order.product.product_image.url }}"
-                                                     alt="{{ order.product.product_title }}"
-                                                     style="width: 100%!important;
-                                                            filter: brightness(0.975)!important">
-                                            </a>
-                                        </div>
-                                        {% comment %} <img src="..." class="img-fluid rounded-start" alt="..."> {% endcomment %}
+                                <div class="col-lg-4 col-sm-12 mb-3">
+                                    <div style="width: 100%!important;
+                                                backdrop-filter: brightness(0.975)!important">
+                                        {{ product.id }}
+                                        <a class="" href="{% url 'store:product-detail' order.product.id %}">
+                                            <img class="img-fluid contain narrow-15"
+                                                 src="{{ order.product.product_image.url }}"
+                                                 alt="{{ order.product.product_title }}"
+                                                 style="width: 100%!important;
+                                                        filter: brightness(0.975)!important">
+                                        </a>
                                     </div>
-                                
+                                    {% comment %} <img src="..." class="img-fluid rounded-start" alt="..."> {% endcomment %}
+                                </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -83,5 +81,4 @@
             <div class="text-secondary mt-3">У вас еще нет заказов.</div>
         {% endif %}
     </div>
-    
 {% endblock profile-content %}
