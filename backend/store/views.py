@@ -318,8 +318,13 @@ def catalog_products(request):
         liked_items = None
 
     sorting = request.GET.get("sorting")
+
     min_price = request.GET.get("min-price")
+
     max_price = request.GET.get("max-price")
+
+    print("MIN_PRICE", min_price)
+    print("MAX_PRICE", max_price)
 
     print("PRICE", min_price, max_price)
     print("SORTING", sorting)
@@ -331,8 +336,15 @@ def catalog_products(request):
         products = products.order_by("-price")
 
     # Применяем фильтрацию по ценовому диапазону, если параметры заданы
-    if min_price and max_price:
-        products = products.filter(price__range=(min_price, max_price))
+    if min_price or max_price:
+        temp_min_price = min_price
+        temp_max_price = max_price
+
+        if not min_price:
+            temp_min_price = 0
+        if not max_price:
+            temp_max_price = 99999999999999
+        products = products.filter(price__range=(temp_min_price, temp_max_price))
         print("FILTERED_PRODUCTS", products)
 
     categories = Category.objects.filter(is_active=True)
