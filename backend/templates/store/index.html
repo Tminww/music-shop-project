@@ -45,18 +45,22 @@
     <div class="container my-5">
         <div class="row align-items-center">
             <div class="col-lg-6">
+                <div class="container">
                 <h1 class="text-uppercase fw-bold display-4 mb-3">откройте звучание по-новому</h1>
                 <br>
+                <img class="img-fluid d-lg-none d-block my-5"
+                     src="{% static 'img/banner.jpg' %}"
+                     alt="баннер">
                 <div class="text-secondary lh-base text-wrap text-truncate mb-5 "
-                     style="width: 400px;
-                            font-size: 1rem!important">
-                            В нашем интернет-магазине «ЗвукМир» мы верим,<br>
-                             что музыка — это волшебство, <br>
-                             которое может преобразить вашу жизнь. <br>
-                             Мы предлагаем широкий ассортимент <br>
-                             музыкальных инструментов, <br>
-                             чтобы вы могли найти идеальный звук <br>
-                             и выразить свою уникальность.
+                     style="font-size: 1rem!important;">
+                            <span style="overflow-wrap: break-word!important;">
+                            В нашем интернет-магазине «ЗвукМир» мы верим,
+                             что музыка — это волшебство, 
+                             которое может преобразить вашу жизнь. 
+                             Мы предлагаем широкий ассортимент 
+                             музыкальных инструментов, 
+                             чтобы вы могли найти идеальный звук    
+                             и выразить свою уникальность.</span>
                 </div>
                 <a class="btn btn-warning btn-lg text-light px-5"
                    style="background-color: #EE6A31;
@@ -66,6 +70,7 @@
                    href="{% url 'store:catalog' %}?slug=all">Перейти в каталог
                     <i class="bi bi-arrow-right"></i>
                 </a>
+            </div>
             </div>
             <div class="col-6">
                 <img class="img-fluid d-none d-lg-block "
@@ -125,11 +130,11 @@
     <div class="row ">
         {% if categories %}
             {% for category in categories %}
-                <div class="col-md-4 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card bg-light border-light">
                         <div class="row">
                             <div class="col-7" style="padding-right: 0px!important;">
-                                <div class="card-body"
+                                <div class="card-body pe-0"
                                      style="height: 100%!important;
                                             display: flex!important;
                                             flex-direction: column!important;
@@ -180,7 +185,7 @@
     <div class="row">
         {% if products %}
             {% for product in products %}
-                <div class="col-md-3 col-sm-6 mb-4">
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
                     <div class="card position-relative" style="border: 0px;">
                         <div style="width: 100%!important;
                                     backdrop-filter: brightness(0.975)!important">
@@ -215,7 +220,7 @@
                             {% endif %}
                         </div>
                         <div class="row justify-content-between my-1">
-                            <div class="col-9">
+                            <div class="col-8">
                                 <a class="card-title fs-6 mb-2 text-decoration-none"
                                    href="{% url 'store:product-detail' product.id %}"
                                    style="color: rgba(0,0,0, 1)!important"
@@ -224,7 +229,7 @@
                                 <p class="text-secondary">{{ product.slug }}</p>
                                 <p class="card-text">{{ product.price|intcomma }} &#8381;</p>
                             </div>
-                            <div class="col-3 ">
+                            <div class="col-auto ">
                                 <div class="text-center">
                                     {% if request.user.is_authenticated %}
                                         <a href="{% url 'store:add-to-cart' %}?prod_id={{ product.id }}">
