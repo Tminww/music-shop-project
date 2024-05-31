@@ -68,6 +68,7 @@
             {% if liked_products %}
                 {% for product in liked_products %}
                     <div class="col-md-4 col-sm-6 mb-4">
+                        
                         <div class="card position-relative" style="border: 0px;">
                             <div style="width: 100%!important;
                                         backdrop-filter: brightness(0.975)!important">
@@ -118,7 +119,7 @@
                                     <form action="{% url 'store:add-to-cart' %}">
                                         <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
                                         <button type="submit" class="btn m-0 p-0 ">
-                                            <img src={% static 'icons/cart.png' %}>
+                                            <img src={% static 'icons/cart.svg' %}>
                                         </img>
                                     </button>
                                 </form>

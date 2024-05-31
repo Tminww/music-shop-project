@@ -225,14 +225,14 @@
                                         <div class="col-3">
                                             {% if request.user.is_authenticated %}
                                                 <a href="{% url 'store:add-to-cart' %}?prod_id={{ product.id }}">
-                                                    <img src={% static 'icons/cart.png' %} />
+                                                    <img src={% static 'icons/cart.svg' %} />
                                                 </a>
                                             {% else %}
                                                 <a href="#"
                                                    data-bs-toggle="offcanvas"
                                                    data-bs-target="#offcanvasRight"
                                                    aria-controls="offcanvasRight">
-                                                    <img src={% static 'icons/cart.png' %} />
+                                                    <img src={% static 'icons/cart.svg' %} />
                                                 </a>
                                             {% endif %}
                                         </div>

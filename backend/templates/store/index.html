@@ -48,15 +48,15 @@
                 <h1 class="text-uppercase fw-bold display-4 mb-3">откройте звучание по-новому</h1>
                 <br>
                 <div class="text-secondary lh-base text-wrap text-truncate mb-5 "
-                     style="width: 300px;
+                     style="width: 400px;
                             font-size: 1rem!important">
-                    Новая коллекция, вдохновленная
-                    <br>
-                    творчеством Квентина Тарантино,
-                    <br>
-                    в частности личностью персонажа
-                    <br>
-                    Мии Вуоллес  (поменять текст)
+                            В нашем интернет-магазине «ЗвукМир» мы верим,<br>
+                             что музыка — это волшебство, <br>
+                             которое может преобразить вашу жизнь. <br>
+                             Мы предлагаем широкий ассортимент <br>
+                             музыкальных инструментов, <br>
+                             чтобы вы могли найти идеальный звук <br>
+                             и выразить свою уникальность.
                 </div>
                 <a class="btn btn-warning btn-lg text-light px-5"
                    style="background-color: #EE6A31;
@@ -78,25 +78,25 @@
     <div class="container-fluid bg-dark">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-4 text-center my-5">
-                    <div class="container my-5">
-                        <img src={% static 'icons/cart.png' %}>
+                <div class="col-lg-4 text-center">
+                    <div class="container my-4 px-0 mx-0">
+                        <img src={% static 'icons/cart.svg' %}>
                     </img>
                     <div class="text-light font-weight-bold mt-4">Бесплатная доставка</div>
                     <div class="mt-1" style="color: rgba(255,255,255, 0.7)!important;">Бесплатная доставка по всему миру</div>
                 </div>
             </div>
-            <div class="col-lg-4 text-center  my-5">
-                <div class="container my-5">
-                    <img src={% static 'icons/cart.png' %}>
+            <div class="col-lg-4 text-center ">
+                <div class="container my-4 px-0 mx-0">
+                    <img src={% static 'icons/cart.svg' %}>
                 </img>
                 <div class="text-light font-weight-bold mt-4">24 х 7 на связи</div>
                 <div class="mt-1" style="color: rgba(255,255,255, 0.7)!important;">Круглосуточная поддержка</div>
             </div>
         </div>
-        <div class="col-lg-4 text-center  my-5">
-            <div class="container my-5">
-                <img src={% static 'icons/cart.png' %}>
+        <div class="col-lg-4 text-center  ">
+            <div class="container my-4 px-0 mx-0">
+                <img src={% static 'icons/cart.svg' %}>
             </img>
             <div class="text-light font-weight-bold mt-4">Лучшие предложения</div>
             <div class="mt-1" style="color: rgba(255,255,255, 0.7)!important;">Только в нашем магазине</div>
@@ -228,14 +228,14 @@
                                 <div class="text-center">
                                     {% if request.user.is_authenticated %}
                                         <a href="{% url 'store:add-to-cart' %}?prod_id={{ product.id }}">
-                                            <img src={% static 'icons/cart.png' %} />
+                                            <img src={% static 'icons/cart.svg' %} />
                                         </a>
                                     {% else %}
                                         <a href="#"
                                            data-bs-toggle="offcanvas"
                                            data-bs-target="#offcanvasRight"
                                            aria-controls="offcanvasRight">
-                                            <img src={% static 'icons/cart.png' %} />
+                                            <img src={% static 'icons/cart.svg' %} />
                                         </a>
                                     {% endif %}
                                 </div>
