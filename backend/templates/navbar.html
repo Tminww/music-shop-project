@@ -170,6 +170,14 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-auto col-sm-12">
+                                    <div class="nav-item mr-3">
+                                        <a class="nav-link mx-2" href="{% url 'store:orders' %}">
+                                            <i class="bi bi-person fa-lg" height="30"></i>
+                                        
+                                        </a>
+                                    </div>
+                                </div>
+                                {% comment %} <div class="col-lg-auto col-sm-12">
                                     <div class="nav-item dropdown mr-3">
                                         <a class="nav-link dropdown-toggle mx-2"
                                            href="#"
@@ -186,8 +194,7 @@
                                                    onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
                                                    onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
                                                    href="{% url 'store:orders' %}">Профиль</a>
-                                                {% comment %} <a class="dropdown-item bg-dark text-light"
-    href="{% url 'store:cart' %}">Корзина</a> {% endcomment %}
+                                               
                                             </li>
                                             <li>
                                                 <a class="dropdown-item bg-dark"
@@ -196,14 +203,7 @@
                                                    onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
                                                    href="{% url 'store:settings' %}">Настройки</a>
                                             </li>
-                                            {% comment %} <li><a class="dropdown-item bg-dark"
-   style="color: rgba(255,255,255, 0.7)!important"
-   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-   href="#"
-   data-bs-toggle="offcanvas"
-   data-bs-target="#offcanvasRightChangePassword"
-   aria-controls="offcanvasRightChangePassword">Смена пароля</a></li> {% endcomment %}
+                                       
                                             <li>
                                                 <hr class="dropdown-divider border-2 border-top border-light">
                                             </li>
@@ -216,7 +216,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> {% endcomment %}
                             </div>
                         {% else %}
                             <div class="col-lg-auto col-sm-12 ">
