@@ -124,11 +124,11 @@
                 <div class="navbar-nav row justify-content-between">
                     <div class="col-lg-auto col-sm-12 ">
                         <div class="row justify-content-end">
-                            <div class="col-lg-auto col-sm-12">
-                                <a class="nav-link  " href="{% url 'store:catalog' %}?slug=all">Каталог</a>
+                            <div class="col-lg-auto col-sm-12 ">
+                                <a class="nav-link  text-end" href="{% url 'store:catalog' %}?slug=all">Каталог</a>
                             </div>
-                            <div class="col-lg-auto col-sm-12">
-                                <a class="nav-link" href="{% url 'store:contacts' %}">Контакты</a>
+                            <div class="col-lg-auto col-sm-12 align-self-end">
+                                <a class="nav-link text-end" href="{% url 'store:contacts' %}">Контакты</a>
                             </div>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                             <div class="row">
                                 <div class="col-lg-auto col-sm-12">
                                     <div class="nav-item mr-3">
-                                        <a class="nav-link mx-2" href="{% url 'store:cart' %}">
+                                        <a class="nav-link mx-2 text-end" href="{% url 'store:cart' %}">
                                             <i class="bi bi-bag position-relative fa-lg"
                                             style="font-style: normal!important;">
                                                 {% if cart_items != 0 %}
@@ -158,7 +158,7 @@
                                 </div>
                                 <div class="col-lg-auto col-sm-12">
                                     <div class="nav-item mr-3">
-                                        <a class="nav-link mx-2" href="{% url 'store:liked' %}">
+                                        <a class="nav-link mx-2 text-end" href="{% url 'store:liked' %}">
                                             <i class="bi bi-heart position-relative fa-lg"
                                                 style="font-style: normal!important;">
                                                 {% if liked_items.count != 0 %}
@@ -170,7 +170,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-auto col-sm-12">
-                                    <div class="nav-item mr-3">
+                                    <div class="nav-item mr-3 text-end">
                                         <a class="nav-link mx-2" href="{% url 'store:orders' %}">
                                             <i class="bi bi-person fa-lg" height="30"></i>
                                         
