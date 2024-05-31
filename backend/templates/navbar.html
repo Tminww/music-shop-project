@@ -109,7 +109,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3"
      id="headerNav">
     <div class="container">
-        <a class="navbar-brand d-block d-lg-none" href="{% url 'store:home' %}">Звук <span style="color: #EE6A31!important;">Мир</span></a>
+        <a class="navbar-brand d-block d-lg-none" href="{% url 'store:home' %}">Звук<span style="color: #EE6A31!important;">Мир</span></a>
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -146,7 +146,8 @@
                                 <div class="col-lg-auto col-sm-12">
                                     <div class="nav-item mr-3">
                                         <a class="nav-link mx-2" href="{% url 'store:cart' %}">
-                                            <i class="bi bi-bag position-relative fa-lg">
+                                            <i class="bi bi-bag position-relative fa-lg"
+                                            style="font-style: normal!important;">
                                                 {% if cart_items != 0 %}
                                                     <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger small"
                                                           style="font-size:0.7rem">{{ cart_items }}</span>
@@ -158,10 +159,11 @@
                                 <div class="col-lg-auto col-sm-12">
                                     <div class="nav-item mr-3">
                                         <a class="nav-link mx-2" href="{% url 'store:liked' %}">
-                                            <i class="bi bi-heart position-relative fa-lg">
+                                            <i class="bi bi-heart position-relative fa-lg"
+                                                style="font-style: normal!important;">
                                                 {% if liked_items.count != 0 %}
                                                     <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
-                                                          style="font-size:0.7rem">{{ liked_items.count }}</span>
+                                                          style="font-size:0.7rem;">{{ liked_items.count }}</span>
                                                 {% endif %}
                                             </i>
                                         </a>
