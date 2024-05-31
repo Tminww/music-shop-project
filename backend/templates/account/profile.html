@@ -16,10 +16,11 @@
         }
     </style>
     <!-- LEFT MENU-->
-    <div class="container my-5">
+    <div class="container ">
         <div class="row ">
             <div class="col-lg-4 col-sm-6 ">
-                <div class="row justify-content-center align-items-center my-5">
+                <div class="row justify-content-end align-items-center mt-5 pe-4">
+                  
                     <div class="col-auto">
                         <div class="row justify-content-end">
                             <div class="col-auto">{{ request.user.username }}</div>
@@ -31,9 +32,10 @@
                     <div class="col-auto mr-0 pr-0">
                         <img src={% static 'icons/circle.png' %}>
                     </img>
+                  
                 </div>
             </div>
-            <div class="row justify-content-end my-5">
+            <div class="row justify-content-end ">
                 <div class="col-auto mx-2">
                     <div class="container "
                          style="height: 100%!important;

@@ -45,6 +45,11 @@
             height: 300px;
             margin-top: 0px;
         }
+        .narrow-15 {
+            width: 150px;
+            height: 150px;
+            margin-top: 0px;
+        }
 
         .custom {
             accent-color: #EE6A31 !important;
@@ -90,11 +95,12 @@
                             </div>
                             <!-- IMAGE -->
                             <div class="row g-0">
-                                <div class="col-md-4">
+                                <div class="col-3">
+                                    
                                     <div style="width: 100%!important;
                                                 backdrop-filter: brightness(0.975)!important">
                                         <a class="" href={% url 'store:product-detail' product.product.id %}>
-                                            <img class="img-fluid contain narrow"
+                                            <img class="img-fluid contain narrow-15"
                                                  {% comment %}
                                                  src="{% static 'img/Frame.png' %}"
                                                  {% endcomment %}
@@ -106,7 +112,7 @@
                                     </div>
                                     {% comment %} <img src="..." class="img-fluid rounded-start" alt="..."> {% endcomment %}
                                 </div>
-                                <div class="col-md-8 ">
+                                <div class="col ">
                                     <div class="card-body my-0 py-0"
                                          style="height: 100%!important;
                                                 display: flex!important;
@@ -117,14 +123,14 @@
                                             <br>
                                             <span class="fs-5 text-secondary">{{ product.product.slug }}</span>
                                         </p>
-                                        <p class="card-text fs-5">
+                                        {% comment %} <p class="card-text fs-5">
                                             <span class="text-secondary">Артикул:</span> {{ product.product.sku }}
-                                        </p>
+                                        </p> {% endcomment %}
                                         <p class="card-text fs-5">
                                             {% comment %} <span class="text-secondary">Описание:</span>  {{ product.product.short_description }} {% endcomment %}
                                         </p>
                                         <div class="row justify-content-between">
-                                            <div class="col-auto">
+                                            <div class="col-6">
                                                 <div class="row justify-content-start align-items-center">
                                                     <div class="col-auto me-0 pe-0 fs-5">
                                                         <a href="{% url 'store:minus-cart' product.id %}"
@@ -151,7 +157,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-auto">
-                                                <strong class="col-auto fs-5 ">{{ product.total_price|intcomma }} &#8381;</strong>
+                                                <strong class="fs-5 ">{{ product.total_price|intcomma }} &#8381;</strong>
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +168,7 @@
                 </div>
             {% endfor %}
             <!-- СПОСОБ ДОСТАВКИ-->
-            <div class="d-flex align-items-center justify-content-between my-5 fs-2">
+            <div class="d-flex align-items-center justify-content-between mt-5 fs-2">
                 Способ доставки
                 <span>
                     <a href="{% url 'store:address' %}"
@@ -177,7 +183,7 @@
             </div>
             <div class="row justify-content-beetwen align-items-center">
                 <div class="col-lg-12 col-auto ">
-                    <div class="form-check form-check-inline">
+                    <div class="form-check form-check-inline ps-0">
                         <input class=" custom"
                                type="radio"
                                form="proceed-to-checkout"
@@ -187,7 +193,7 @@
                                required>
                         <label class="form-check-label fs-5" for="exampleRadios2">Самовывоз из магазина</label>
                     </div>
-                    <div class="form-check form-check-inline">
+                    <div class="form-check form-check-inline ps-0">
                         <input class="custom"
                                type="radio"
                                form="proceed-to-checkout"
@@ -236,7 +242,7 @@
                 </div>
             </div>
             <!-- ПОЛУЧАТЕЛЬ-->
-            <div class="d-flex align-items-center justify-content-between my-5 fs-2">
+            <div class="d-flex align-items-center justify-content-between mt-5 fs-2">
                 Получатель
                 <span>
                     <a href="{% url 'store:settings' %}"
@@ -252,11 +258,11 @@
             <div class="row justify-content-beetwen align-items-center">
                 <div class="col-lg-12 col-auto">
                     <div class="fs-5">{{ request.user.username }}</div>
-                    <div class="fs-5">{{ request.user.email }}</div>
+                    {% comment %} <div class="fs-5">{{ request.user.email }}</div> {% endcomment %}
                 </div>
             </div>
             <!-- СУММА ЗАКАЗА-->
-            <div class="row justify-content-beetwen align-items-center my-5">
+            <div class="row justify-content-beetwen align-items-center mt-5">
                 <div class="col-lg-12 col-auto">
                     <div class="fs-2 mb-3">Сумма заказа</div>
                 </div>
