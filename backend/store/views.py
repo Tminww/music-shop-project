@@ -176,6 +176,7 @@ def user_login_controller(request):
                     user = authenticate(
                         username=user_temp.username, password=user_password
                     )
+
                 except User.DoesNotExist:
                     pass
 
