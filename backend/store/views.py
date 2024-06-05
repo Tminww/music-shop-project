@@ -1,5 +1,6 @@
 import uuid
 import django
+from django.contrib.auth import get_user_model
 from yookassa import Configuration, Settings
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -144,12 +145,8 @@ def orders(request):
 
 def user_login_controller(request):
     if request.method == "POST":
-        username = request.POST.get("user-login")
+        username_or_email = request.POST.get("user-login")
         user_password = request.POST.get("user-login-password")
-
-        print(username)
-        print(user_password)
-        user = authenticate(username=username, password=user_password)
 
         categories = Category.objects.filter(is_active=True)
         products = Product.objects.filter(is_active=True, is_featured=True)[:4]
@@ -167,6 +164,20 @@ def user_login_controller(request):
             "sorting": "popularity",
             "previous_page": "login",
         }
+
+        user = None
+        if username_or_email and user_password:
+            # Попытка аутентификации по имени пользователя
+            user = authenticate(username=username_or_email, password=user_password)
+            if not user:
+                # Попытка аутентификации по email
+                try:
+                    user_temp = User.objects.get(email=username_or_email)
+                    user = authenticate(
+                        username=user_temp.username, password=user_password
+                    )
+                except User.DoesNotExist:
+                    pass
 
         if user is not None:
             if user.is_active:
