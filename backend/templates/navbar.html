@@ -87,14 +87,16 @@
     input[type=text],
     input[type=email],
     input[type=password],
-    input[type=date] {
+    input[type=date],
+    input[type=tel] {
         border: 0px;
     }
 
     input[type=text]:focus,
     input[type=email]:focus,
     input[type=password]:focus,
-    input[type=date]:focus {
+    input[type=date]:focus,
+    input[type=tel]:focus {
         outline: none;
         box-shadow: none;
         border: 0px;
@@ -390,15 +392,21 @@
                                            >
                                 </div>
                                 <hr class="mt-0">
+                                
                                 <div class="mb-0">
-                                    <input type="t"
-                                           name="email"
-                                           id="email"
-                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                           size="30"
-                                           class="form-control"
-                                           placeholder="Номер телефона"
-                                           >
+                                    <div class="input-group">
+                                        <span class="input-group-text">+7</span>
+                                        <input type="tel" 
+                                            name="email"
+                                            id="email"
+                                            maxlength ="10"
+                                            pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                            class="form-control"
+                                            placeholder="Номер телефона">
+                                      </div>
+                                    
+                                       
                                 </div>
                                 <hr class="mt-0">
                                 <div class="mb-0">
