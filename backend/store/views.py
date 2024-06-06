@@ -204,6 +204,11 @@ def user_register_controller(request):
         user_password = request.POST.get("user-register-password")
         user_password2 = request.POST.get("user-register-password2")
         user_email = request.POST.get("email")
+        user_first_name = request.POST.get("first-name")
+        user_last_name = request.POST.get("last-name")
+        user_surname = request.POST.get("surname")
+        user_phone_number = request.POST.get("phone-number")
+        user_birth_date = request.POST.get("birth-date")
 
         categories = Category.objects.filter(is_active=True)
         products = Product.objects.filter(is_active=True, is_featured=True)[:4]
