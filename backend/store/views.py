@@ -14,6 +14,7 @@ import decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator  # for Class Based Views
 from django.contrib.auth import authenticate, login
+from django.views.decorators.csrf import csrf_protect
 
 from yookassa import Payment
 from itertools import chain
@@ -198,6 +199,7 @@ def user_login_controller(request):
     # return render(request, 'account/login.html', {'form': form})
 
 
+@csrf_protect
 def user_register_controller(request):
     if request.method == "POST":
         username = request.POST.get("user-register")
@@ -237,9 +239,14 @@ def user_register_controller(request):
 
                 user = User.objects.create_user(
                     username=username,
+                    first_name=user_first_name,
+                    last_name=user_last_name,
                     password=user_password,
                     email=user_email,
                 )
+                user.profile.surname = user_surname
+                user.profile.phone_number = user_phone_number
+                user.profile.birth_date = user_birth_date
                 user.save()
                 login(request, user)
                 return redirect("store:home")
