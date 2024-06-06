@@ -86,13 +86,15 @@
 
     input[type=text],
     input[type=email],
-    input[type=password] {
+    input[type=password],
+    input[type=date] {
         border: 0px;
     }
 
     input[type=text]:focus,
     input[type=email]:focus,
-    input[type=password]:focus {
+    input[type=password]:focus,
+    input[type=date]:focus {
         outline: none;
         box-shadow: none;
         border: 0px;
@@ -288,7 +290,7 @@
                                            name="user-login"
                                            class="form-control"
                                            id="user-login"
-                                           placeholder="Логин или почта"
+                                           placeholder="Логин или электронная почта"
                                            required>
                                     {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
                                 </div>
@@ -356,6 +358,58 @@
                                            class="form-control"
                                            placeholder="Электронная почта"
                                            required>
+                                </div>
+                                <hr class="mt-0">
+                                <div class="mb-0">
+                                    <input type="text"
+                                           name="last-name"
+                                           id="last-name"
+                                           size="30"
+                                           class="form-control"
+                                           placeholder="Фамилия"
+                                           >
+                                </div>
+                                <hr class="mt-0">
+                                <div class="mb-0">
+                                    <input type="text"
+                                           name="first-name"
+                                           id="first-name"
+                                           size="30"
+                                           class="form-control"
+                                           placeholder="Имя"
+                                           >
+                                </div>
+                                <hr class="mt-0">
+                                <div class="mb-0">
+                                    <input type="text"
+                                           name="surname"
+                                           id="surname"
+                                           size="30"
+                                           class="form-control"
+                                           placeholder="Отчество"
+                                           >
+                                </div>
+                                <hr class="mt-0">
+                                <div class="mb-0">
+                                    <input type="email"
+                                           name="email"
+                                           id="email"
+                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                           size="30"
+                                           class="form-control"
+                                           placeholder="Номер телефона"
+                                           >
+                                </div>
+                                <hr class="mt-0">
+                                <div class="mb-0">
+                                    <input type="date"
+                                           name="birth_date"
+                                           id="birth_date"
+                                        
+                                           size="30"
+                                           class="form-control"
+                                           placeholder="Дата рождения"
+                                           >
                                 </div>
                                 <hr class="mt-0">
                                 <div class="mb-0">
