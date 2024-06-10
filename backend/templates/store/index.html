@@ -46,7 +46,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="container">
-                    <h1 class="text-uppercase fw-bold display-4 mb-3">откройте звучание по-новому</h1>
+                    <h1 class="text-uppercase fw-bold display-4 mb-3">Ваш звук, ваша музыка</h1>
                     <br>
                     <img class="img-fluid d-lg-none d-block my-5"
                          src="{% static 'img/banner.jpg' %}"
@@ -54,12 +54,7 @@
                     <div class="text-secondary lh-base text-wrap text-truncate mb-5 "
                          style="font-size: 1rem!important">
                         <span style="overflow-wrap: break-word!important;">
-                            В нашем интернет-магазине «ЗвукМир» мы верим,
-                            что музыка — это волшебство,
-                            которое может преобразить вашу жизнь.
-                            Мы предлагаем широкий ассортимент
-                            музыкальных инструментов,
-                            чтобы вы могли найти идеальный звук
+                            Откройте новые горизонты в мире музыки с нашими инструментами. Вдохновляйтесь и творите, наслаждаясь качеством и уникальным звучанием.льный звук
                         и выразить свою уникальность.</span>
                     </div>
                     <a class="btn btn-warning btn-lg text-light px-5"
@@ -200,15 +195,19 @@
                                             filter: brightness(0.975)!important">
                             </a>
                         </div>
-                        <div class="position-absolute top-0 end-0 m-2">
+                        <div class="position-absolute top-0 end-0 m-3">
                             {% if request.user.is_authenticated %}
                                 {% if product.id in liked_id %}
                                     <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
-                                        <i class="bi bi-heart-fill text-danger fa-2x"></i>
+                                        <i class="fa-lg">
+                                            <img src={% static 'icons/heart-liked-fill.svg' %}>
+                                        </i>
                                     </a>
                                 {% else %}
                                     <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
-                                        <i class="bi bi-heart text-dark fa-2x"></i>
+                                        <i class="">
+                                            <img src={% static 'icons/heart-liked.svg' %}>
+                                        </i>
                                     </a>
                                 {% endif %}
                             {% else %}

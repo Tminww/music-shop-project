@@ -260,15 +260,19 @@
                                                 filter: brightness(0.975)!important">
                                 </a>
                             </div>
-                            <div class="position-absolute top-0 end-0 m-2">
+                            <div class="position-absolute top-0 end-0 m-3">
                                 {% if request.user.is_authenticated %}
                                     {% if product.id in liked_id %}
                                         <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
-                                            <i class="bi bi-heart-fill text-danger fa-2x"></i>
+                                            <i class="fa-lg">
+                                                <img src={% static 'icons/heart-liked-fill.svg' %}>
+                                            </i>
                                         </a>
                                     {% else %}
                                         <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
-                                            <i class="bi bi-heart text-dark fa-2x"></i>
+                                            <i class="">
+                                                <img src={% static 'icons/heart-liked.svg' %}>
+                                            </i>
                                         </a>
                                     {% endif %}
                                 {% else %}
