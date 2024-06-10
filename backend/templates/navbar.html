@@ -129,10 +129,10 @@
                     <div class="col-lg-auto col-sm-12 ">
                         <div class="row justify-content-end">
                             <div class="col-lg-auto col-sm-12 ">
-                                <a class="nav-link  text-end" href="{% url 'store:catalog' %}?slug=all">Каталог</a>
+                                <a class="nav-link  text-light text-end" href="{% url 'store:catalog' %}?slug=all">Каталог</a>
                             </div>
                             <div class="col-lg-auto col-sm-12 align-self-end">
-                                <a class="nav-link text-end" href="{% url 'store:contacts' %}">Контакты</a>
+                                <a class="nav-link text-light text-end" href="{% url 'store:contacts' %}">Контакты</a>
                             </div>
                         </div>
                     </div>
@@ -147,11 +147,12 @@
                     {% if request.user.is_authenticated %}
                         <div class="col-lg-auto col-sm-12 ">
                             <div class="row">
-                                <div class="col-lg-auto col-sm-12">
+                                <div class="col-lg-auto col-sm-12 px-0">
                                     <div class="nav-item mr-3">
                                         <a class="nav-link mx-2 text-end" href="{% url 'store:cart' %}">
-                                            <i class="bi bi-bag position-relative fa-lg"
-                                            style="font-style: normal!important;">
+                                            <i class="position-relative fa-lg"
+                                               style="font-style: normal!important">
+                                               <img src={% static 'icons/bag.svg' %}>
                                                 {% if cart_items != 0 %}
                                                     <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger small"
                                                           style="font-size:0.7rem">{{ cart_items }}</span>
@@ -160,63 +161,48 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="col-lg-auto col-sm-12">
+                                <div class="col-lg-auto col-sm-12 px-0">
                                     <div class="nav-item mr-3">
                                         <a class="nav-link mx-2 text-end" href="{% url 'store:liked' %}">
-                                            <i class="bi bi-heart position-relative fa-lg"
-                                                style="font-style: normal!important;">
+                                            <i class="position-relative fa-lg"
+                                               style="font-style: normal!important">
+                                               <img src={% static 'icons/heart.svg' %}>
                                                 {% if liked_items.count != 0 %}
                                                     <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
-                                                          style="font-size:0.7rem;">{{ liked_items.count }}</span>
+                                                          style="font-size:0.7rem">{{ liked_items.count }}</span>
                                                 {% endif %}
                                             </i>
                                         </a>
                                     </div>
                                 </div>
-                                <div class="col-lg-auto col-sm-12">
+                                <div class="col-lg-auto col-sm-12 px-0">
                                     <div class="nav-item mr-3 text-end">
                                         <a class="nav-link mx-2" href="{% url 'store:orders' %}">
-                                            <i class="bi bi-person fa-lg" height="30"></i>
-                                        
+                                            <i class="fa-lg" height="30">
+                                                <img src={% static 'icons/profile.svg' %}>
+                                            </i>
                                         </a>
                                     </div>
                                 </div>
                                 {% comment %} <div class="col-lg-auto col-sm-12">
                                     <div class="nav-item dropdown mr-3">
-                                        <a class="nav-link dropdown-toggle mx-2"
-                                           href="#"
-                                           id="navbarDropdown"
-                                           role="button"
-                                           data-bs-toggle="dropdown"
-                                           aria-expanded="false">
+                                        <a class="nav-link dropdown-toggle mx-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="bi bi-person fa-lg" height="30"></i>
                                         </a>
                                         <ul class="dropdown-menu mt-3 bg-dark" aria-labelledby="navbarDropdown">
                                             <li>
-                                                <a class="dropdown-item bg-dark"
-                                                   style="color: rgba(255,255,255, 0.7)!important"
-                                                   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-                                                   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-                                                   href="{% url 'store:orders' %}">Профиль</a>
+                                                <a class="dropdown-item bg-dark" style="color: rgba(255,255,255, 0.7)!important" onMouseOver="this.style.color='rgba(255,255,255, 0.9)'" onMouseOut="this.style.color='rgba(255,255,255, 0.7)'" href="{% url 'store:orders' %}">Профиль</a>
                                                
                                             </li>
                                             <li>
-                                                <a class="dropdown-item bg-dark"
-                                                   style="color: rgba(255,255,255, 0.7)!important"
-                                                   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-                                                   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-                                                   href="{% url 'store:settings' %}">Настройки</a>
+                                                <a class="dropdown-item bg-dark" style="color: rgba(255,255,255, 0.7)!important" onMouseOver="this.style.color='rgba(255,255,255, 0.9)'" onMouseOut="this.style.color='rgba(255,255,255, 0.7)'" href="{% url 'store:settings' %}">Настройки</a>
                                             </li>
                                        
                                             <li>
                                                 <hr class="dropdown-divider border-2 border-top border-light">
                                             </li>
                                             <li>
-                                                <a class="dropdown-item bg-dark"
-                                                   style="color: rgba(255,255,255, 0.7)!important"
-                                                   onMouseOver="this.style.color='rgba(255,255,255, 0.9)'"
-                                                   onMouseOut="this.style.color='rgba(255,255,255, 0.7)'"
-                                                   href="{% url 'store:logout' %}">Выйти из профиля</a>
+                                                <a class="dropdown-item bg-dark" style="color: rgba(255,255,255, 0.7)!important" onMouseOver="this.style.color='rgba(255,255,255, 0.9)'" onMouseOut="this.style.color='rgba(255,255,255, 0.7)'" href="{% url 'store:logout' %}">Выйти из профиля</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -368,8 +354,7 @@
                                            id="last-name"
                                            size="30"
                                            class="form-control"
-                                           placeholder="Фамилия"
-                                           >
+                                           placeholder="Фамилия">
                                 </div>
                                 <hr class="mt-0">
                                 <div class="mb-0">
@@ -378,8 +363,7 @@
                                            id="first-name"
                                            size="30"
                                            class="form-control"
-                                           placeholder="Имя"
-                                           >
+                                           placeholder="Имя">
                                 </div>
                                 <hr class="mt-0">
                                 <div class="mb-0">
@@ -388,36 +372,30 @@
                                            id="surname"
                                            size="30"
                                            class="form-control"
-                                           placeholder="Отчество"
-                                           >
+                                           placeholder="Отчество">
                                 </div>
                                 <hr class="mt-0">
-                                
                                 <div class="mb-0">
                                     <div class="input-group">
                                         <span class="input-group-text">+7</span>
-                                        <input type="tel" 
-                                            name="phone-number"
-                                            id="phone-number"
-                                            maxlength ="10"
-                                            pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                                            class="form-control"
-                                            placeholder="Номер телефона">
-                                      </div>
-                                    
-                                       
+                                        <input type="tel"
+                                               name="phone-number"
+                                               id="phone-number"
+                                               maxlength="10"
+                                               pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                               class="form-control"
+                                               placeholder="Номер телефона">
+                                    </div>
                                 </div>
                                 <hr class="mt-0">
                                 <div class="mb-0">
                                     <input type="date"
                                            name="birth-date"
                                            id="birth-date"
-                                        
                                            size="30"
                                            class="form-control"
-                                           placeholder="Дата рождения"
-                                           >
+                                           placeholder="Дата рождения">
                                 </div>
                                 <hr class="mt-0">
                                 <div class="mb-0">

@@ -46,31 +46,31 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="container">
-                <h1 class="text-uppercase fw-bold display-4 mb-3">откройте звучание по-новому</h1>
-                <br>
-                <img class="img-fluid d-lg-none d-block my-5"
-                     src="{% static 'img/banner.jpg' %}"
-                     alt="баннер">
-                <div class="text-secondary lh-base text-wrap text-truncate mb-5 "
-                     style="font-size: 1rem!important;">
-                            <span style="overflow-wrap: break-word!important;">
+                    <h1 class="text-uppercase fw-bold display-4 mb-3">откройте звучание по-новому</h1>
+                    <br>
+                    <img class="img-fluid d-lg-none d-block my-5"
+                         src="{% static 'img/banner.jpg' %}"
+                         alt="баннер">
+                    <div class="text-secondary lh-base text-wrap text-truncate mb-5 "
+                         style="font-size: 1rem!important">
+                        <span style="overflow-wrap: break-word!important;">
                             В нашем интернет-магазине «ЗвукМир» мы верим,
-                             что музыка — это волшебство, 
-                             которое может преобразить вашу жизнь. 
-                             Мы предлагаем широкий ассортимент 
-                             музыкальных инструментов, 
-                             чтобы вы могли найти идеальный звук    
-                             и выразить свою уникальность.</span>
+                            что музыка — это волшебство,
+                            которое может преобразить вашу жизнь.
+                            Мы предлагаем широкий ассортимент
+                            музыкальных инструментов,
+                            чтобы вы могли найти идеальный звук
+                        и выразить свою уникальность.</span>
+                    </div>
+                    <a class="btn btn-warning btn-lg text-light px-5"
+                       style="background-color: #EE6A31;
+                              border: 2px solid #FFFFFF"
+                       onMouseOver="this.style.border='2px solid #EE6A31'"
+                       onMouseOut="this.style.border='2px solid #FFFFFF'"
+                       href="{% url 'store:catalog' %}?slug=all">Перейти в каталог
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
                 </div>
-                <a class="btn btn-warning btn-lg text-light px-5"
-                   style="background-color: #EE6A31;
-                          border: 2px solid #FFFFFF"
-                   onMouseOver="this.style.border='2px solid #EE6A31'"
-                   onMouseOut="this.style.border='2px solid #FFFFFF'"
-                   href="{% url 'store:catalog' %}?slug=all">Перейти в каталог
-                    <i class="bi bi-arrow-right"></i>
-                </a>
-            </div>
             </div>
             <div class="col-6">
                 <img class="img-fluid d-none d-lg-block "

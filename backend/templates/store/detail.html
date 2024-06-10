@@ -152,9 +152,7 @@
                         {% endif %}
                     </div>
                     <div class="col-auto px-0 pb-5">
-                        {% if request.user.is_authenticated %}                    
-                                
-                      
+                        {% if request.user.is_authenticated %}
                             <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
                                 <button type=""
                                         class="btn btn-warning btn-lg text-light"
@@ -162,11 +160,11 @@
                                                border: 2px solid #FFFFFF"
                                         onMouseOver="this.style.border='2px solid #EE6A31'"
                                         onMouseOut="this.style.border='2px solid #FFFFFF'">
-                                        {% if product.id in liked_id %} 
+                                    {% if product.id in liked_id %}
                                         <i class="bi bi-heart-fill text-light "></i>
-                                        {% else %}
+                                    {% else %}
                                         <i class="bi bi-heart text-light "></i>
-                                        {% endif %}
+                                    {% endif %}
                                 </button>
                             </a>
                         {% else %}

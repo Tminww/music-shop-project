@@ -658,12 +658,28 @@ def change_info(request):
 
         if user is not None:
             if user.is_active:
+                print(request.POST)
 
-                if request.POST.get("name"):
-                    user.first_name = request.POST.get("name")
+                if request.POST.get("first-name"):
+                    user.first_name = request.POST.get("first-name")
+
+                if request.POST.get("last-name"):
+                    user.last_name = request.POST.get("last-name")
 
                 if request.POST.get("surname"):
-                    user.last_name = request.POST.get("surname")
+                    user.profile.surname = request.POST.get("surname")
+
+                if request.POST.get("phone-number"):
+                    user.profile.phone_number = request.POST.get("phone-number")
+
+                tmp = request.POST.get("birth-date")
+                print(f"{tmp}")
+
+                if request.POST.get("birth-date"):
+
+                    tmp = request.POST.get("birth-date")
+                    print(f"{tmp}")
+                    user.profile.birth_date = request.POST.get("birth-date")
 
                 if request.POST.get("email"):
                     user.email = request.POST.get("email")
