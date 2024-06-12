@@ -206,11 +206,11 @@ def user_register_controller(request):
         user_password = request.POST.get("user-register-password")
         user_password2 = request.POST.get("user-register-password2")
         user_email = request.POST.get("email")
-        user_first_name = request.POST.get("first-name")
-        user_last_name = request.POST.get("last-name")
-        user_surname = request.POST.get("surname")
-        user_phone_number = request.POST.get("phone-number")
-        user_birth_date = request.POST.get("birth-date")
+        # user_first_name = request.POST.get("first-name")
+        # user_last_name = request.POST.get("last-name")
+        # user_surname = request.POST.get("surname")
+        # user_phone_number = request.POST.get("phone-number")
+        # user_birth_date = request.POST.get("birth-date")
 
         categories = Category.objects.filter(is_active=True)
         products = Product.objects.filter(is_active=True, is_featured=True)[:4]
@@ -239,14 +239,14 @@ def user_register_controller(request):
 
                 user = User.objects.create_user(
                     username=username,
-                    first_name=user_first_name,
-                    last_name=user_last_name,
+                    # first_name=user_first_name,
+                    # last_name=user_last_name,
                     password=user_password,
                     email=user_email,
                 )
-                user.profile.surname = user_surname
-                user.profile.phone_number = user_phone_number
-                user.profile.birth_date = user_birth_date
+                # user.profile.surname = user_surname
+                # user.profile.phone_number = user_phone_number
+                # user.profile.birth_date = user_birth_date
                 user.save()
                 login(request, user)
                 return redirect("store:home")

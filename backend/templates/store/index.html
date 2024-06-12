@@ -57,13 +57,14 @@
                             Откройте новые горизонты в мире музыки с нашими инструментами. Вдохновляйтесь и творите, наслаждаясь качеством и уникальным звучанием.льный звук
                         и выразить свою уникальность.</span>
                     </div>
-                    <a class="btn btn-warning btn-lg text-light px-5"
+                    <a class="btn btn-warning btn-lg text-light px-4"
                        style="background-color: #EE6A31;
                               border: 2px solid #FFFFFF"
                        onMouseOver="this.style.border='2px solid #EE6A31'"
                        onMouseOut="this.style.border='2px solid #FFFFFF'"
                        href="{% url 'store:catalog' %}?slug=all">Перейти в каталог
                         <i class="bi bi-arrow-right"></i>
+                        {% comment %} <img class=" "src={% static '/img/arrow-right.svg'%}> {% endcomment %}
                     </a>
                 </div>
             </div>
@@ -87,7 +88,7 @@
                 </div>
             </div>
             <div class="col-lg-4 text-center ">
-                <div class="container my-4 px-0 mx-0">
+                <div class="container my-3 px-0 mx-0">
                     <img src={% static 'icons/cart.svg' %}>
                 </img>
                 <div class="text-light font-weight-bold mt-4">24 х 7 на связи</div>
@@ -210,12 +211,16 @@
                                         </i>
                                     </a>
                                 {% endif %}
-                            {% else %}
-                                <a class="bi bi-heart text-dark fa-2x"
+                                {% else %}
+                                <a class=""
                                    href="#"
                                    data-bs-toggle="offcanvas"
                                    data-bs-target="#offcanvasRight"
-                                   aria-controls="offcanvasRight"></a>
+                                   aria-controls="offcanvasRight">
+                                    <i class="">
+                                        <img src={% static 'icons/heart-liked.svg' %}>
+                                    </i>
+                                </a>
                             {% endif %}
                         </div>
                         <div class="row justify-content-between my-1">

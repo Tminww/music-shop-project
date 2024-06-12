@@ -27,14 +27,14 @@
         }
     </style>
     <div class="container-fluid">
-        <div class="d-flex align-items-center justify-content-between mb-5 fs-2">Заказы</div>
+        <div class="d-flex align-items-center justify-content-between mb-5 fs-2 fw-bold">Заказы</div>
         {% if orders %}
             {% for orders in orders %}
                 <div class="row mb-5">
-                    <div class="col-3">
+                    <div class="col-lg-3 col-md-3">
                         <div class="fs-5 mb-2" style="color: #EE6A31!important">№ {{ 1270037|add:orders.first.id }}</div>
                         <div class="fs-5 ">Дата заказа</div>
-                        <div class="fs-3 fw-bold mb-2">{{ orders.first.ordered_date|date:"SHORT_DATE_FORMAT" }}</div>
+                        <div class="fs-4 fw-bold mb-2">{{ orders.first.ordered_date|date:"SHORT_DATE_FORMAT" }}</div>
                         <div class="fs-5 ">
                             {% if orders.first.status == 'Обрабатывается' %}{% endif %}
                             {% if orders.first.status == 'Принял' %}{{ orders.first.status }}{% endif %}
@@ -48,13 +48,13 @@
                             {% if orders.first.status == 'Отменен' %}{{ orders.first.status }}{% endif %}
                         </div>
                     </div>
-                    <div class="col-7">
+                    <div class="col-lg-7 col-md-7">
                         <div class="fs-5 mb-2">
                             Состав  <span class="text-secondary">/ {{ orders.count }} шт.</span>
                         </div>
                         <div class="row">
                             {% for order in orders %}
-                                <div class="col-lg-4 col-sm-12 mb-3">
+                                <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
                                     <div style="width: 100%!important;
                                                 backdrop-filter: brightness(0.975)!important">
                                         <a class="" href="{% url 'store:product-detail' order.product.id %}">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="col-2 align-self-end pb-2 text-end">
                         <div class="fs-5">Сумма</div>
-                        <div class="fs-3 fw-bold">{{ orders.first.price|intcomma }}&#8381;</div>
+                        <div class="fs-4 fw-bold">{{ orders.first.price|intcomma }}&#8381;</div>
                     </div>
                 </div>
             {% endfor %}

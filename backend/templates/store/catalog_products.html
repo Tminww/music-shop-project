@@ -102,7 +102,7 @@
     <!-- Фильтры -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
@@ -189,7 +189,7 @@
                 <hr class="mt-0">
             </div>
             <!-- Сортировка -->
-            <div class="col-lg-9 col-md-12 col-sm-12">
+            <div class="col-lg-8 col-md-12 col-sm-12">
                 <div class="container-fluid mb-4 px-0">
                     <div class="row justify-content-end">
                         <div class="col-lg-4 col-md-12 col-sm-12">
@@ -212,73 +212,80 @@
                 <!-- Продукты -->
                 <div class="row">
                     {% if products %}
-                        {% for product in products %}
-                            <div class="col-md-6 col-sm-6 col-lg-4 mb-4">
-                                <div class="card position-relative" style="border: 0px;">
-                                    <div style="width: 100%!important;
-                                                backdrop-filter: brightness(0.975)!important">
-                                        <a class="" href={% url 'store:product-detail' product.id %}>
-                                            <img class="img-fluid contain narrow"
-                                                 {% comment %}
-                                                 src="{% static 'img/Frame.png' %}"
-                                                 {% endcomment %}
-                                                 src="{{ product.product_image.url }}"
-                                                 alt="{{ product.title }}"
-                                                 style="width: 100%!important;
-                                                        filter: brightness(0.975)!important">
+                    {% for product in products %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                        <div class="card position-relative" style="border: 0px;"
+                        style="width:300px!important;">
+                            <div style="width: 100%!important;
+                                        backdrop-filter: brightness(0.975)!important">
+                                <a class="" href={% url 'store:product-detail' product.id %}>
+                                    <img class="img-fluid contain narrow"
+                                         {% comment %}
+                                         src="{% static 'img/Frame.png' %}"
+                                         {% endcomment %}
+                                         src="{{ product.product_image.url }}"
+                                         alt="{{ product.title }}"
+                                         style="width: 100%!important;
+                                                filter: brightness(0.975)!important">
+                                </a>
+                            </div>
+                            <div class="position-absolute top-0 end-0 m-3">
+                                {% if request.user.is_authenticated %}
+                                    {% if product.id in liked_id %}
+                                        <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
+                                            <i class="fa-lg">
+                                                <img src={% static 'icons/heart-liked-fill.svg' %}>
+                                            </i>
                                         </a>
-                                    </div>
-                                    <div class="position-absolute top-0 end-0 m-3">
+                                    {% else %}
+                                        <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
+                                            <i class="">
+                                                <img src={% static 'icons/heart-liked.svg' %}>
+                                            </i>
+                                        </a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a class=""
+                                       href="#"
+                                       data-bs-toggle="offcanvas"
+                                       data-bs-target="#offcanvasRight"
+                                       aria-controls="offcanvasRight">
+                                        <i class="">
+                                            <img src={% static 'icons/heart-liked.svg' %}>
+                                        </i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="row justify-content-between my-1">
+                                <div class="col-8">
+                                    <a class="card-title fs-6 mb-2 text-decoration-none"
+                                       href="{% url 'store:product-detail' product.id %}"
+                                       style="color: rgba(0,0,0, 1)!important"
+                                       onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+                                       onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
+                                    <p class="text-secondary">{{ product.slug }}</p>
+                                    <p class="card-text">{{ product.price|intcomma }} &#8381;</p>
+                                </div>
+                                <div class="col-auto ">
+                                    <div class="text-center">
                                         {% if request.user.is_authenticated %}
-                                            {% if product.id in liked_id %}
-                                                <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
-                                                    <i class="fa-lg">
-                                                        <img src={% static 'icons/heart-liked-fill.svg' %}>
-                                                    </i>
-                                                </a>
-                                            {% else %}
-                                                <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
-                                                    <i class="">
-                                                        <img src={% static 'icons/heart-liked.svg' %}>
-                                                    </i>
-                                                </a>
-                                            {% endif %}
+                                            <a href="{% url 'store:add-to-cart' %}?prod_id={{ product.id }}">
+                                                <img src={% static 'icons/cart.svg' %} />
+                                            </a>
                                         {% else %}
-                                            <a class="bi bi-heart text-dark fa-2x"
-                                               href="#"
+                                            <a href="#"
                                                data-bs-toggle="offcanvas"
                                                data-bs-target="#offcanvasRight"
-                                               aria-controls="offcanvasRight"></a>
+                                               aria-controls="offcanvasRight">
+                                                <img src={% static 'icons/cart.svg' %} />
+                                            </a>
                                         {% endif %}
-                                    </div>
-                                    <div class="row justify-content-between my-1">
-                                        <div class="col-9">
-                                            <a class="card-title fs-6 mb-2 text-decoration-none"
-                                               href="{% url 'store:product-detail' product.id %}"
-                                               style="color: rgba(0,0,0, 1)!important"
-                                               onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
-                                               onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
-                                            <p class="text-secondary">{{ product.slug }}</p>
-                                            <p class="card-text">{{ product.price|intcomma }} &#8381;</p>
-                                        </div>
-                                        <div class="col-3">
-                                            {% if request.user.is_authenticated %}
-                                                <a href="{% url 'store:add-to-cart' %}?prod_id={{ product.id }}">
-                                                    <img src={% static 'icons/cart.svg' %} />
-                                                </a>
-                                            {% else %}
-                                                <a href="#"
-                                                   data-bs-toggle="offcanvas"
-                                                   data-bs-target="#offcanvasRight"
-                                                   aria-controls="offcanvasRight">
-                                                    <img src={% static 'icons/cart.svg' %} />
-                                                </a>
-                                            {% endif %}
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
                     {% endif %}
                 </div>
             </div>

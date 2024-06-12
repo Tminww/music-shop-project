@@ -38,7 +38,8 @@
 
     #fill-tab-0:focus,
     #fill-tab-1:focus,
-    #fill-tab-2:focus {
+    #fill-tab-2:focus,
+    #fill-tab-0:focus-within  {
         color: #EE6A31 !important;
         border-bottom: 2px solid #EE6A31 !important;
     }
@@ -259,7 +260,7 @@
                             </div>
                         {% else %}
                             <div class="col-lg-auto col-sm-12 ">
-                                <div class="nav-item">
+                                <div class="nav-item text-end">
                                     <a class="nav-link"
                                        href="#"
                                        data-bs-toggle="offcanvas"
@@ -299,7 +300,7 @@
                        href="#fill-tabpanel-0"
                        role="tab"
                        aria-controls="fill-tabpanel-0"
-                       aria-selected="false">Вход</a>
+                       aria-selected="true">Вход</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link"
@@ -308,7 +309,7 @@
                        href="#fill-tabpanel-1"
                        role="tab"
                        aria-controls="fill-tabpanel-1"
-                       aria-selected="true">Регистрация</a>
+                       aria-selected="false">Регистрация</a>
                 </li>
             </ul>
             <!-- Авторизация-->
@@ -350,7 +351,7 @@
                                 {% endif %}
                                 <div class="form-text">
                                     Забыли пароль?
-                                    <a class=""href="{% url 'store:password-reset' %}">Изменить</a>
+                                    <a class="text-decoration-none " style="color: #EE6A31 !important;" href="{% url 'store:password-reset' %}">Изменить</a>
                                 </div>
                                 <div class="d-grid gap-2">
                                     <button type="submit"
@@ -368,7 +369,7 @@
                     </div>
                 </div>
                 <!--Регистрация-->
-                <div {% if previous_page == 'register' %} class="tab-pane active" {% else %} class="tab-pane" {% endif %}
+                <div {% if previous_page == 'register' %} class="tab-pane" {% else %} class="tab-pane" {% endif %}
                      id="fill-tabpanel-1"
                      role="tabpanel"
                      aria-labelledby="fill-tab-1">
