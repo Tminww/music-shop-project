@@ -407,6 +407,7 @@ class RegistrationView(View):
 def profile(request):
     addresses = Address.objects.filter(user=request.user)
     orders = Order.objects.filter(user=request.user)
+    print("--------------letter: ", request.user.username[0])
     context = {
         "addresses": addresses,
         "orders": orders,

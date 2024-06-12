@@ -71,8 +71,8 @@
         }
 
         .narrow-50 {
-            width: 50rem;
-            height: 50rem;
+            width: 500px;
+            height: 500px;
             margin-top: 0px;
         }
 
@@ -109,9 +109,9 @@
     </div>
     <!-- Информация о товаре -->
     <div class="container my-5">
-        <div class="row ">
-            <div class="col-lg-8 col-sm-6">
-                <div style="backdrop-filter: brightness(0.975)!important">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="text-center" style="backdrop-filter: brightness(0.975)!important">
                     <img class="img-fluid contain narrow-50"
                          {% comment %}
                          src="{% static 'img/Frame.png' %}"
@@ -121,17 +121,17 @@
                          style="filter: brightness(0.975)!important">
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12 ">
+            <div class="col-lg-6 col-md-6 col-sm-12 ">
                 <h1 class="">{{ product.title }}</h1>
                 <h4 class="text-secondary">{{ product.slug }}</h4>
                 <h3 class="py-4">{{ product.price|intcomma }} ₽</h3>
-                <div class="row">
-                    <div class="col-auto">
+                <div class="row justify-content-between mb-4">
+                    <div class="col-auto pe-0">
                         {% if request.user.is_authenticated %}
                             <form action="{% url 'store:add-to-cart' %}">
                                 <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
                                 <button type="submit"
-                                        class="btn btn-warning btn-lg text-light px-5"
+                                        class="btn btn-warning btn-lg text-light px-4"
                                         style="background-color: #EE6A31;
                                                border: 2px solid #FFFFFF"
                                         onMouseOver="this.style.border='2px solid #EE6A31'"
@@ -151,7 +151,7 @@
                             </i>
                         {% endif %}
                     </div>
-                    <div class="col-auto px-0 pb-5">
+                    <div class="col-auto ">
                         {% if request.user.is_authenticated %}
                             <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
                                 <button type=""
@@ -245,73 +245,77 @@
         <div class="row">
             {% if popular_products %}
                 {% for product in popular_products %}
-                    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-                        <div class="card position-relative" style="border: 0px;">
-                            <div style="width: 100%!important;
-                                        backdrop-filter: brightness(0.975)!important">
-                                <a class="" href={% url 'store:product-detail' product.id %}>
-                                    <img class="img-fluid contain narrow"
-                                         {% comment %}
-                                         src="{% static 'img/Frame.png' %}"
-                                         {% endcomment %}
-                                         src="{{ product.product_image.url }}"
-                                         alt="{{ product.title }}"
-                                         style="width: 100%!important;
-                                                filter: brightness(0.975)!important">
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                    <div class="card position-relative" style="border: 0px;">
+                        <div style="width: 100%!important;
+                                    backdrop-filter: brightness(0.975)!important">
+                            <a class="" href={% url 'store:product-detail' product.id %}>
+                                <img class="img-fluid contain narrow"
+                                     {% comment %}
+                                     src="{% static 'img/Frame.png' %}"
+                                     {% endcomment %}
+                                     src="{{ product.product_image.url }}"
+                                     alt="{{ product.title }}"
+                                     style="width: 100%!important;
+                                            filter: brightness(0.975)!important">
+                            </a>
+                        </div>
+                        <div class="position-absolute top-0 end-0 m-3">
+                            {% if request.user.is_authenticated %}
+                                {% if product.id in liked_id %}
+                                    <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
+                                        <i class="fa-lg">
+                                            <img src={% static 'icons/heart-liked-fill.svg' %}>
+                                        </i>
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
+                                        <i class="">
+                                            <img src={% static 'icons/heart-liked.svg' %}>
+                                        </i>
+                                    </a>
+                                {% endif %}
+                                {% else %}
+                                <a class=""
+                                   href="#"
+                                   data-bs-toggle="offcanvas"
+                                   data-bs-target="#offcanvasRight"
+                                   aria-controls="offcanvasRight">
+                                    <i class="">
+                                        <img src={% static 'icons/heart-liked.svg' %}>
+                                    </i>
                                 </a>
+                            {% endif %}
+                        </div>
+                        <div class="row justify-content-between my-1">
+                            <div class="col-8">
+                                <a class="card-title fs-6 mb-2 text-decoration-none"
+                                   href="{% url 'store:product-detail' product.id %}"
+                                   style="color: rgba(0,0,0, 1)!important"
+                                   onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
+                                   onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
+                                <p class="text-secondary">{{ product.slug }}</p>
+                                <p class="card-text">{{ product.price|intcomma }} &#8381;</p>
                             </div>
-                            <div class="position-absolute top-0 end-0 m-3">
-                                {% if request.user.is_authenticated %}
-                                    {% if product.id in liked_id %}
-                                        <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
-                                            <i class="fa-lg">
-                                                <img src={% static 'icons/heart-liked-fill.svg' %}>
-                                            </i>
+                            <div class="col-auto ">
+                                <div class="text-center">
+                                    {% if request.user.is_authenticated %}
+                                        <a href="{% url 'store:add-to-cart' %}?prod_id={{ product.id }}">
+                                            <img src={% static 'icons/cart.svg' %} />
                                         </a>
                                     {% else %}
-                                        <a href="{% url 'store:add-to-liked' %}?prod_id={{ product.id }}">
-                                            <i class="">
-                                                <img src={% static 'icons/heart-liked.svg' %}>
-                                            </i>
+                                        <a href="#"
+                                           data-bs-toggle="offcanvas"
+                                           data-bs-target="#offcanvasRight"
+                                           aria-controls="offcanvasRight">
+                                            <img src={% static 'icons/cart.svg' %} />
                                         </a>
                                     {% endif %}
-                                {% else %}
-                                    <a class="bi bi-heart text-dark fa-2x"
-                                       href="#"
-                                       data-bs-toggle="offcanvas"
-                                       data-bs-target="#offcanvasRight"
-                                       aria-controls="offcanvasRight"></a>
-                                {% endif %}
-                            </div>
-                            <div class="row justify-content-between my-1">
-                                <div class="col-8">
-                                    <a class="card-title fs-6 mb-2 text-decoration-none"
-                                       href="{% url 'store:product-detail' product.id %}"
-                                       style="color: rgba(0,0,0, 1)!important"
-                                       onMouseOver="this.style.color='rgba(0,0,0, 0.7)'"
-                                       onMouseOut="this.style.color='rgba(0,0,0, 1)'">{{ product.title }}</a>
-                                    <p class="text-secondary">{{ product.slug }}</p>
-                                    <p class="card-text">{{ product.price|intcomma }} &#8381;</p>
-                                </div>
-                                <div class="col-auto ">
-                                    <div class="text-center">
-                                        {% if request.user.is_authenticated %}
-                                            <a href="{% url 'store:add-to-cart' %}?prod_id={{ product.id }}">
-                                                <img src={% static 'icons/cart.svg' %} />
-                                            </a>
-                                        {% else %}
-                                            <a href="#"
-                                               data-bs-toggle="offcanvas"
-                                               data-bs-target="#offcanvasRight"
-                                               aria-controls="offcanvasRight">
-                                                <img src={% static 'icons/cart.svg' %} />
-                                            </a>
-                                        {% endif %}
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
                 {% endfor %}
             {% endif %}
         </div>
