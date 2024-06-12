@@ -109,7 +109,56 @@
         box-shadow: none;
         border: 0px !important;
     }
+
+    .password-control {
+        position: absolute;
+        top: 10px;
+        right: 6px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: url({% static '/img/eye.svg' %} ) 0 0 no-repeat;
+    }
+
+    .password-control.view {
+        background: url({% static '/img/eye-slash.svg' %}) 0 0 no-repeat;
+    }
 </style>
+<script lang="js">
+    function show_hide_login_password(target) {
+        var input = document.getElementById('user-login-password');
+        if (input.getAttribute('type') == 'password') {
+            target.classList.add('view');
+            input.setAttribute('type', 'text');
+        } else {
+            target.classList.remove('view');
+            input.setAttribute('type', 'password');
+        }
+        return false;
+    }
+    function show_hide_register_password(target) {
+        var input = document.getElementById('user-register-password');
+        if (input.getAttribute('type') == 'password') {
+            target.classList.add('view');
+            input.setAttribute('type', 'text');
+        } else {
+            target.classList.remove('view');
+            input.setAttribute('type', 'password');
+        }
+        return false;
+    }
+    function show_hide_register_password2(target) {
+        var input = document.getElementById('user-register-password2');
+        if (input.getAttribute('type') == 'password') {
+            target.classList.add('view');
+            input.setAttribute('type', 'text');
+        } else {
+            target.classList.remove('view');
+            input.setAttribute('type', 'password');
+        }
+        return false;
+    }
+</script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3"
      id="headerNav">
     <div class="container">
@@ -283,14 +332,17 @@
                                     {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
                                 </div>
                                 <hr class="mt-0">
-                                <div class="mb-0">
+                                <div class="mb-0 position-relative">
                                     {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
                                     <input type="password"
                                            name="user-login-password"
-                                           class="form-control"
+                                           class="form-control "
                                            id="user-login-password"
                                            placeholder="Пароль"
                                            required>
+                                    <a href="#"
+                                       class="password-control"
+                                       onclick="return show_hide_login_password(this);"></a>
                                 </div>
                                 <hr class="mt-0">
                                 {% if previous_page == 'login' %}
@@ -327,17 +379,6 @@
                                   autocomplete="off">
                                 {% csrf_token %}
                                 <div class="mb-0">
-                                    {% comment %} <label for="user-login" class="form-label"></label> {% endcomment %}
-                                    <input type="text"
-                                           name="user-register"
-                                           class="form-control"
-                                           id="user-register"
-                                           placeholder="Логин"
-                                           required>
-                                    {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
-                                </div>
-                                <hr class="mt-0">
-                                <div class="mb-0">
                                     <input type="email"
                                            name="email"
                                            id="email"
@@ -349,6 +390,18 @@
                                 </div>
                                 <hr class="mt-0">
                                 <div class="mb-0">
+                                    {% comment %} <label for="user-login" class="form-label"></label> {% endcomment %}
+                                    <input type="text"
+                                           name="user-register"
+                                           class="form-control"
+                                           id="user-register"
+                                           placeholder="Логин"
+                                           required>
+                                    {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
+                                </div>
+                                <hr class="mt-0">
+                                
+                                {% comment %} <div class="mb-0">
                                     <input type="text"
                                            name="last-name"
                                            id="last-name"
@@ -397,8 +450,8 @@
                                            class="form-control"
                                            placeholder="Дата рождения">
                                 </div>
-                                <hr class="mt-0">
-                                <div class="mb-0">
+                                <hr class="mt-0"> {% endcomment %}
+                                <div class="mb-0 position-relative">
                                     {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
                                     <input type="password"
                                            minlength="8"
@@ -407,9 +460,12 @@
                                            id="user-register-password"
                                            placeholder="Пароль"
                                            required>
+                                    <a href="#" class="password-control" onclick="return show_hide_register_password(this);">
+        
+                                    </a>
                                 </div>
                                 <hr class="mt-0">
-                                <div class="mb-0">
+                                <div class="mb-0 position-relative">
                                     {% comment %} <label for="user-password" class="form-label"></label> {% endcomment %}
                                     <input type="password"
                                            minlength="8"
@@ -418,6 +474,9 @@
                                            id="user-register-password2"
                                            placeholder="Повторите пароль"
                                            required>
+                                           <a href="#" class="password-control" onclick="return show_hide_register_password2(this);">
+        
+                                           </a>
                                 </div>
                                 <hr class="mt-0">
                                 {% if previous_page == 'register' %}
