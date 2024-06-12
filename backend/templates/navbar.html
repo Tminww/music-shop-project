@@ -129,10 +129,12 @@
                     <div class="col-lg-auto col-sm-12 ">
                         <div class="row justify-content-end">
                             <div class="col-lg-auto col-sm-12 ">
-                                <a class="nav-link  text-light text-end" href="{% url 'store:catalog' %}?slug=all">Каталог</a>
+                                <a class="nav-link  text-light text-end"
+                                   href="{% url 'store:catalog' %}?slug=all">Каталог</a>
                             </div>
                             <div class="col-lg-auto col-sm-12 align-self-end">
-                                <a class="nav-link text-light text-end" href="{% url 'store:contacts' %}">Контакты</a>
+                                <a class="nav-link text-light text-end"
+                                   href="{% url 'store:contacts' %}">Контакты</a>
                             </div>
                         </div>
                     </div>
@@ -150,9 +152,8 @@
                                 <div class="col-lg-auto col-sm-12 px-0">
                                     <div class="nav-item mr-3">
                                         <a class="nav-link mx-2 text-end" href="{% url 'store:cart' %}">
-                                            <i class="position-relative fa-lg"
-                                               style="font-style: normal!important">
-                                               <img src={% static 'icons/bag.svg' %}>
+                                            <i class="position-relative fa-lg" style="font-style: normal!important">
+                                                <img src={% static 'icons/bag.svg' %}>
                                                 {% if cart_items != 0 %}
                                                     <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger small"
                                                           style="font-size:0.7rem">{{ cart_items }}</span>
@@ -164,9 +165,8 @@
                                 <div class="col-lg-auto col-sm-12 px-0">
                                     <div class="nav-item mr-3">
                                         <a class="nav-link mx-2 text-end" href="{% url 'store:liked' %}">
-                                            <i class="position-relative fa-lg"
-                                               style="font-style: normal!important">
-                                               <img src={% static 'icons/heart.svg' %}>
+                                            <i class="position-relative fa-lg" style="font-style: normal!important">
+                                                <img src={% static 'icons/heart.svg' %}>
                                                 {% if liked_items.count != 0 %}
                                                     <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
                                                           style="font-size:0.7rem">{{ liked_items.count }}</span>

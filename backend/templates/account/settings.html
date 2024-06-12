@@ -58,16 +58,7 @@
                     </div>
                     <hr class="mt-0">
                     <div class="d-flex align-items-center justify-content-between mb-0 fs-4">
-                        <input type="date" {% if request.user.profile.birth_date %}value={{ request.user.profile.birth_date|date:"Y-m-d" }} required{% endif %} 
-                        autocomplete="off"
-                        name="birth-date" 
-                        id="birth-date" 
-
-                        min="1900-01-01" 
-                        max="2100-12-31"
-                        class="form-control pe-0" 
-                        placeholder="Дата рождения">
-                        
+                        <input type="date" {% if request.user.profile.birth_date %}value={{ request.user.profile.birth_date|date:"Y-m-d" }} required{% endif %} autocomplete="off" name="birth-date" id="birth-date"  min="1900-01-01" max="2100-12-31" class="form-control pe-0" placeholder="Дата рождения">
                     </div>
                     <hr class="mt-0">
                     <div class="d-flex align-items-center justify-content-between my-4 fs-4">Контакты</div>
@@ -76,22 +67,12 @@
                         <i class="bi bi-pencil  text-secondary fs-5"></i>
                     </div>
                     <hr class="mt-0">
-                    
                     <div class="d-flex align-items-center justify-content-between mb-0 fs-4">
                         <div class="input-group">
                             <span class="input-group-text">+7</span>
-                            <input type="tel" {% if request.user.profile.phone_number %}value={{ request.user.profile.phone_number }} required{% endif %}
-                         autocomplete="off" 
-                         maxlength="10"
-                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                         name="phone-number" 
-                         id="phone-number" 
-                         pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-                         class="form-control" 
-                         placeholder="Номер телефона">
-                        <i class="bi bi-pencil  text-secondary fs-5"></i>
+                            <input type="tel" {% if request.user.profile.phone_number %}value={{ request.user.profile.phone_number }} required{% endif %} autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="phone-number" id="phone-number" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="form-control" placeholder="Номер телефона">
+                            <i class="bi bi-pencil  text-secondary fs-5"></i>
                         </div>
-                        
                     </div>
                     <hr class="mt-0">
                     <div class="d-flex align-items-center justify-content-between my-4 fs-4">Пароль</div>
