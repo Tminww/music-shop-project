@@ -6,7 +6,7 @@ services:
     image: postgres
     restart: unless-stopped
     ports:
-      - "0.0.0.0:54321:5432"
+      - "54321:5432"
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
@@ -21,22 +21,21 @@ services:
     depends_on:
       - postgres
     ports:
-      - "127.0.0.1:5500:80"
+      - "5500:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: anton.korostelev2@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: X7z#52O4HdB
+      PGADMIN_DEFAULT_EMAIL: admin@django.com
+      PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
       - pgadmin-data:/var/lib/pgadmin
 
-  backend:
-    build: ./backend/
-    command: python manage.py runserver 0.0.0.0:8000
-    container_name: django-backend
-    restart: unless-stopped
-    depends_on:
-      - postgres
-    ports:
-      - "8000:8000"
+  # backend:
+  #   build: ./backend/
+  #   container_name: django-backend
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - "8080:80"
 
 
 
