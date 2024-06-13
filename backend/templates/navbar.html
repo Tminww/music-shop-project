@@ -160,7 +160,7 @@
         return false;
     }
 </script>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3"
+<nav class="navbar navbar-expand-lg navbar-dark p-3" style="background-color: #1B1B1B"
      id="headerNav">
     <div class="container">
         <a class="navbar-brand d-block d-lg-none" href="{% url 'store:home' %}">Звук<span style="color: #EE6A31!important;">Мир</span></a>
@@ -205,8 +205,8 @@
                                             <i class="position-relative fa-lg" style="font-style: normal!important">
                                                 <img src={% static 'icons/bag.svg' %}>
                                                 {% if cart_items != 0 %}
-                                                    <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger small"
-                                                          style="font-size:0.7rem">{{ cart_items }}</span>
+                                                    <span class="position-absolute top-50 start-50 badge rounded-pill small" 
+                                                          style="background-color: #EE6A31; font-size:0.7rem">{{ cart_items }}</span>
                                                 {% endif %}
                                             </i>
                                         </a>
@@ -218,8 +218,8 @@
                                             <i class="position-relative fa-lg" style="font-style: normal!important">
                                                 <img src={% static 'icons/heart.svg' %}>
                                                 {% if liked_items.count != 0 %}
-                                                    <span class="position-absolute top-50 start-50 badge rounded-pill bg-danger"
-                                                          style="font-size:0.7rem">{{ liked_items.count }}</span>
+                                                    <span class="position-absolute top-50 start-50 badge rounded-pill"
+                                                          style="background-color: #EE6A31; font-size:0.7rem">{{ liked_items.count }}</span>
                                                 {% endif %}
                                             </i>
                                         </a>
