@@ -537,11 +537,27 @@ def remove_cart(request, cart_id):
 
 @login_required
 def plus_cart(request, cart_id):
+    storage = messages.get_messages(request)
+
+    # Чистим сообщения вручную
+    for message in storage:
+        pass  # Проход по сообщениям, чтобы пометить их как прочитанные
     if request.method == "GET":
         cp = get_object_or_404(Cart, id=cart_id)
         cp.quantity += 1
         cp.save()
-    return redirect("store:cart")
+
+        # Обновляем данные для контекста
+        updated_data = {"some_data": "Updated data"}
+
+        # Сохраняем обновленные данные в сессии
+        request.session["cartMenu"] = True
+        print(request.session)
+
+    # Редирект на предыдущую страницу
+    return redirect(
+        request.META.get("HTTP_REFERER"),
+    )
 
 
 @login_required

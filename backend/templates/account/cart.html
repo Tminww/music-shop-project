@@ -74,7 +74,7 @@
         
     </style>
     <div class="container-fluid">
-        <div class="d-flex align-items-center justify-content-between mb-5 fs-2 fw-bold">
+        <div class="d-flex align-items-center justify-content-between mb-5 fs-3 fw-bold">
             Корзина
             {% if cart_items != 0 %} / {{ cart_items }} шт.{% endif %}
             <span>
@@ -133,10 +133,10 @@
                                                 display: flex!important;
                                                 flex-direction: column!important;
                                                 justify-content: space-between!important">
-                                        <p class="card-title fs-3 ">
+                                        <p class="card-title ">
                                             {{ product.product.title }}
                                             <br>
-                                            <span class="fs-5 text-secondary">{{ product.product.slug }}</span>
+                                            {% comment %} <span class=" text-secondary">{{ product.product.slug }}</span> {% endcomment %}
                                         </p>
                                         {% comment %} <p class="card-text fs-5">
                                             <span class="text-secondary">Артикул:</span> {{ product.product.sku }}
@@ -183,7 +183,7 @@
                 </div>
             {% endfor %}
             <!-- СПОСОБ ДОСТАВКИ-->
-            <div class="d-flex align-items-center justify-content-between mt-5 fs-2 fw-bold">
+            <div class="d-flex align-items-center justify-content-between mt-5 fs-3 fw-bold">
                 Способ доставки
                 <span>
                     <a href="{% url 'store:address' %}"
@@ -257,7 +257,7 @@
                 </div>
             </div>
             <!-- ПОЛУЧАТЕЛЬ-->
-            <div class="d-flex align-items-center justify-content-between mt-5 fs-2 fw-bold">
+            <div class="d-flex align-items-center justify-content-between mt-5 fs-3 fw-bold">
                 Получатель
                 <span>
                     <a href="{% url 'store:settings' %}"
@@ -280,7 +280,7 @@
             <!-- СУММА ЗАКАЗА-->
             <div class="row justify-content-beetwen align-items-center mt-5">
                 <div class="col-lg-12 col-auto">
-                    <div class="fs-2 fw-bold mb-3">Сумма заказа</div>
+                    <div class="fs-3 fw-bold mb-3">Сумма заказа</div>
                 </div>
             </div>
             <div class="row justify-content-between align-items-center">

@@ -42,7 +42,7 @@
         }
     </style>
     <div class="container-fluid">
-        <div class="d-flex align-items-center justify-content-between mb-5 fs-2 fw-bold">
+        <div class="d-flex align-items-center justify-content-between mb-5 fs-2 bold">
             Избранное
             <span>
                 <form id="filter-form" method="GET" action="">
@@ -66,10 +66,11 @@
         <!-- Продукты -->
         <div class="row">
             {% if liked_products %}
-            {% for product in liked_products %}
+                {% for product in liked_products %}
                     <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-                        <div class="card position-relative" style="border: 0px;"
-                        style="width:300px!important;">
+                        <div class="card position-relative"
+                             style="border: 0px"
+                             style="width:300px!important">
                             <div style="width: 100%!important;
                                         backdrop-filter: brightness(0.975)!important">
                                 <a class="" href={% url 'store:product-detail' product.id %}>
@@ -98,7 +99,7 @@
                                             </i>
                                         </a>
                                     {% endif %}
-                                    {% else %}
+                                {% else %}
                                     <a class=""
                                        href="#"
                                        data-bs-toggle="offcanvas"
@@ -140,9 +141,9 @@
                         </div>
                     </div>
                 {% endfor %}
-        {% else %}
-            <div class="text-secondary mt-3">В избранном нет товаров.</div>
-        {% endif %}
+            {% else %}
+                <div class="text-secondary mt-3">В избранном нет товаров.</div>
+            {% endif %}
+        </div>
     </div>
-</div>
 {% endblock profile-content %}
