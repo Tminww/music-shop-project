@@ -21,6 +21,7 @@ from itertools import chain
 
 
 def home(request):
+
     categories = Category.objects.filter(is_active=True)
     products = Product.objects.filter(is_active=True, is_featured=True)[:4]
 
@@ -35,7 +36,11 @@ def home(request):
         "products": products,
         "liked_id": liked_items,
         "sorting": "popularity",
+        "cartMenu": request.session["cartMenu"],
     }
+    request.session["cartMenu"] = False
+    request.session.modified = True
+
     print(context)
     print(categories[0].slug)
     return render(request, "store/index.html", context)
@@ -49,7 +54,11 @@ def address(request):
         "addresses": addresses,
         "orders": orders,
         "active": "address",
+        "cartMenu": request.session["cartMenu"],
     }
+    request.session["cartMenu"] = False
+    request.session.modified = True
+
     return render(request, "account/address.html", context)
     pass
 
@@ -75,7 +84,10 @@ def settings(request):
 
     context = {
         "active": "settings",
+        "cartMenu": request.session["cartMenu"],
     }
+    request.session["cartMenu"] = False
+    request.session.modified = True
     return render(request, "account/settings.html", context)
 
 
@@ -102,7 +114,10 @@ def liked(request):
         "liked_products": liked_products,
         "active": "liked",
         "liked_id": liked_products_id,
+        "cartMenu": request.session["cartMenu"],
     }
+    request.session["cartMenu"] = False
+    request.session.modified = True
     return render(request, "account/liked.html", context)
 
 
@@ -139,7 +154,10 @@ def orders(request):
         "orders": all_orders,
         "active": "orders",
         "prices": prices,
+        "cartMenu": request.session["cartMenu"],
     }
+    request.session["cartMenu"] = False
+    request.session.modified = True
 
     return render(request, "account/orders.html", context)
 
@@ -164,7 +182,10 @@ def user_login_controller(request):
             "liked_id": liked_items,
             "sorting": "popularity",
             "previous_page": "login",
+            "cartMenu": request.session["cartMenu"],
         }
+        request.session["cartMenu"] = False
+        request.session.modified = True
 
         user = None
         if username_or_email and user_password:
@@ -227,7 +248,10 @@ def user_register_controller(request):
             "liked_id": liked_items,
             "sorting": "popularity",
             "previous_page": "register",
+            "cartMenu": request.session["cartMenu"],
         }
+        request.session["cartMenu"] = False
+        request.session.modified = True
 
         if user_password == user_password2:
 
@@ -257,24 +281,6 @@ def user_register_controller(request):
 
     return render(request, "store/index.html", context)
 
-    #     print(username)
-    #     print(user_password)
-    #     user = authenticate(username=username, password=user_password)
-
-    #     print(user)
-
-    #     if user is not None:
-    #         if user.is_active:
-    #             login(request, user)
-    #             return redirect("store:home")
-    #             # return HttpResponse("Authenticated successfully")
-    #         else:
-    #             return HttpResponse("Disabled account")
-    #     else:
-    #         return HttpResponse("Invalid login")
-
-    # redirect(request.META.get("HTTP_REFERER"))
-
 
 def detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
@@ -295,18 +301,33 @@ def detail(request, product_id):
         "liked_id": liked_products_id,
         "popular_products": popular_products,
         "related_products": related_products,
+        "cartMenu": request.session["cartMenu"],
     }
+    request.session["cartMenu"] = False
+    request.session.modified = True
     return render(request, "store/detail.html", context)
 
 
 def all_categories(request):
     categories = Category.objects.filter(is_active=True)
     print("CATEGORIES", *categories)
-    return render(request, "store/categories.html", {"categories": categories})
+    context = {
+        "categories": categories,
+        "cartMenu": request.session["cartMenu"],
+    }
+    request.session["cartMenu"] = False
+    request.session.modified = True
+
+    return render(request, "store/categories.html", context)
 
 
 def contacts(request):
-    context = {}
+    context = {
+        "cartMenu": request.session["cartMenu"],
+    }
+    request.session["cartMenu"] = False
+    request.session.modified = True
+
     return render(request, "store/contacts.html", context)
 
 
@@ -382,7 +403,10 @@ def catalog_products(request):
         "min_price": min_price,
         "max_price": max_price,
         "slug": slug,
+        "cartMenu": request.session["cartMenu"],
     }
+    request.session["cartMenu"] = False
+    request.session.modified = True
 
     return render(request, "store/catalog_products.html", context)
 
@@ -412,7 +436,10 @@ def profile(request):
         "addresses": addresses,
         "orders": orders,
         "active": "profile",
+        "cartMenu": request.session["cartMenu"],
     }
+    request.session["cartMenu"] = False
+    request.session.modified = True
     return render(request, "account/profile.html", context)
 
 
@@ -510,7 +537,10 @@ def cart(request):
         "discount": int((amount / 100) * percentage_discount),
         "total_amount": int(amount) - int((amount / 100) * percentage_discount),
         "addresses": addresses,
+        "cartMenu": request.session["cartMenu"],
     }
+    request.session["cartMenu"] = False
+    request.session.modified = True
     return render(request, "account/cart.html", context)
 
 
@@ -523,7 +553,9 @@ def clear_cart(request):
         c.delete()
         messages.success(request, "Product removed from Cart.")
 
-    return redirect("store:cart")
+    return redirect(
+        request.META.get("HTTP_REFERER"),
+    )
 
 
 @login_required
@@ -532,7 +564,11 @@ def remove_cart(request, cart_id):
         c = get_object_or_404(Cart, id=cart_id)
         c.delete()
         messages.success(request, "Product removed from Cart.")
-    return redirect("store:cart")
+        request.session["cartMenu"] = True
+        request.session.modified = True
+    return redirect(
+        request.META.get("HTTP_REFERER"),
+    )
 
 
 @login_required
@@ -551,10 +587,11 @@ def plus_cart(request, cart_id):
         updated_data = {"some_data": "Updated data"}
 
         # Сохраняем обновленные данные в сессии
-        request.session["cartMenu"] = True
-        print(request.session)
 
-    # Редирект на предыдущую страницу
+        request.session["cartMenu"] = True
+        request.session.modified = True
+
+        # Редирект на предыдущую страницу
     return redirect(
         request.META.get("HTTP_REFERER"),
     )
@@ -567,7 +604,13 @@ def update_quantity_product_in_cart(request, cart_id):
         cp = get_object_or_404(Cart, id=cart_id)
         cp.quantity = count
         cp.save()
-    return redirect("store:cart")
+
+        request.session["cartMenu"] = True
+        request.session.modified = True
+
+    return redirect(
+        request.META.get("HTTP_REFERER"),
+    )
 
 
 @login_required
@@ -580,7 +623,12 @@ def minus_cart(request, cart_id):
         else:
             cp.quantity -= 1
             cp.save()
-    return redirect("store:cart")
+
+        request.session["cartMenu"] = True
+        request.session.modified = True
+    return redirect(
+        request.META.get("HTTP_REFERER"),
+    )
 
 
 @login_required
@@ -671,7 +719,10 @@ def change_info(request):
         context = {
             "active": "settings",
             "previous_page": "settings",
+            "cartMenu": request.session["cartMenu"],
         }
+        request.session["cartMenu"] = False
+        request.session.modified = True
 
         if user is not None:
             if user.is_active:

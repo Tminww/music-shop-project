@@ -35,6 +35,10 @@ def cart_menu(request):
         liked_items = Liked.objects.filter(user=request.user)
 
         cart_items = [items.quantity for items in cart_items]
+
+        # request.session["cartMenu"] = False
+        # request.session.modified = True
+
         context = {
             "cart_items": sum(cart_items),
             "liked_items": liked_items,

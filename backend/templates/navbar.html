@@ -467,7 +467,7 @@
     </div>
 </div>
 <!-- Всплывающее меню корзины-->
-<div {% if cartMenu %} class="offcanvas offcanvas-end show" {% else %} class="offcanvas offcanvas-end" {% endif %}
+<div {% if cartMenu == True %} class="offcanvas offcanvas-end show" {% else %} class="offcanvas offcanvas-end" {% endif %}
      style="min-width: 350px; width: 700px;"
      tabindex="-1"
      id="cartMenu"
@@ -480,6 +480,7 @@
                 data-bs-dismiss="offcanvas"
                 aria-label="Закрыть"></button>
     </div>
+    
     <div class="offcanvas-body">
         <div class="container-fluid">
             <style>
@@ -785,7 +786,7 @@
                         </div>
                     </div>
                     <div class="d-grid">
-                    <form id="proceed-to-checkout" method="GET" action="checkout">
+                    <form id="proceed-to-checkout" method="GET" action="{% url 'store:checkout' %}">
                         <div class="d-grid">
                         <button type="submit"
                                 class="btn btn-warning btn-lg text-light my-5"
