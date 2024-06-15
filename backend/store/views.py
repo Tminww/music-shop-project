@@ -36,10 +36,12 @@ def home(request):
         "products": products,
         "liked_id": liked_items,
         "sorting": "popularity",
-        "cartMenu": request.session["cartMenu"],
     }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
 
     print(context)
     print(categories[0].slug)
@@ -54,10 +56,11 @@ def address(request):
         "addresses": addresses,
         "orders": orders,
         "active": "address",
-        "cartMenu": request.session["cartMenu"],
     }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
 
     return render(request, "account/address.html", context)
     pass
@@ -84,10 +87,11 @@ def settings(request):
 
     context = {
         "active": "settings",
-        "cartMenu": request.session["cartMenu"],
     }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
     return render(request, "account/settings.html", context)
 
 
@@ -114,10 +118,11 @@ def liked(request):
         "liked_products": liked_products,
         "active": "liked",
         "liked_id": liked_products_id,
-        "cartMenu": request.session["cartMenu"],
     }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
     return render(request, "account/liked.html", context)
 
 
@@ -154,10 +159,11 @@ def orders(request):
         "orders": all_orders,
         "active": "orders",
         "prices": prices,
-        "cartMenu": request.session["cartMenu"],
     }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
 
     return render(request, "account/orders.html", context)
 
@@ -181,11 +187,11 @@ def user_login_controller(request):
             "products": products,
             "liked_id": liked_items,
             "sorting": "popularity",
-            "previous_page": "login",
-            "cartMenu": request.session["cartMenu"],
         }
-        request.session["cartMenu"] = False
-        request.session.modified = True
+        if request.user.is_authenticated:
+            context["cartMenu"] = request.session.get("cartMenu")
+            request.session["cartMenu"] = False
+            request.session.modified = True
 
         user = None
         if username_or_email and user_password:
@@ -248,10 +254,11 @@ def user_register_controller(request):
             "liked_id": liked_items,
             "sorting": "popularity",
             "previous_page": "register",
-            "cartMenu": request.session["cartMenu"],
         }
-        request.session["cartMenu"] = False
-        request.session.modified = True
+        if request.user.is_authenticated:
+            context["cartMenu"] = request.session.get("cartMenu")
+            request.session["cartMenu"] = False
+            request.session.modified = True
 
         if user_password == user_password2:
 
@@ -301,10 +308,11 @@ def detail(request, product_id):
         "liked_id": liked_products_id,
         "popular_products": popular_products,
         "related_products": related_products,
-        "cartMenu": request.session["cartMenu"],
     }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
     return render(request, "store/detail.html", context)
 
 
@@ -313,20 +321,21 @@ def all_categories(request):
     print("CATEGORIES", *categories)
     context = {
         "categories": categories,
-        "cartMenu": request.session["cartMenu"],
     }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
 
     return render(request, "store/categories.html", context)
 
 
 def contacts(request):
-    context = {
-        "cartMenu": request.session["cartMenu"],
-    }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+    context = {}
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
 
     return render(request, "store/contacts.html", context)
 
@@ -403,10 +412,11 @@ def catalog_products(request):
         "min_price": min_price,
         "max_price": max_price,
         "slug": slug,
-        "cartMenu": request.session["cartMenu"],
     }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
 
     return render(request, "store/catalog_products.html", context)
 
@@ -436,10 +446,11 @@ def profile(request):
         "addresses": addresses,
         "orders": orders,
         "active": "profile",
-        "cartMenu": request.session["cartMenu"],
     }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
     return render(request, "account/profile.html", context)
 
 
@@ -537,10 +548,11 @@ def cart(request):
         "discount": int((amount / 100) * percentage_discount),
         "total_amount": int(amount) - int((amount / 100) * percentage_discount),
         "addresses": addresses,
-        "cartMenu": request.session["cartMenu"],
     }
-    request.session["cartMenu"] = False
-    request.session.modified = True
+    if request.user.is_authenticated:
+        context["cartMenu"] = request.session.get("cartMenu")
+        request.session["cartMenu"] = False
+        request.session.modified = True
     return render(request, "account/cart.html", context)
 
 
@@ -564,8 +576,9 @@ def remove_cart(request, cart_id):
         c = get_object_or_404(Cart, id=cart_id)
         c.delete()
         messages.success(request, "Product removed from Cart.")
-        request.session["cartMenu"] = True
-        request.session.modified = True
+        if request.user.is_authenticated:
+            request.session["cartMenu"] = True
+            request.session.modified = True
     return redirect(
         request.META.get("HTTP_REFERER"),
     )
@@ -588,8 +601,9 @@ def plus_cart(request, cart_id):
 
         # Сохраняем обновленные данные в сессии
 
-        request.session["cartMenu"] = True
-        request.session.modified = True
+        if request.user.is_authenticated:
+            request.session["cartMenu"] = True
+            request.session.modified = True
 
         # Редирект на предыдущую страницу
     return redirect(
@@ -605,8 +619,9 @@ def update_quantity_product_in_cart(request, cart_id):
         cp.quantity = count
         cp.save()
 
-        request.session["cartMenu"] = True
-        request.session.modified = True
+        if request.user.is_authenticated:
+            request.session["cartMenu"] = True
+            request.session.modified = True
 
     return redirect(
         request.META.get("HTTP_REFERER"),
@@ -624,8 +639,9 @@ def minus_cart(request, cart_id):
             cp.quantity -= 1
             cp.save()
 
-        request.session["cartMenu"] = True
-        request.session.modified = True
+        if request.user.is_authenticated:
+            request.session["cartMenu"] = True
+            request.session.modified = True
     return redirect(
         request.META.get("HTTP_REFERER"),
     )
@@ -719,10 +735,11 @@ def change_info(request):
         context = {
             "active": "settings",
             "previous_page": "settings",
-            "cartMenu": request.session["cartMenu"],
         }
-        request.session["cartMenu"] = False
-        request.session.modified = True
+        if request.user.is_authenticated:
+            context["cartMenu"] = request.session.get("cartMenu")
+            request.session["cartMenu"] = False
+            request.session.modified = True
 
         if user is not None:
             if user.is_active:

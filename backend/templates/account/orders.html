@@ -34,7 +34,7 @@
                     <div class="col-lg-3 col-md-3">
                         <div class="fs-5 mb-2" style="color: #EE6A31!important">№ {{ 1270037|add:orders.first.id }}</div>
                         <div class="fs-5 ">Дата заказа</div>
-                        <div class="fs-4 fw-bold mb-2">{{ orders.first.ordered_date|date:"SHORT_DATE_FORMAT" }}</div>
+                        <div class="fs-4 bold mb-2">{{ orders.first.ordered_date|date:"SHORT_DATE_FORMAT" }}</div>
                         <div class="fs-5 ">
                             {% if orders.first.status == 'Обрабатывается' %}{% endif %}
                             {% if orders.first.status == 'Принял' %}{{ orders.first.status }}{% endif %}
@@ -43,7 +43,7 @@
                             {% if orders.first.status == 'В пути' %}{{ orders.first.status }}{% endif %}
                             {% if orders.first.status == 'Доставлен' %}
                                 {{ orders.first.status }}
-                                <div class="fs-3 fw-bold mb-2">{{ orders.first.delivery_date|date:"SHORT_DATE_FORMAT" }}</div>
+                                <div class="fs-3 bold mb-2">{{ orders.first.delivery_date|date:"SHORT_DATE_FORMAT" }}</div>
                             {% endif %}
                             {% if orders.first.status == 'Отменен' %}{{ orders.first.status }}{% endif %}
                         </div>
@@ -72,7 +72,7 @@
                     </div>
                     <div class="col-2 align-self-end pb-2 text-end">
                         <div class="fs-5">Сумма</div>
-                        <div class="fs-4 fw-bold">{{ orders.first.price|intcomma }}&#8381;</div>
+                        <div class="fs-4 bold">{{ orders.first.price|intcomma }}&#8381;</div>
                     </div>
                 </div>
             {% endfor %}

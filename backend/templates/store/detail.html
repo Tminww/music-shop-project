@@ -127,29 +127,33 @@
                 <h4 class="text-secondary">{{ product.slug }}</h4>
                 <h3 class="py-4">{{ product.price|intcomma }} ₽</h3>
                 <div class="row justify-content-between mb-4">
-                    <div class="col-auto pe-0">
+                    <div class="col pe-0">
                         {% if request.user.is_authenticated %}
                             <form action="{% url 'store:add-to-cart' %}">
                                 <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id">
+                                <div class="d-grid">
                                 <button type="submit"
-                                        class="btn btn-warning btn-lg text-light px-4"
+                                        class="btn btn-warning btn-lg text-light"
                                         style="background-color: #EE6A31;
                                                border: 2px solid #FFFFFF"
                                         onMouseOver="this.style.border='2px solid #EE6A31'"
                                         onMouseOut="this.style.border='2px solid #FFFFFF'">Добавить в корзину</button>
-                            </form>
+                                </div>
+                                    </form>
                         {% else %}
                             <i href="#"
                                data-bs-toggle="offcanvas"
                                data-bs-target="#offcanvasRight"
                                aria-controls="offcanvasRight">
+                               <div class="d-grid">
                                 <button type=""
-                                        class="btn btn-warning btn-lg text-light px-5"
+                                        class="btn btn-warning btn-lg text-light"
                                         style="background-color: #EE6A31;
                                                border: 2px solid #FFFFFF"
                                         onMouseOver="this.style.border='2px solid #EE6A31'"
                                         onMouseOut="this.style.border='2px solid #FFFFFF'">Добавить в корзину</button>
-                            </i>
+                               </div>
+                                    </i>
                         {% endif %}
                     </div>
                     <div class="col-auto ">
