@@ -1,44 +1,51 @@
 version: "3.7"
 
+volumes:
+  music-postgres-data:
+  music-pgadmin-data:
+
+networks:
+  music-net:
+
 services:
   postgres:
-    container_name: django-postgres
+    container_name: music-postgres
     image: postgres
     restart: unless-stopped
+    networks:
+      - music-net
     ports:
-      - "54321:5432"
+      - "127.0.0.1:8012:5432"
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=store
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - music-postgres-data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: django-pgadmin
+    container_name: music-pgadmin
     restart: unless-stopped
     depends_on:
       - postgres
+    networks:
+      - music-net
     ports:
-      - "5500:80"
+      - "127.0.0.1:8011:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@django.com
+      PGADMIN_DEFAULT_EMAIL: tminww@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
-      - pgadmin-data:/var/lib/pgadmin
+      - music-pgadmin-data:/var/lib/pgadmin
 
-  # backend:
-  #   build: ./backend/
-  #   container_name: django-backend
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - postgres
-  #   ports:
-  #     - "8080:80"
-
-
-
-volumes:
-  postgres-data:
-  pgadmin-data:
+  backend:
+    build: ./backend/
+    container_name: music-backend
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    networks:
+      - music-net
+    ports:
+      - "127.0.0.1:8010:8000"
