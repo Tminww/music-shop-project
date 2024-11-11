@@ -43,6 +43,9 @@ services:
     build: ./backend/
     container_name: music-backend
     restart: unless-stopped
+    command:
+      #- python manage.py migrate
+      #- python manage.py loaddata db.json
     depends_on:
       - postgres
     networks:
